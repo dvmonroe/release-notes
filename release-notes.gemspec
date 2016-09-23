@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Drew Monroe"]
   spec.email         = ["dvmonroe6@gmail.com"]
 
-  spec.summary     = "Release notes for the stakeholders"
-  spec.description = spec.summary
-  spec.homepage    = "http://github.com/dvmonroe/release-notes"
+  spec.summary       = "Release notes for the stakeholders"
+  spec.description   = spec.summary
+  spec.homepage      = "http://github.com/dvmonroe/release-notes"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

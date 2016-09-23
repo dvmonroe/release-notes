@@ -1,14 +1,22 @@
+# Release::Notes
+
 [![Build Status](https://travis-ci.org/dvmonroe/release-notes.svg?branch=master)](https://travis-ci.org/dvmonroe/release-notes)
 [![Code Climate](https://codeclimate.com/github/dvmonroe/release-notes/badges/gpa.svg)](https://codeclimate.com/github/dvmonroe/release-notes)
 [![Test Coverage](https://codeclimate.com/github/dvmonroe/release-notes/badges/coverage.svg)](https://codeclimate.com/github/dvmonroe/release-notes/coverage)  
 
-# Release::Notes
+Release notes for the stakeholders.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/release/notes`. To experiment with that code, run `bin/console` for an interactive prompt.
+Release::Notes is a small automation script around your git flow. The gem is
+intended to help increase visability to all team members and stakeholders by
+consolidating and documenting changes made to your code base for a given
+production deployment.
 
-TODO: Delete this and the text above, and describe your gem
+Release::Notes is different than a changelog. If your looking for something geared
+more towards github issues or logging all dev work, I would suggest you look
+instead at something like [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
 
-## Installation
+
+## Getting Started
 
 Add this line to your application's Gemfile:
 
@@ -24,9 +32,10 @@ Or install it yourself as:
 
     $ gem install release-notes
 
+
 ## Usage
 
-TODO: Write usage instructions here
+TODO: coming soon
 
 ## Development
 
@@ -36,7 +45,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/release-notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/dvmonroe/release-notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
