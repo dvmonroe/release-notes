@@ -1,4 +1,5 @@
+# frozen_string_literal: true
 Release::Notes.configure do |config|
   # add all the config stuff here commented out
-  # so user knows 
+  # so user knows
 end

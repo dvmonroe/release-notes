@@ -90,7 +90,7 @@ module Release
       end
 
       def case_flag
-        config.grep_insensitive
+        config.grep_insensitive?
       end
 
       def format
@@ -98,7 +98,7 @@ module Release
       end
 
       def notes_already_created
-        File.exist? config.notes_file
+        File.exist? config.output_file
       end
     end
   end

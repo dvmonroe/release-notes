@@ -2,8 +2,7 @@
 module Release
   module Notes
     class Configuration
-      
-      attr_accessor :notes_file
+      attr_accessor :output_file
       attr_accessor :include_merges
       attr_accessor :case_insensitive_grep
       attr_accessor :extended_regex
@@ -20,7 +19,7 @@ module Release
       attr_accessor :first_commit_date
 
       def initialize
-        @notes_file            = './RELEASENOTES.md'
+        @output_file = './RELEASENOTES.md'
         @include_merges        = false
         @case_insensitive_grep = true
         @log_format            = '- %s'
@@ -33,11 +32,11 @@ module Release
         @misc_title            = '**Miscellaneous:**'
         @link_labels           = []
         @site_links            = []
-        @by_release            = false
+        @by_release            = true
         @first_commit_date     = nil
       end
 
-      def include_merges
+      def include_merges?
         @include_merges ? '' : '--no-merges'
       end
 
@@ -45,7 +44,7 @@ module Release
         @extended_regex ? '-E' : ''
       end
 
-      def grep_insensitive
+      def grep_insensitive?
         @case_insensitive_grep ? '-i' : ''
       end
 

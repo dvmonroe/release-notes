@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 namespace :release_notes do
-  task :update do
-    Release::Notes.update
+  task update: :environment do
+    Release::Notes::Update.new.run
   end
 end

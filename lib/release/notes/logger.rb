@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 module Release
   module Notes
-    class Updater
+    class Logger
       attr_reader   :config
       attr_accessor :git
       attr_accessor :writer
 
       def initialize
         @config = Release::Notes.configuration
-        @git    = Git.new(config)
-        @writer = FileWriter.new(output_file)
+        @git    = Git.new config
+        @writer = FileWriter.new config.output_file
       end
 
-      def run
+      def fetch_and_write_log
         return loop_and_log if config.by_release?
         loop_sort_and_log
       end
@@ -30,7 +30,6 @@ module Release
           writer.digest date
           single_date_of_activity
         end
-        true
       end
 
       def loop_and_log
@@ -49,10 +48,6 @@ module Release
 
       def all_labels
         config.all_labels
-      end
-
-      def output_file
-        config.notes_file
       end
 
       def array_of_labels
