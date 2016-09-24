@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'simplecov'
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 SimpleCov.start
 
 CodeClimate::TestReporter.configure do |config|

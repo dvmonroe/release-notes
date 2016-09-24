@@ -16,13 +16,18 @@ module Release
       attr_accessor :link_labels
       attr_accessor :site_links
       attr_accessor :by_release
+      # should be a string as such: "2016-09-19"
       attr_accessor :first_commit_date
+      attr_accessor :timezone
+
+      attr_reader   :midnight
+      attr_reader   :before_midnight
 
       def initialize
-        @output_file = './RELEASENOTES.md'
+        @output_file           = './RELEASENOTES.md'
         @include_merges        = false
         @case_insensitive_grep = true
-        @log_format            = '- %s'
+        @log_format            = '-%s'
         @extended_regex        = true
         @bug_labels            = %w(Fix Update)
         @feature_labels        = %w(Add Create)
@@ -34,6 +39,9 @@ module Release
         @site_links            = []
         @by_release            = true
         @first_commit_date     = nil
+        @timezone              = 'America/New_York'
+        @midnight              = '00:00'
+        @before_midnight       = '23:59'
       end
 
       def include_merges?
@@ -66,6 +74,10 @@ module Release
 
       def all_labels
         @all_labels ||= generate_regex(@bug_labels + @feature_labels + @misc_labels)
+      end
+
+      def release_notes_exist?
+        File.exist? output_file
       end
 
       private

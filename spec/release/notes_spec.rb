@@ -9,12 +9,12 @@ describe Release::Notes::Update do
   end
 
   before do
-    allow(Release::Notes::Logger).to receive(:fetch_and_write_log).and_return(true)
+    allow(Release::Notes::Logger).to receive(:copy_logs).and_return(true)
   end
 
   describe '.run' do
     it 'calls updater' do
-      expect_any_instance_of(Release::Notes::Logger).to receive(:fetch_and_write_log)
+      expect_any_instance_of(Release::Notes::Logger).to receive(:copy_logs)
       subject.run
     end
   end

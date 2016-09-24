@@ -2,13 +2,14 @@
 module Release
   module Notes
     class FileWriter
-      attr_accessor :output_file
+      attr_accessor :config
 
-      def initialize(file_name)
-        @output_file = file_name
+      delegate :output_file, to: :config
+
+      def initialize(config)
+        @config = config
       end
 
-      # create a new file and append the old
       def digest(date = nil, title = nil, log_messages = nil)
         File.open(output_file, 'w') do |fi|
           fi << "## #{date}\n\n" if date

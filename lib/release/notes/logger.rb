@@ -2,64 +2,69 @@
 module Release
   module Notes
     class Logger
-      attr_reader   :config
-      attr_accessor :git
-      attr_accessor :writer
+      attr_reader :config, :writer, :dates
 
-      def initialize
-        @config = Release::Notes.configuration
-        @git    = Git.new config
-        @writer = FileWriter.new config.output_file
+      delegate :by_release?, :all_labels, :features, :bugs, :misc,
+               :feature_title, :bug_title, :misc_title,
+               :release_notes_exist?, :first_commit_date, to: :config
+
+      def initialize(config)
+        @config = config
+        @start_date = set_start_date_time
+
+        @writer = Release::Notes::FileWriter.new(@config)
+        @dates = Release::Notes::DateFormatter.new(@config, @start_date)
       end
 
-      def fetch_and_write_log
-        return loop_and_log if config.by_release?
+      def copy_logs
+        return loop_and_log if by_release?
         loop_sort_and_log
       end
 
-      private
+      protected
 
       def loop_sort_and_log
-        logged_dates = git.sorted_log(all_labels)
-        dates = logged_dates.split("\n")
+        dates = system_sorted_log.split("\n")
 
-        # return better error when commits have
-        # been made since the last tagged release
-        return false unless dates
+        raise false unless dates
         dates.each do |date|
           writer.digest date
-          single_date_of_activity
+          copy_single_date_of_activity
         end
       end
 
       def loop_and_log
-        return unless git.log(all_labels)
-        writer.digest until_when
-        single_date_of_activity
-        true
+        raise false unless system_log(all_labels)
+        writer.digest dates.time_now
+        copy_single_date_of_activity
       end
 
-      def single_date_of_activity
-        array_of_labels.each_with_index do |regex, i|
-          new_log = git.log(regex)
-          writer.digest titles[i], new_log if new_log.present?
+      def set_start_date_time
+        release_notes_exist? ? Release::Notes::System.tag_date : which_commit
+      end
+
+      def which_commit
+        first_commit_date.present? ? first_commit_date : Release::Notes::System.first_commit
+      end
+
+      private
+
+      def copy_single_date_of_activity
+        [features, bugs, misc].each_with_index do |regex, i|
+          writer.digest titles[i], new_log if system_log(regex).present?
         end
       end
 
-      def all_labels
-        config.all_labels
+      def system_log(reg)
+        Release::Notes::System.log(config, dates, reg)
       end
 
-      def array_of_labels
-        [config.features,
-         config.bugs,
-         config.misc]
+      def system_sorted_log
+        Release::Notes::System.sorted_log(config, dates, all_labels)
       end
 
       def titles
-        [config.feature_title,
-         config.bug_title,
-         config.misc_title]
+        [feature_title, bug_title, misc_title]
       end
     end
   end

@@ -7,10 +7,8 @@
 
 Release notes for the stakeholders.
 
-Release::Notes is a small automation script based around your git log. The gem is
-intended to help increase visability to all team members and stakeholders by
-consolidating and documenting changes made to your code base for a given
-production deployment based on tags and labels in your commit messages.
+Release::Notes is a small wrapper around your project's git log. The gem is
+intended to help increase visability to all team members and stakeholders with an automated documentation of changes made to your code base for a given production deployment based on tags and labels in your commit messages.
 
 Release::Notes is different than a changelog. If your looking for something geared
 more towards github issues or logging all dev work, I would suggest you look
