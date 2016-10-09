@@ -41,14 +41,14 @@ describe Release::Notes::Configuration do
   end
 
   describe '#grep_insensitive?' do
-    context 'when case_insensitive_grep is configured to false' do
+    context 'when ignore_case is configured to false' do
       it 'returns an empty string' do
-        Release::Notes.configure { |config| config.case_insensitive_grep = false }
+        Release::Notes.configure { |config| config.ignore_case = false }
         expect(Release::Notes.configuration.grep_insensitive?).to eq ''
       end
     end
 
-    context 'when case_insensitive_grep has not been configured' do
+    context 'when ignore_case has not been configured' do
       it 'returns -i' do
         expect(Release::Notes.configuration.grep_insensitive?).to eq '-i'
       end

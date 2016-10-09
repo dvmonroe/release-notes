@@ -40,12 +40,14 @@ module Release
 
       private
 
+      # @api private
       def copy_over_notes
         File.open(temp_file, 'a') do |f|
           IO.readlines(output_file)[2..-1].each { |line| f << line }
         end
       end
 
+      # @api private
       def new_temp_file_template
         File.new(temp_file, 'w')
         File.open(temp_file, 'a') do |fi|

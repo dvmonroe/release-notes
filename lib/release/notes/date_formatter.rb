@@ -23,18 +23,19 @@ module Release
         time_now.strftime('%B%e, %Y %r %Z')
       end
 
-      protected
+      private
 
+      # @api private
       def format_date_since(time = nil)
         formated Time.zone.parse(start_date), time
       end
 
+      # @api private
       def format_date_until(time = nil)
         formated time_now, time
       end
 
-      private
-
+      # @api private
       def formated(date, time)
         hour_minutes = time.present? ? time : '%R'
         date.strftime("%F #{hour_minutes} %z")

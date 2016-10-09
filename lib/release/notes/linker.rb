@@ -25,6 +25,7 @@ module Release
 
       private
 
+      # @api private
       def replace(issue_number, label, index)
         identifier = "#{label.split(/\s/)[0]} #{issue_number}"
         humanized = "#{link_to_humanize[index]} #{issue_number}"

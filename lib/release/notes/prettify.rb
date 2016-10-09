@@ -19,6 +19,7 @@ module Release
 
       private
 
+      # @api private
       def labels
         bug_labels + feature_labels + misc_labels
       end

@@ -23,8 +23,9 @@ module Release
         loop_sort_and_log
       end
 
-      protected
+      private
 
+      # @api private
       def loop_sort_and_log
         dates = system_sorted_log.split("\n")
 
@@ -37,6 +38,7 @@ module Release
         writer.write_new_file
       end
 
+      # @api private
       def loop_and_log
         raise false unless system_log(all_labels)
         writer.digest time_now_humanized
@@ -45,30 +47,34 @@ module Release
         writer.write_new_file
       end
 
+      # @api private
       def set_start_date_time
         release_notes_exist? ? Release::Notes::System.tag_date : which_commit
       end
 
+      # @api private
       def which_commit
         first_commit_date.present? ? first_commit_date : Release::Notes::System.first_commit
       end
 
-      private
-
+      # @api private
       def copy_single_date_of_activity
         [features, bugs, misc].each_with_index do |regex, i|
           writer.digest nil, titles[i], system_log(regex) if system_log(regex).present?
         end
       end
 
+      # @api private
       def system_log(reg)
         Release::Notes::System.log(config, dates, reg)
       end
 
+      # @api private
       def system_sorted_log
         Release::Notes::System.sorted_log(config, dates, all_labels)
       end
 
+      # @api private
       def titles
         [feature_title, bug_title, misc_title]
       end

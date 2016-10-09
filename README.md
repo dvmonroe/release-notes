@@ -62,7 +62,7 @@ Release::Notes.configure do |config|
   config.output_file = './RELEASENOTES.md'
   config.temp_file = './release-notes.tmp.md'
   config.include_merges = false
-  config.case_insensitive_grep = true
+  config.ignore_case = true
   config.log_format = '- %s'
   config.extended_regex = true
   config.bug_labels = %w(Fix Update)
@@ -99,8 +99,8 @@ Release::Notes works best with a rebase workflow. General rebase benefits includ
 * Commits in one logical time manner  
 
 By default configuration, Release::Notes ignores merges. Along with rebasing, by deafult,
-Release::Notes relies only on the message of a commit. Therefore, it's important to craft concise and
-meaningful commit messages with longer bodies as needed for larger feature additions or bug fixes.
+Release::Notes relies mainly on the subject of a commit. Therefore, it's important to craft concise and
+meaningful commit subjects with longer bodies as needed for larger feature additions or bug fixes.
 
 For more information about a rebase workflow or crafting solid commit messages
 check out the following links
