@@ -2,7 +2,7 @@
 module Release
   module Notes
     class FileWriter
-      attr_accessor :config, :temp_file, :linker
+      attr_accessor :config, :temp_file, :linker, :prettify
 
       delegate :output_file, :temp_file, :link_commits?, :prettify_messages?, to: :config
       delegate :linkify, to: :linker

@@ -85,6 +85,12 @@ For more information about each individual setting checkout Release::Notes's
 
 ## Usage
 
+### TL;DR
+
+```sh
+bundle exec update_release_notes:run
+```
+
 ### Git Worklow
 
 Release::Notes works best with a rebase workflow. General rebase benefits include:
@@ -92,8 +98,8 @@ Release::Notes works best with a rebase workflow. General rebase benefits includ
 * One clear commit per feature, bug or miscellaneous addition to the codebase  
 * Commits in one logical time manner  
 
-By default configuration, Release::Notes ignores merges. Along with rebasing, Release::Notes relies 
-only on the commit message. Thus, it's important to craft concise and
+By default configuration, Release::Notes ignores merges. Along with rebasing, by deafult,
+Release::Notes relies only on the message of a commit. Therefore, it's important to craft concise and
 meaningful commit messages with longer bodies as needed for larger feature additions or bug fixes.
 
 For more information about a rebase workflow or crafting solid commit messages
@@ -128,12 +134,27 @@ namespace :deploy do
 
   task :update_release_notes do
     sh 'RAILS_ENV=development bin/rake "update_release_notes:run"'
+    # run a second task that generates an auto commit
+    # this would be created by you
+    sh 'RAILS_ENV=development bin/rake "release_notes:commit"'
   end
 end
 ```
 
 Useful information can be found here regarding the
 [capistrano flow](http://capistranorb.com/documentation/getting-started/flow/).
+
+As you can see above, it's suggested that after generating your release notes you would
+run an automated commit with a rake task like:
+
+```ruby
+# lib/tasks/commit.rake
+`git commit -am "Release to production #{Time.zone.now}"`
+`git push origin master`
+```
+
+From there, make sure you tag your release after the deploy script runs so that your tag
+includes this last commit.
 
 ## Development
 

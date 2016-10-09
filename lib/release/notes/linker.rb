@@ -12,7 +12,7 @@ module Release
 
       def linkify(line)
         @line = line
-        
+
         link_to_labels.each_with_index do |label, i|
           return line unless line.include? label
           words = line.split(/\s/)
@@ -22,14 +22,14 @@ module Release
           end
         end
       end
-      
+
       private
 
       def replace(issue_number, label, index)
         identifier = "#{label.split(/\s/)[0]} #{issue_number}"
         humanized = "#{link_to_humanize[index]} #{issue_number}"
         linked = "[#{humanized}](#{link_to_sites[index]})"
-        
+
         line.gsub! identifier, linked
         line
       end
