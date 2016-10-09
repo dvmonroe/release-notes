@@ -19,6 +19,10 @@ module Release
         @date_since_midnight  = format_date_since(midnight)
       end
 
+      def time_now_humanized
+        time_now.strftime('%B%e, %Y %r %Z')
+      end
+
       protected
 
       def format_date_since(time = nil)

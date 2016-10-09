@@ -3,6 +3,7 @@ module Release
   module Notes
     class Configuration
       attr_accessor :output_file
+      attr_accessor :temp_file
       attr_accessor :include_merges
       attr_accessor :case_insensitive_grep
       attr_accessor :extended_regex
@@ -19,15 +20,17 @@ module Release
       # should be a string as such: "2016-09-19"
       attr_accessor :first_commit_date
       attr_accessor :timezone
+      attr_accessor :prettify_messages
 
       attr_reader   :midnight
       attr_reader   :before_midnight
 
       def initialize
         @output_file           = './RELEASENOTES.md'
+        @temp_file             = './release-notes.tmp.md'
         @include_merges        = false
         @case_insensitive_grep = true
-        @log_format            = '-%s'
+        @log_format            = '- %s'
         @extended_regex        = true
         @bug_labels            = %w(Fix Update)
         @feature_labels        = %w(Add Create)
@@ -35,11 +38,12 @@ module Release
         @bug_title             = '**Fixed bugs:**'
         @feature_title         = '**Implemented enhancements:**'
         @misc_title            = '**Miscellaneous:**'
-        @link_labels           = []
-        @site_links            = []
+        @link_labels           = %w()
+        @site_links            = %w()
         @by_release            = true
         @first_commit_date     = nil
         @timezone              = 'America/New_York'
+        @prettify_messages     = false
         @midnight              = '00:00'
         @before_midnight       = '23:59'
       end
@@ -78,6 +82,15 @@ module Release
 
       def release_notes_exist?
         File.exist? output_file
+      end
+
+      def link_commits?
+        link_labels.present? && site_links.present? &&
+          link_labels.count == site_links.count
+      end
+
+      def prettify_messages?
+        @prettify_messages
       end
 
       private

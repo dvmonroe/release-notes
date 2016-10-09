@@ -8,6 +8,8 @@ module Release
                :feature_title, :bug_title, :misc_title,
                :release_notes_exist?, :first_commit_date, to: :config
 
+      delegate :time_now_humanized, to: :dates
+
       def initialize(config)
         @config = config
         @start_date = set_start_date_time
@@ -31,12 +33,16 @@ module Release
           writer.digest date
           copy_single_date_of_activity
         end
+
+        writer.write_new_file
       end
 
       def loop_and_log
         raise false unless system_log(all_labels)
-        writer.digest dates.time_now
+        writer.digest time_now_humanized
         copy_single_date_of_activity
+
+        writer.write_new_file
       end
 
       def set_start_date_time
@@ -51,7 +57,7 @@ module Release
 
       def copy_single_date_of_activity
         [features, bugs, misc].each_with_index do |regex, i|
-          writer.digest titles[i], new_log if system_log(regex).present?
+          writer.digest nil, titles[i], system_log(regex) if system_log(regex).present?
         end
       end
 

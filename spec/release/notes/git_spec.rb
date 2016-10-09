@@ -18,7 +18,7 @@ describe Release::Notes::Git do
           @new_cmd = system_cmd.log(config.bugs)
 
           expect(@new_cmd).to include 'git log'
-          expect(@new_cmd).to include "--format='-%s'"
+          expect(@new_cmd).to include "--format='- %s'"
           expect(@new_cmd).to include '--since'
           expect(@new_cmd).to include '--until'
           expect(@new_cmd).to include '-E -i --no-merges'

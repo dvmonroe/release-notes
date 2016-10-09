@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'release_notes:update' do
+RSpec.describe 'update_release_notes:run' do
   include_context 'rake'
 
   before do
