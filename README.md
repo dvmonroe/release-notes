@@ -19,6 +19,8 @@ reflects resolved github issues or logging all merges to your project, I would
 suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
 
+Not looking for a tested gem or prefer the rawness of a bash script? Checkout the similar
+[bash implementation](https://gist.github.com/dvmonroe/300226a1ed4435fb38d72e72e1bbc5a0)
 
 ## Getting Started
 
@@ -97,8 +99,8 @@ meaningful commit messages with longer bodies as needed for larger feature addit
 For more information about a rebase workflow or crafting solid commit messages
 check out the following links
 
-*[Commit Messages](http://chris.beams.io/posts/git-commit/)  
-*[Git Rebase Workflow](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+* [Commit Messages](http://chris.beams.io/posts/git-commit/)  
+* [Git Rebase Workflow](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ### Deploying with Capistrano
 
