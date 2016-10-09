@@ -9,6 +9,7 @@ require 'release/notes/git'
 require 'release/notes/logger'
 require 'release/notes/system'
 require 'release/notes/date_formatter'
+require 'release/notes/prettify'
 
 require 'release/notes/railtie' if defined?(Rails)
 

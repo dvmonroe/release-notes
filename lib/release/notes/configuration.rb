@@ -14,8 +14,9 @@ module Release
       attr_accessor :bug_title
       attr_accessor :feature_title
       attr_accessor :misc_title
-      attr_accessor :link_labels
-      attr_accessor :site_links
+      attr_accessor :link_to_labels
+      attr_accessor :link_to_humanize
+      attr_accessor :link_to_sites
       attr_accessor :by_release
       # should be a string as such: "2016-09-19"
       attr_accessor :first_commit_date
@@ -38,8 +39,9 @@ module Release
         @bug_title             = '**Fixed bugs:**'
         @feature_title         = '**Implemented enhancements:**'
         @misc_title            = '**Miscellaneous:**'
-        @link_labels           = %w()
-        @site_links            = %w()
+        @link_to_labels        = []
+        @link_to_humanize      = []
+        @link_to_sites         = %w()
         @by_release            = true
         @first_commit_date     = nil
         @timezone              = 'America/New_York'
@@ -85,8 +87,8 @@ module Release
       end
 
       def link_commits?
-        link_labels.present? && site_links.present? &&
-          link_labels.count == site_links.count
+        link_to_labels.present? && link_to_humanize.present? &&
+          link_to_sites.present?
       end
 
       def prettify_messages?

@@ -10,21 +10,21 @@ module Release
       def initialize(config)
         @config = config
         @linker = Release::Notes::Linker.new(@config)
-        @pretify = Release::Notes::Pretify.new(@config)
+        @prettify = Release::Notes::Prettify.new(@config)
         # create a new temp file regardless if it exists
         new_temp_file_template
       end
 
-      def digest(date = nil, title = nil, log_messages = nil)
+      def digest(date = nil, title = nil, log_message = nil)
         File.open(temp_file, 'a') do |fi|
           fi << "## #{date}\n\n" if date
           fi << "#{title}\n\n" if title
 
-          if log_messages
+          if log_message
             # link messages if needed
-            msg = link_commits? ? linkify(log_messages) : log_messages
+            msg = link_commits? ? linkify(log_message) : log_message
             # remove tags if needed
-            msg = pretify.perform(msg) if prettify_messages?
+            msg = prettify.perform(msg) if prettify_messages?
             fi << "#{msg}\n"
           end
         end

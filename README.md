@@ -69,8 +69,9 @@ Release::Notes.configure do |config|
   config.bug_title = '**Fixed bugs:**'
   config.feature_title = '**Implemented enhancements:**'
   config.misc_title = '**Miscellaneous:**'
-  config.link_labels = %w()
-  config.site_links = %w()
+  conig.link_to_labels = []
+  config.link_to_humanize = []
+  config.link_to_sites = %w()
   config.by_release = true
   config.first_commit_date = nil
   config.timezone = 'America/New_York'
