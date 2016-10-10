@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 module Release
   module Notes
     class Configuration
       # The absolute path of your generated log.
-      # Defaults to `./RELEASENOTES.md`.
+      # Defaults to `./RELEASE_NOTES.md`.
       # @return [String]
       attr_accessor :output_file
 
@@ -77,36 +78,22 @@ module Release
       # Defaults to `[]`.
       # @return [Array]
       attr_accessor :link_to_labels
-      
+
       # The humanized output that you'd like to represent the associated `:link_to_label`
       # The index within the array must match the index for the site
       # in `:link_to_label` and `:link_to_sites`.
       # Defaults to `[]`.
       # @return [Array]
       attr_accessor :link_to_humanize
-      
+
       # The url for the site that you'd like to represent the associated `:link_to_label`
       # The index within the array must match the index for the site
       # in `:link_to_label` and `:link_to_humanize`.
-      # Defaults to `%w()`.
+      # Defaults to `[]`.
       # @return [Array]
       attr_accessor :link_to_sites
 
-      # Controls whether your generated log contains commits headed with one date
-      # that includes all commits since your last tag, or if your commit subjects are headed
-      # by their respective date that it was merged to master.
-      # Defaults to `true`.
-      # @return [Boolean]
-      attr_accessor :by_release
-
-      # Set to a date string if this is your first time generating logs and instead
-      # of logging all commits past, setting a date for which to start the logs.
-      # Defaults to `nil`. Can be overriden by a string as such: "2016-09-19"
-      # @return [String]
-      attr_accessor :first_commit_date
-
-      # Sets the timezone that should be used when looking for commits and setting
-      # today's date.
+      # Sets the timezone that should be used for setting the date.
       # Defaults to `America/New_York`. For more, see
       # [ActiveSupport Time Zones](http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html)
       # @return [String]
@@ -114,42 +101,28 @@ module Release
 
       # Controls whether your commit subject labels should be removed from the final
       # ouput of your message on the generated log.
-      # Defaults to `false`.
+      # Defaults to `true`.
       # @return [Boolean]
       attr_accessor :prettify_messages
 
-      # Used in git's since_when flag when neccesary
-      # Set to `00:00`.
-      # @api private
-      attr_reader   :midnight
-
-      # Used in git's until_when flag when neccesary
-      # Set to `23:59`.
-      # @api private
-      attr_reader   :before_midnight
-
       def initialize
-        @output_file           = './RELEASENOTES.md'
+        @output_file           = './RELEASE_NOTES.md'
         @temp_file             = './release-notes.tmp.md'
         @include_merges        = false
         @ignore_case           = true
         @extended_regex        = true
         @log_format            = '- %s'
-        @bug_labels            = %w(Fix Update)
-        @feature_labels        = %w(Add Create)
-        @misc_labels           = %w(Refactor)
+        @bug_labels            = %w[Fix Update]
+        @feature_labels        = %w[Add Create]
+        @misc_labels           = %w[Refactor]
         @bug_title             = '**Fixed bugs:**'
         @feature_title         = '**Implemented enhancements:**'
         @misc_title            = '**Miscellaneous:**'
-        @link_to_labels        = []
-        @link_to_humanize      = []
-        @link_to_sites         = %w()
-        @by_release            = true
-        @first_commit_date     = nil
+        @link_to_labels        = %w[]
+        @link_to_humanize      = %w[]
+        @link_to_sites         = %w[]
         @timezone              = 'America/New_York'
-        @prettify_messages     = false
-        @midnight              = '00:00'
-        @before_midnight       = '23:59'
+        @prettify_messages     = true
       end
 
       # @return [String]
@@ -165,11 +138,6 @@ module Release
       # @return [String]
       def grep_insensitive?
         @ignore_case ? '-i' : ''
-      end
-
-      # @return [Boolean]
-      def by_release?
-        @by_release
       end
 
       # @return [String]
@@ -211,8 +179,9 @@ module Release
       private
 
       # @api private
-      def generate_regex(array)
-        array.join('|').insert(0, '(').insert(-1, ')')
+      # Using over Regexp.union
+      def generate_regex(arr)
+        arr.join('|').insert(0, '(').insert(-1, ')')
       end
     end
 

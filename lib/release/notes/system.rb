@@ -1,27 +1,30 @@
 # frozen_string_literal: true
+
 module Release
   module Notes
     module System
       module_function
 
-      def log(config, dates, label)
-        `#{Release::Notes::Git.new(config, dates).log(label)}`
+      extend ActiveSupport::Concern
+      include Git
+
+      included do
+        def system_log(**opts)
+          `#{log(opts)}`
+        end
       end
 
-      def sorted_log(config, dates, label)
-        `#{Release::Notes::Git.new(config, dates).sorted_log(label)}`
+      def all_tags
+        `#{Git.read_all_tags}`
       end
 
-      def last_tag
-        `#{Release::Notes::Git.last_tag}`
+      def system_last_tag
+        `#{Git.last_tag}`
       end
 
-      def tag_date
-        `#{Release::Notes::Git.tag_date(last_tag)}`
-      end
-
-      def first_commit
-        `#{Release::Notes::Git.first_commit}`
+      def tag_date(tag: nil)
+        tag ||= system_last_tag
+        `#{Git.tag_date(tag)}`
       end
     end
   end

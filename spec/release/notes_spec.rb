@@ -8,13 +8,9 @@ describe Release::Notes::Update do
     expect(Release::Notes::VERSION).not_to be nil
   end
 
-  before do
-    allow(Release::Notes::Logger).to receive(:copy_logs).and_return(true)
-  end
-
-  describe '.run' do
+  describe '#run' do
     it 'calls updater' do
-      expect_any_instance_of(Release::Notes::Logger).to receive(:copy_logs)
+      expect_any_instance_of(Release::Notes::Log).to receive(:perform)
       subject.run
     end
   end

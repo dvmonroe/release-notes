@@ -1,45 +1,32 @@
 # frozen_string_literal: true
+
 module Release
   module Notes
-    class Git
-      attr_reader :config, :date_formatter
+    module Git
+      module_function
 
-      delegate :log_format, :grep_insensitive?, :regex_type,
-               :features, :bugs, :misc, :feature_title, :bug_title,
-               :include_merges?, :output_file, :first_commit_date, to: :config
+      extend ActiveSupport::Concern
 
-      delegate :date_since, :date_until, :date_since_midnight,
-               :date_until_midnight, to: :date_formatter
+      included do
+        delegate :log_format, :grep_insensitive?, :regex_type, :include_merges?, to: :config
 
-      def initialize(config, dates)
-        @config = config
-        @date_formatter = dates
+        def log(**opts)
+          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{opts[:label]}'" \
+            " #{regex_type} #{grep_insensitive?}" \
+            " #{include_merges?} --format='#{log_format}'"
+        end
       end
 
-      def log(label)
-        "git log --grep='#{label}' #{regex_type} #{grep_insensitive?}" \
-                 " #{include_merges?} --format='#{log_format}'" \
-                 " --since='#{date_since}'" \
-                 " --until='#{date_until}'"
-      end
-
-      def sorted_log(label)
-        "git log --grep='#{label}' #{regex_type} #{grep_insensitive?}" \
-                 " #{include_merges?} --format='%cd' --date=short" \
-                 "--since='#{date_since_midnight}'" \
-                 "--until='#{date_until_midnight}' | sort -u -r"
-      end
-
-      def self.last_tag
+      def last_tag
         'git describe --abbrev=0 --tags'
       end
 
-      def self.tag_date(tag)
+      def tag_date(tag)
         "git log -1 --format=%ai #{tag}"
       end
 
-      def self.first_commit
-        'git log --format=%cd --date=short --reverse | head -1'
+      def read_all_tags
+        'git tags | sort -u -r'
       end
     end
   end

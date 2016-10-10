@@ -6,7 +6,7 @@ describe Release::Notes::Configuration do
 
   context 'when no output_file is configured' do
     it 'defaults to ./RELEASENOTES.md' do
-      expect(Release::Notes.configuration.output_file).to eq './RELEASENOTES.md'
+      expect(Release::Notes.configuration.output_file).to eq './RELEASE_NOTES.md'
     end
   end
 
@@ -55,21 +55,6 @@ describe Release::Notes::Configuration do
     end
   end
 
-  describe '#by_release?' do
-    context 'when by_release is configured to false' do
-      it 'returns false' do
-        Release::Notes.configure { |config| config.by_release = false }
-        expect(Release::Notes.configuration.by_release?).to eq false
-      end
-    end
-
-    context 'when by_release has not been configured' do
-      it 'returns true' do
-        expect(Release::Notes.configuration.by_release?).to eq true
-      end
-    end
-  end
-
   describe '#bugs' do
     context 'when bug_labels is configured' do
       it 'returns a formatted string with the configured values' do
@@ -88,7 +73,7 @@ describe Release::Notes::Configuration do
   describe '#features' do
     context 'when feature_labels is configured' do
       it 'returns a formatted string with the configured values' do
-        Release::Notes.configure { |config| config.feature_labels = %w(foo bar boo) }
+        Release::Notes.configure { |config| config.feature_labels = %w[foo bar boo] }
         expect(Release::Notes.configuration.features).to eq '(foo|bar|boo)'
       end
     end
@@ -103,7 +88,7 @@ describe Release::Notes::Configuration do
   describe '#misc' do
     context 'when misc_labels is configured' do
       it 'returns a formatted string with the configured values' do
-        Release::Notes.configure { |config| config.misc_labels = %w(foo bar boo) }
+        Release::Notes.configure { |config| config.misc_labels = %w[foo bar boo] }
         expect(Release::Notes.configuration.misc).to eq '(foo|bar|boo)'
       end
     end

@@ -59,23 +59,21 @@ Override any of these defaults in `config/initializers/release_notes.rb`:
 
 ```ruby
 Release::Notes.configure do |config|
-  config.output_file = './RELEASENOTES.md'
+  config.output_file = './RELEASE_NOTES.md'
   config.temp_file = './release-notes.tmp.md'
   config.include_merges = false
   config.ignore_case = true
   config.log_format = '- %s'
   config.extended_regex = true
-  config.bug_labels = %w(Fix Update)
-  config.feature_labels = %w(Add Create)
-  config.misc_labels = %w(Refactor)
+  config.bug_labels = %w[Fix Update]
+  config.feature_labels = %w[Add Create]
+  config.misc_labels = %w[Refactor]
   config.bug_title = '**Fixed bugs:**'
   config.feature_title = '**Implemented enhancements:**'
   config.misc_title = '**Miscellaneous:**'
-  conig.link_to_labels = []
-  config.link_to_humanize = []
-  config.link_to_sites = %w()
-  config.by_release = true
-  config.first_commit_date = nil
+  config.link_to_labels = %w[]
+  config.link_to_humanize = %w[]
+  config.link_to_sites = %w[]
   config.timezone = 'America/New_York'
 end
 ```
@@ -93,10 +91,10 @@ bundle exec update_release_notes:run
 
 ### Git Worklow
 
-Release::Notes works best with a rebase workflow. General rebase benefits include:
+Release::Notes works best with a rebase workflow and requires tagging. General rebase benefits include:
 
 * One clear commit per feature, bug or miscellaneous addition to the codebase  
-* Commits in one logical time manner  
+* Commits in logical time manner  
 
 By default configuration, Release::Notes ignores merges. Along with rebasing, by deafult,
 Release::Notes relies mainly on the subject of a commit. Therefore, it's important to craft concise and
@@ -155,6 +153,14 @@ run an automated commit with a rake task like:
 
 From there, make sure you tag your release after the deploy script runs so that your tag
 includes this last commit.
+
+## Note
+
+* Your project must tag releases(release-notes uses the tag date to output the changes)
+  (PR's to make this more flexible are welcome)  
+* Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
+  will ouput something like: `[HONEYBADGER #33150353](https://app.honeybadger.io/projects/9999/faults/33150353)`.
+  This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)  
 
 ## Development
 

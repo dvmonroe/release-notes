@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
-  gem 'rspec', '~> 3.0'
-  gem 'pry-byebug', '~> 3.4.0'
   gem 'aruba', '~> 0.14.2'
-  gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
+  gem 'pry-byebug', '~> 3.4.0'
+  gem 'rspec', '~> 3.0'
+  gem 'simplecov', require: false
 end

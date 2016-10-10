@@ -1,15 +1,20 @@
 # frozen_string_literal: true
+
+require 'active_support'
 require 'active_support/core_ext/time'
+
+require 'release/notes/date_format'
+require 'release/notes/link'
+require 'release/notes/pretty_print'
 
 require 'release/notes/version'
 require 'release/notes/configuration'
-require 'release/notes/file_writer'
-require 'release/notes/linker'
 require 'release/notes/git'
-require 'release/notes/logger'
 require 'release/notes/system'
-require 'release/notes/date_formatter'
-require 'release/notes/prettify'
+require 'release/notes/with_configuration'
+
+require 'release/notes/write'
+require 'release/notes/log'
 
 require 'release/notes/railtie' if defined?(Rails)
 
@@ -19,12 +24,12 @@ module Release
       attr_reader :logger
 
       def initialize
-        @config = Release::Notes.configuration
-        @logger = Release::Notes::Logger.new(@config)
+        @options = Release::Notes.configuration
+        @logger = Release::Notes::Log.new @options
       end
 
       def run
-        logger.copy_logs
+        logger.perform
       end
     end
 
