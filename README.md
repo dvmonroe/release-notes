@@ -14,7 +14,7 @@ deployment based on tags and labels in your commit messages.
 
 Release::Notes is different than a changelog. It's meant for situations where other
 team members (non-devs) in your organization need to know about key changes
-to the production software.  If your looking for a comprehnsive changelog that
+to the production software.  If you're looking for a comprehnsive changelog that
 reflects resolved github issues or logging all merges to your project, I would
 suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
