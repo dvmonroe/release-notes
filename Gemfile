@@ -6,7 +6,7 @@ gemspec
 group :test do
   gem 'aruba', '~> 0.14.2'
   gem 'codeclimate-test-reporter', require: false
-  gem 'pry-byebug', '~> 3.4.0'
-  gem 'rspec', '~> 3.0'
+  gem 'pry-byebug', '~> 3.4.2'
+  gem 'rspec', '~> 3.6.0'
   gem 'simplecov', require: false
 end
