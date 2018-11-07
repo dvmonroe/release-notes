@@ -86,7 +86,16 @@ For more information about each individual setting checkout Release::Notes's
 ### TL;DR
 
 ```sh
-rails update_release_notes:run
+###TL;DR
+
+rails
+``sh
+bin/rails update_release_notes:run
+``
+non-rails
+``sh
+bundle exec rake update_release_notes:run
+``
 ```
 
 ### Git Worklow
