@@ -86,7 +86,7 @@ For more information about each individual setting checkout Release::Notes's
 ### TL;DR
 
 ```sh
-bundle exec update_release_notes:run
+rails update_release_notes:run
 ```
 
 ### Git Worklow
