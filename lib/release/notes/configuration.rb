@@ -106,38 +106,38 @@ module Release
       attr_accessor :prettify_messages
 
       def initialize
-        @output_file           = './RELEASE_NOTES.md'
-        @temp_file             = './release-notes.tmp.md'
+        @output_file           = "./RELEASE_NOTES.md"
+        @temp_file             = "./release-notes.tmp.md"
         @include_merges        = false
         @ignore_case           = true
         @extended_regex        = true
-        @log_format            = '- %s'
-        @bug_labels            = %w[Fix Update]
-        @feature_labels        = %w[Add Create]
-        @misc_labels           = %w[Refactor]
-        @bug_title             = '**Fixed bugs:**'
-        @feature_title         = '**Implemented enhancements:**'
-        @misc_title            = '**Miscellaneous:**'
-        @link_to_labels        = %w[]
-        @link_to_humanize      = %w[]
-        @link_to_sites         = %w[]
-        @timezone              = 'America/New_York'
+        @log_format            = "- %s"
+        @bug_labels            = %w(Fix Update)
+        @feature_labels        = %w(Add Create)
+        @misc_labels           = %w(Refactor)
+        @bug_title             = "**Fixed bugs:**"
+        @feature_title         = "**Implemented enhancements:**"
+        @misc_title            = "**Miscellaneous:**"
+        @link_to_labels        = %w()
+        @link_to_humanize      = %w()
+        @link_to_sites         = %w()
+        @timezone              = "America/New_York"
         @prettify_messages     = true
       end
 
       # @return [String]
       def include_merges?
-        @include_merges ? '' : '--no-merges'
+        @include_merges ? "" : "--no-merges"
       end
 
       # @return [String]
       def regex_type
-        @extended_regex ? '-E' : ''
+        @extended_regex ? "-E" : ""
       end
 
       # @return [String]
       def grep_insensitive?
-        @ignore_case ? '-i' : ''
+        @ignore_case ? "-i" : ""
       end
 
       # @return [String]
@@ -181,7 +181,7 @@ module Release
       # @api private
       # Using over Regexp.union
       def generate_regex(arr)
-        arr.join('|').insert(0, '(').insert(-1, ')')
+        arr.join("|").insert(0, "(").insert(-1, ")")
       end
     end
 

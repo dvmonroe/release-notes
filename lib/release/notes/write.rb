@@ -19,12 +19,13 @@ module Release
       end
 
       def digest(date: nil, title: nil, log_message: nil)
-        File.open(temp_file, 'a') do |fi|
+        File.open(temp_file, "a") do |fi|
           fi << "\n\n## #{date}\n" if date
           fi << "\n#{title}\n\n" if title && !date
           fi << "#{title}\n\n" if title && date
 
           break unless log_message
+
           # link messages if needed
           msg = link_message log_message
           # remove tags if needed
@@ -46,7 +47,7 @@ module Release
 
       # @api private
       def copy_over_notes
-        File.open(temp_file, 'a') do |f|
+        File.open(temp_file, "a") do |f|
           f << "\n"
           IO.readlines(output_file)[2..-1].each { |line| f << line }
         end
@@ -55,6 +56,7 @@ module Release
       # @api private
       def link_message(log_message)
         return log_message unless link_commits?
+
         with_config(config: config) do
           link_lines(lines: log_message)
         end
@@ -62,8 +64,8 @@ module Release
 
       # @api private
       def new_temp_file_template
-        File.new(temp_file, 'w')
-        File.open(temp_file, 'a') do |fi|
+        File.new(temp_file, "w")
+        File.open(temp_file, "a") do |fi|
           fi << "# Release Notes\n----------------------"
         end
       end
