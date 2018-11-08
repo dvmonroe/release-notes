@@ -9,7 +9,7 @@ module Release
         delegate :all_labels, to: :config
 
         def prettify(line:)
-          line.gsub(labels_regex, '').strip
+          line.gsub(labels_regex, "").strip
         end
       end
 

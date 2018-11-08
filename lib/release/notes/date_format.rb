@@ -15,7 +15,7 @@ module Release
 
       def date_humanized(date: nil)
         date = date.present? ? Time.zone.parse(date) : time_now
-        date.strftime('%B %d, %Y %r %Z')
+        date.strftime("%B %d, %Y %r %Z")
       end
     end
   end

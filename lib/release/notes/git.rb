@@ -18,7 +18,7 @@ module Release
       end
 
       def last_tag
-        'git describe --abbrev=0 --tags'
+        "git describe --abbrev=0 --tags"
       end
 
       def tag_date(tag)
@@ -26,7 +26,7 @@ module Release
       end
 
       def read_all_tags
-        'git tags | sort -u -r'
+        "git tags | sort -u -r"
       end
     end
   end

@@ -9,7 +9,7 @@ module Release
         delegate :link_to_labels, :link_to_sites, :link_to_humanize, to: :config
 
         def link_lines(lines:)
-          new_lines = ''
+          new_lines = ""
           lines.split("\n").each do |line|
             unless link_to_labels.any? { |la| line.include? la }
               new_lines += "#{line}\n"
@@ -17,9 +17,11 @@ module Release
             end
             link_to_labels.each_with_index do |label, i|
               next unless line.include? label
+
               words = line.split(/\s/)
               words.each do |word|
                 next unless (word =~ /^#.*/)&.zero?
+
                 new_lines += "#{replace(line, word, label, i)}\n"
               end
             end

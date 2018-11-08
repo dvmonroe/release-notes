@@ -44,7 +44,7 @@ module Release
 
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: nil)
-        tag_to ||= 'HEAD'
+        tag_to ||= "HEAD"
         [features, bugs, misc].each_with_index do |regex, i|
           log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex)
           digest(date: nil, title: titles[i], log_message: log) if log.present?
