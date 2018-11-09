@@ -55,7 +55,6 @@ describe Release::Notes::Git do
 
       context "all" do
         it "grep flag includes correct regex" do
-          binding.pry
           expect(subject.log(label: config.all_labels)).to include "--grep='(Fix|Update|Add|Create|Refactor)'"
         end
       end
