@@ -66,7 +66,7 @@ module Release
       def new_temp_file_template
         File.new(temp_file, "w")
         File.open(temp_file, "a") do |fi|
-          fi << "# Release Notes\n----------------------"
+          fi << "# Release Notes\n"
         end
       end
     end
