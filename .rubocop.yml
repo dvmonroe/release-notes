@@ -5,6 +5,7 @@ AllCops:
     - "./**/*.gemspec"
     - "Gemfile"
     - "Rakefile"
+    - "vendor/**/*"
 
 Metrics/LineLength:
   Max: 120
