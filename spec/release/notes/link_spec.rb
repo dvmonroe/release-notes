@@ -16,7 +16,9 @@ describe Release::Notes::Link do
     let(:klass) { LinkTestClass }
     let(:config) { Release::Notes.configuration }
     let(:lines) do
-
+      "This is the first line"\
+      "This is the second line"\
+      "This is the third line"
     end
     subject { klass.new(config) }
 
