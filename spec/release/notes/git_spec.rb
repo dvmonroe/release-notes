@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Release::Notes::Git do
-  class TestClass
+  class GitTestClass
     include Release::Notes::Git
     attr_reader :config, :date_formatter
 
@@ -13,7 +13,7 @@ describe Release::Notes::Git do
   end
 
   describe "#log" do
-    let(:klass) { TestClass }
+    let(:klass) { GitTestClass }
     let(:last_tag) { Date.new(2016, 9, 21).strftime("%Y-%m-%d") }
     let(:config) { Release::Notes.configuration }
     let(:dates) { Release::Notes::DateFormat.new(config) }
