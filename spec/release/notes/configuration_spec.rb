@@ -121,9 +121,17 @@ describe Release::Notes::Configuration do
   end
 
   describe "#release_notes_exist?" do
+    context "when output file does exist" do
+      it "returns true" do
+        expect(Release::Notes.configuration.release_notes_exist?).to eq false
+      end
+    end
     context "when output file does not exist" do
       it "returns false" do
-        expect(Release::Notes.configuration.release_notes_exist?).to eq false
+        if Release::Notes.configuration.release_notes_exist?
+          File.delete(Release::Notes.configuration.output_file)
+          expect(Release::Notes.configuration.release_notes_exist?).to eq false
+        end
       end
     end
 
