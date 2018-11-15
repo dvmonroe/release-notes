@@ -35,6 +35,7 @@ module Release
         writer.write_new_file
       end
 
+      # :nocov:
       private
 
       def all_tags
@@ -94,6 +95,7 @@ module Release
       def titles
         [feature_title, bug_title, misc_title]
       end
+      # :nocov:
     end
   end
 end
