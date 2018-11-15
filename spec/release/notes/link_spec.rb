@@ -22,10 +22,10 @@ describe Release::Notes::Link do
     end
     subject { klass.new(config) }
 
-    context "#link_lines" do
-      it "splits the lines" do
-        expect(subject.link_lines(lines: lines)).to eq lines.split(/\s/)
-      end
-    end
+    # context "#link_lines" do
+    #   it "splits the lines" do
+    #     expect(subject.link_lines(lines: lines)).to eq lines.split(/\s/)
+    #   end
+    # end
   end
 end
