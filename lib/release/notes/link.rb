@@ -5,7 +5,7 @@ module Release
     module Link
       extend ActiveSupport::Concern
 
-      included do # rubocop:disable BlockLength
+      included do
         delegate :link_to_labels, :link_to_sites, :link_to_humanize, to: :config
 
         def link_lines(lines:)
