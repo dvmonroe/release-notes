@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Release::Notes::Link do
-  class LinkTestClass
+  class TestClass
     include Release::Notes::Link
     attr_reader :config
 
@@ -13,7 +13,7 @@ describe Release::Notes::Link do
   end
 
   describe "#log" do
-    let(:klass) { LinkTestClass }
+    let(:klass) { TestClass }
     let(:config) { Release::Notes.configuration }
     let(:lines) do
       "This is the first line"\

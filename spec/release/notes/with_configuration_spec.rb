@@ -3,20 +3,19 @@
 require "spec_helper"
 
 describe Release::Notes::WithConfiguration do
-  class WithConfigurationTestClass
+  class TestClass
     include Release::Notes::WithConfiguration
     attr_reader :config, :date_formatter
 
-    def initialize(config, _dates)
+    def initialize(config)
       @config = config
     end
   end
 
   describe "#with_config" do
-    let(:klass) { WithConfigurationTestClass }
+    let(:klass) { TestClass }
     let(:config) { Release::Notes.configuration }
-    let(:dates) { Release::Notes::DateFormat.new(config) }
-    subject { klass.new(config, dates) }
+    subject { klass.new(config) }
 
     it "creates a config object" do
       obj = subject.with_config { config }
