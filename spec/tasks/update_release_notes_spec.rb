@@ -14,7 +14,7 @@ RSpec.describe "update_release_notes:run" do
     it { is_expected.to include("environment") }
   end
 
-   it "runs gracefully with no subscribers" do
+  it "runs gracefully with no subscribers" do
     expect { subject.execute }.not_to raise_error
   end
 
