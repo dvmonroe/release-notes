@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Release::Notes::Link do
-  class LinkTestClass
+  class TestClass
     include Release::Notes::Link
     attr_reader :config, :link_to_labels, :link_to_humanize, :link_to_sites
 
@@ -16,7 +16,7 @@ describe Release::Notes::Link do
   end
 
   describe "#log" do
-    let(:klass) { LinkTestClass }
+    let(:klass) { TestClass }
     let(:config) { Release::Notes.configuration }
     let(:lines) { "HB #345 This is the first line" }
     subject { klass.new(config) }
