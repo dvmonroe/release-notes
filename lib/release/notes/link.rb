@@ -14,6 +14,7 @@ module Release
           @new_lines
         end
 
+        # :nocov:
         private
 
         # @api private
@@ -23,12 +24,12 @@ module Release
               @new_lines += "#{line}\n"
               next
             end
-            split_words
+            split_words(line)
           end
         end
 
         # @api private
-        def split_words
+        def split_words(line)
           link_to_labels.each_with_index do |label, i|
             next unless line.include? label
 
