@@ -20,7 +20,7 @@ module Release
         # @api private
         def split_lines(lines)
           lines.split("\n").each do |line|
-            unless link_to_labels.any? { |la| line.include? la }
+            unless link_to_labels { |la| line.include? la }
               @new_lines += "#{line}\n"
               next
             end
