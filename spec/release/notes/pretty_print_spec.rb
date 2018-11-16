@@ -3,6 +3,8 @@
 require "spec_helper"
 
 describe Release::Notes::PrettyPrint do
+  after { restore_config }
+
   class TestClass
     include Release::Notes::PrettyPrint
     attr_reader :config

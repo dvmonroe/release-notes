@@ -3,6 +3,8 @@
 require "spec_helper"
 
 describe Release::Notes::Link do
+  after { restore_config }
+
   class TestClass
     include Release::Notes::Link
     attr_reader :config
