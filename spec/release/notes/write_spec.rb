@@ -13,7 +13,7 @@ describe Release::Notes::Write do
 
   describe "#digest" do
     it "creates a file" do
-      allow(File).to receive(:open).with(subject.temp_file, 'a').and_return(file_like_object)
+      allow(File).to receive(:open).with(subject.temp_file, "a").and_return(file_like_object)
       expect(subject.digest).to eq file_like_object
     end
   end
