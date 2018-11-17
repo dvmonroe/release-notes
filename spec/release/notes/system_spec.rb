@@ -50,12 +50,6 @@ describe Release::Notes::System do
       klass.tag_date
     end
 
-    # it "hits the cmd line" do
-    #   allow(Release::Notes::Git).to receive(:tag_date).and_return("foobar")
-    #   expect(Release::Notes::System).to receive(:`).with("foobar").once
-    #   klass.tag_date
-    # end
-
     it "returns the result of the system program" do
       allow(Release::Notes::System).to receive(:`).and_return("foo")
       expect(klass.tag_date).to eq "foo"
