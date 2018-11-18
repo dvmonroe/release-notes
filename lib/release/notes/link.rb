@@ -29,6 +29,7 @@ module Release
           new_lines
         end
 
+        # :nocov:
         private
 
         # @api private
@@ -40,6 +41,7 @@ module Release
           line.gsub! identifier, linked
           line
         end
+        # :nocov:
       end
     end
   end

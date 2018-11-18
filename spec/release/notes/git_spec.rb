@@ -28,7 +28,6 @@ describe Release::Notes::Git do
       context "basic flags" do
         it "returns a string that includes default git log flags" do
           @new_cmd = subject.log(label: config.bugs)
-
           expect(@new_cmd).to include "git log"
           expect(@new_cmd).to include "--format='- %s'"
           expect(@new_cmd).to include "-E -i --no-merges"
@@ -58,6 +57,24 @@ describe Release::Notes::Git do
           expect(subject.log(label: config.all_labels)).to include "--grep='(Fix|Update|Add|Create|Refactor)'"
         end
       end
+    end
+  end
+
+  describe "#last_tag" do
+    it "returns command to get the last git tag" do
+      expect(Release::Notes::Git.last_tag).to eq "git describe --abbrev=0 --tags"
+    end
+  end
+
+  describe "#tag_date" do
+    it "returns command to get date for the supplied tag" do
+      expect(Release::Notes::Git.tag_date("v0.0.1")).to eq "git log -1 --format=%ai v0.0.1"
+    end
+  end
+
+  describe "#read_all_tags" do
+    it "returns command to get all tags" do
+      expect(Release::Notes::Git.read_all_tags).to eq "git tags | sort -u -r"
     end
   end
 end

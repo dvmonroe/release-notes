@@ -119,4 +119,91 @@ describe Release::Notes::Configuration do
       end
     end
   end
+
+  describe "#release_notes_exist?" do
+    context "when output file does exist" do
+      it "returns true" do
+        Release::Notes.configuration.stub(:release_notes_exist?).and_return(true)
+        expect(Release::Notes.configuration.release_notes_exist?).to eq true
+      end
+    end
+    context "when output file does not exist" do
+      it "returns false" do
+        if Release::Notes.configuration.release_notes_exist?
+          File.delete(Release::Notes.configuration.output_file)
+          expect(Release::Notes.configuration.release_notes_exist?).to eq false
+        end
+      end
+    end
+
+    context "when output file does exist" do
+      it "returns true" do
+        allow(File).to receive(:exist?).and_return(true)
+        expect(Release::Notes.configuration.release_notes_exist?).to eq true
+      end
+    end
+  end
+
+  describe "#link_commits?" do
+    context "when link_to_# has not been configured" do
+      it "returns false" do
+        expect(Release::Notes.configuration.link_commits?).to eq false
+      end
+    end
+
+    context "when link_to_# has been configured" do
+      it "returns true if link_to_labels, link_to_humanize, and link_to_sites are all present" do
+        Release::Notes.configure do |config|
+          config.link_to_labels = %w(hello)
+          config.link_to_humanize = %w(foo bar)
+          config.link_to_sites = %w(world)
+        end
+        expect(Release::Notes.configuration.link_commits?).to eq true
+      end
+
+      it "returns false if link_to_labels is not present" do
+        Release::Notes.configure do |config|
+          config.link_to_humanize = %w(foo bar)
+          config.link_to_sites = %w(world)
+        end
+        expect(Release::Notes.configuration.link_commits?).to eq false
+      end
+
+      it "returns false if link_to_humanize is not present" do
+        Release::Notes.configure do |config|
+          config.link_to_labels = %w(hello)
+          config.link_to_sites = %w(world)
+        end
+        expect(Release::Notes.configuration.link_commits?).to eq false
+      end
+
+      it "returns false if link_to_sites is not present" do
+        Release::Notes.configure do |config|
+          config.link_to_labels = %w(hello)
+          config.link_to_humanize = %w(foo bar)
+        end
+        expect(Release::Notes.configuration.link_commits?).to eq false
+      end
+    end
+  end
+
+  describe "#prettify_messages?" do
+    context "when prettify_messages has been configured" do
+      it "returns false if configured to be false" do
+        Release::Notes.configure { |config| config.prettify_messages = false }
+        expect(Release::Notes.configuration.prettify_messages?).to eq false
+      end
+
+      it "returns true if configured to be true" do
+        Release::Notes.configure { |config| config.prettify_messages = true }
+        expect(Release::Notes.configuration.prettify_messages?).to eq true
+      end
+    end
+
+    context "when prettify_messages has not been configured" do
+      it "returns defaulted true" do
+        expect(Release::Notes.configuration.prettify_messages?).to eq true
+      end
+    end
+  end
 end
