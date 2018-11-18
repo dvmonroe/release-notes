@@ -20,7 +20,7 @@ module Release
 
       def digest(date: nil, title: nil, log_message: nil)
         File.open(temp_file, "a") do |fi|
-          fi << "\n\n## #{date}\n" if date
+          fi << "\n## #{date}\n" if date
           fi << "\n#{title}\n\n" if title && !date
           fi << "#{title}\n\n" if title && date
 
