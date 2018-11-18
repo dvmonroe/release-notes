@@ -19,19 +19,11 @@ module Release
       end
 
       def digest(date: nil, title: nil, log_message: nil)
-        File.open(temp_file, "a") do |fi|
-          fi << "\n## #{date}\n" if date
-          fi << "\n#{title}\n\n" if title && !date
-          fi << "#{title}\n\n" if title && date
+        @date = date
+        @title = title
+        @log_message = log_message
 
-          break unless log_message
-
-          # link messages if needed
-          msg = link_message log_message
-          # remove tags if needed
-          msg = with_config(config: config) { prettify(line: msg) } if prettify_messages?
-          fi << "#{msg}\n"
-        end
+        generate_file
       end
 
       # append old file to new temp file
@@ -45,6 +37,36 @@ module Release
 
       # :nocov:
       private
+
+      # @api private
+      def generate_file
+        File.open(temp_file, "a") do |fi|
+          fi << date_present if date_present
+          fi << date_and_title_present if date_and_title_present
+          break unless @log_message
+          fi << "#{remove_tags}\n"
+        end
+      end
+
+      # @api private
+      def date_present
+        "\n## #{@date}\n" if @date
+      end
+
+      # @api private
+      def date_and_title_present
+        "#{@title}\n\n" if @title && @date
+      end
+
+      # @api private
+      def remove_tags
+        with_config(config: config) { prettify(line: link_messages) } if prettify_messages?
+      end
+
+      # @api private
+      def link_messages
+        link_message @log_message
+      end
 
       # @api private
       def copy_over_notes
