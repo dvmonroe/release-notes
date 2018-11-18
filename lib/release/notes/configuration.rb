@@ -105,6 +105,11 @@ module Release
       # @return [Boolean]
       attr_accessor :prettify_messages
 
+      # Controls whether to rewrite the output file or append to it.
+      # Defaults to `false`.
+      # @return [Boolean]
+      attr_accessor :force_rewrite
+
       def initialize
         @output_file           = "./RELEASE_NOTES.md"
         @temp_file             = "./release-notes.tmp.md"
@@ -123,6 +128,7 @@ module Release
         @link_to_sites         = %w()
         @timezone              = "America/New_York"
         @prettify_messages     = true
+        @force_rewrite         = false
       end
 
       # @return [String]
