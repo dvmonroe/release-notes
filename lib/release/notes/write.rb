@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Release
   module Notes
     class Write
@@ -18,12 +16,27 @@ module Release
         new_temp_file_template
       end
 
-      def digest(date: nil, title: nil, log_message: nil)
-        @date = date
+      # write strings to tempfile
+      def digest(str)
+        File.open(temp_file, "a") { |fi| fi << str }
+      end
+
+      # formats titles to be added to the new file
+      # removes tags from title if configured
+      def digest_title(title: nil, log_message: nil)
         @title = title
         @log_message = log_message
 
-        generate_file
+        titles = ""
+        titles << title_present
+        titles << "#{remove_tags}\n"
+        digest(titles)
+      end
+
+      # formats dates to be added to the new file
+      def digest_date(date: nil)
+        @date = date
+        digest(date_present)
       end
 
       # append old file to new temp file
@@ -39,27 +52,13 @@ module Release
       private
 
       # @api private
-      def generate_file
-        File.open(temp_file, "a") do |fi|
-          [date_present, title_present, date_and_title_present].each { |x| fi << x if x? }
-          break unless log_message
-          fi << "#{remove_tags}\n"
-        end
-      end
-
-      # @api private
       def date_present
-        "\n## #{@date}\n" if @date
+        "\n## #{@date}\n"
       end
 
       # @api private
       def title_present
-        "\n#{@title}\n\n" if @title && !@date
-      end
-
-      # @api private
-      def date_and_title_present
-        "#{@title}\n\n" if @title && @date
+        "\n#{@title}\n\n"
       end
 
       # @api private

@@ -11,9 +11,8 @@ module Release
 
       delegate :all_labels, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :release_notes_exist?, to: :config
-
       delegate :date_humanized, :format_tag_date, to: :date_formatter
-      delegate :digest, to: :writer
+      delegate :digest_date, :digest_title, to: :writer
 
       def initialize(config)
         @config = config
@@ -48,7 +47,7 @@ module Release
         tag_to ||= "HEAD"
         [features, bugs, misc].each_with_index do |regex, i|
           log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex)
-          digest(date: nil, title: titles[i], log_message: log) if log.present?
+          digest_title(title: titles[i], log_message: log) if log.present?
         end
       end
 
@@ -58,7 +57,7 @@ module Release
         return false unless system_call(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        digest date: date_humanized
+        digest_date date: date_humanized
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -77,9 +76,9 @@ module Release
         all_tags.each_with_index do |ta, i|
           previous_tag = all_tags[i + 1]
           next unless previous_tag.present? &&
-                      system_call(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
+          system_call(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
-          digest date: date_humanized(date: System.tag_date(tag: ta))
+          digest_date date: date_humanized(date: System.tag_date(tag: ta))
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
