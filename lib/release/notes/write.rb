@@ -41,9 +41,8 @@ module Release
       # @api private
       def generate_file
         File.open(temp_file, "a") do |fi|
-          fi << date_present if date_present
-          fi << date_and_title_present if date_and_title_present
-          break unless @log_message
+          [date_present, title_present, date_and_title_present].each { |x| fi << x if x? }
+          break unless log_message
           fi << "#{remove_tags}\n"
         end
       end
@@ -51,6 +50,11 @@ module Release
       # @api private
       def date_present
         "\n## #{@date}\n" if @date
+      end
+
+      # @api private
+      def title_present
+        "\n#{@title}\n\n" if @title && !@date
       end
 
       # @api private
