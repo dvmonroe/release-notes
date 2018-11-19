@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Release
   module Notes
     class Write
@@ -18,20 +16,27 @@ module Release
         new_temp_file_template
       end
 
-      def digest(date: nil, title: nil, log_message: nil)
-        File.open(temp_file, "a") do |fi|
-          fi << "\n## #{date}\n" if date
-          fi << "\n#{title}\n\n" if title && !date
-          fi << "#{title}\n\n" if title && date
+      # write strings to tempfile
+      def digest(str)
+        File.open(temp_file, "a") { |fi| fi << str }
+      end
 
-          break unless log_message
+      # formats titles to be added to the new file
+      # removes tags from title if configured
+      def digest_title(title: nil, log_message: nil)
+        @title = title
+        @log_message = log_message
 
-          # link messages if needed
-          msg = link_message log_message
-          # remove tags if needed
-          msg = with_config(config: config) { prettify(line: msg) } if prettify_messages?
-          fi << "#{msg}\n"
-        end
+        titles = ""
+        titles << title_present
+        titles << "#{remove_tags}\n"
+        digest(titles)
+      end
+
+      # formats dates to be added to the new file
+      def digest_date(date: nil)
+        @date = date
+        digest(date_present)
       end
 
       # append old file to new temp file
@@ -45,6 +50,26 @@ module Release
 
       # :nocov:
       private
+
+      # @api private
+      def date_present
+        "\n## #{@date}\n"
+      end
+
+      # @api private
+      def title_present
+        "\n#{@title}\n\n"
+      end
+
+      # @api private
+      def remove_tags
+        with_config(config: config) { prettify(line: link_messages) } if prettify_messages?
+      end
+
+      # @api private
+      def link_messages
+        link_message @log_message
+      end
 
       # @api private
       def copy_over_notes
