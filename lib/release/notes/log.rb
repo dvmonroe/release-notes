@@ -46,12 +46,12 @@ module Release
       def copy_single_tag_of_activity(tag_from:, tag_to: nil)
         tag_to ||= "HEAD"
         [features, bugs, misc].each_with_index do |regex, i|
-          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex, all_tags: false)
+          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: false)
           digest_title(title: titles[i], log_message: log) if log.present?
         end
-        if all_tags
-          log = system_call(tag_from: tag_from, tag_to: tag_to, all_tags: true)
-          digest_title(title: all_tags_title, log_message: log) if log.present?
+        if log_all
+          log = system_call(tag_from: tag_from, tag_to: tag_to, log_all: true)
+          digest_title(title: log_all_title, log_message: log) if log.present?
         end
       end
 

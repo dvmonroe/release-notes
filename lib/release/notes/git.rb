@@ -16,7 +16,7 @@ module Release
             " #{include_merges?} --format='#{log_format}'"
         end
 
-        def revlog(**opts)
+        def invert_log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --invert-grep='#{all_labels}'" \
             " #{regex_type} #{grep_insensitive?}" \
             " #{include_merges?} --format='#{log_format}'"

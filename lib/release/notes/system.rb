@@ -10,8 +10,8 @@ module Release
 
       included do
         def system_log(**opts)
-          if opts[:all_tags] == true
-            `#{revlog(opts)}`
+          if opts[:log_all] == true
+            `#{invert_log(opts)}`
           else
             `#{log(opts)}`
           end
