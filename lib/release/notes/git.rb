@@ -8,7 +8,13 @@ module Release
       extend ActiveSupport::Concern
 
       included do
-        delegate :log_format, :grep_insensitive?, :regex_type, :include_merges?, to: :config
+        delegate :all_labels, :log_format, :grep_insensitive?, :regex_type, :include_merges?, to: :config
+
+        def log(**opts)
+          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{opts[:label]}'" \
+            " #{regex_type} #{grep_insensitive?}" \
+            " #{include_merges?} --format='#{log_format}'"
+        end
 
         def log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{opts[:label]}'" \

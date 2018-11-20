@@ -46,8 +46,12 @@ module Release
       def copy_single_tag_of_activity(tag_from:, tag_to: nil)
         tag_to ||= "HEAD"
         [features, bugs, misc].each_with_index do |regex, i|
-          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex)
+          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex, all_tags: false)
           digest_title(title: titles[i], log_message: log) if log.present?
+        end
+        if all_tags
+          log = system_call(tag_from: tag_from, tag_to: tag_to, all_tags: true)
+          digest_title(title: all_tags_title, log_message: log) if log.present?
         end
       end
 
@@ -92,7 +96,6 @@ module Release
 
       # @api private
       def titles
-        return all_titles if log_all
         core_titles
       end
       # :nocov:
