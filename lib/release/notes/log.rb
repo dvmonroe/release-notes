@@ -92,7 +92,8 @@ module Release
 
       # @api private
       def titles
-        [feature_title, bug_title, misc_title]
+        return all_titles if log_all
+        core_titles
       end
       # :nocov:
     end
