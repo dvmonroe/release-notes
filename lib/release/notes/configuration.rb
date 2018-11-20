@@ -178,6 +178,16 @@ module Release
         @all_labels ||= generate_regex(@bug_labels + @feature_labels + @misc_labels)
       end
 
+      # @return [Array]
+      def core_titles
+        @core_titles ||= %w(@bug_title @features_title @misc_title)
+      end
+
+      # @return [Array]
+      def all_titles
+        @all_titles ||= %w(@bug_title @features_title @misc_title @log_all_title)
+      end
+
       # @return [Boolean]
       def release_notes_exist?
         File.exist? output_file
