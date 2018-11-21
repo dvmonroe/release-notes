@@ -45,18 +45,18 @@ describe Release::Notes::Link do
 
           it "it adds link to label" do
             expect(subject.link_lines(lines: lines)).to eq(
-              "[LabelAB #345](https:\/\/label_AB\/projects) This is the first line\n",
+              "[LabelAB #345](https:\/\/label_AB\/projects\/345) This is the first line\n",
             )
           end
         end
 
         context "more than one label" do
-          let(:lines) { "AB #345 This is the first line.\nBC #345 This is the first line.\n" }
+          let(:lines) { "AB #345 This is the first line.\nBC #543 This is the first line.\n" }
 
           it "it adds links to labels" do
             expect(subject.link_lines(lines: lines)).to eq(
-              "[LabelAB #345](https:\/\/label_AB\/projects) This is the first line.\n" \
-              "[LabelBC #345](https:\/\/label_BC\/projects) This is the first line.\n",
+              "[LabelAB #345](https:\/\/label_AB\/projects\/345) This is the first line.\n" \
+              "[LabelBC #543](https:\/\/label_BC\/projects\/543) This is the first line.\n",
             )
           end
         end
