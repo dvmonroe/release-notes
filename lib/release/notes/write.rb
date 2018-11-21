@@ -8,7 +8,7 @@ module Release
       attr_accessor :config
 
       delegate :output_file, :temp_file, :link_commits?, :all_labels,
-               :prettify_messages?, :release_notes_exist?, to: :config
+               :prettify_messages?, :release_notes_exist?, :force_rewrite, to: :config
 
       def initialize(config)
         @config = config
@@ -42,7 +42,7 @@ module Release
       # append old file to new temp file
       # overwrite output file with tmp file
       def write_new_file
-        copy_over_notes if release_notes_exist?
+        copy_over_notes if release_notes_exist? && !force_rewrite
 
         FileUtils.cp(temp_file, output_file)
         FileUtils.rm temp_file

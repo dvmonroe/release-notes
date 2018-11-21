@@ -14,7 +14,7 @@ deployment based on tags and labels in your commit messages.
 
 Release::Notes is different than a changelog. It's meant for situations where other
 team members (non-devs) in your organization need to know about key changes
-to the production software.  If you're looking for a comprehnsive changelog that
+to the production software. If you're looking for a comprehnsive changelog that
 reflects resolved github issues or logging all merges to your project, I would
 suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
@@ -52,7 +52,6 @@ This Release::Notes generator creates an initializer file to allow further confi
 
 If you're not in a rails project you can create the file yourself.
 
-
 ## Configure
 
 Override any of these defaults in `config/initializers/release_notes.rb`:
@@ -75,6 +74,7 @@ Release::Notes.configure do |config|
   config.link_to_humanize = %w[]
   config.link_to_sites = %w[]
   config.timezone = 'America/New_York'
+  config.force_rewrite = false
 end
 ```
 
@@ -86,11 +86,13 @@ For more information about each individual setting checkout Release::Notes's
 ### TL;DR
 
 #### Rails
+
 ```sh
 bin/rails update_release_notes:run
 ```
 
 #### Non-Rails
+
 ```sh
 bundle exec rake update_release_notes:run
 ```
@@ -99,8 +101,8 @@ bundle exec rake update_release_notes:run
 
 Release::Notes works best with a rebase workflow and requires tagging. General rebase benefits include:
 
-* One clear commit per feature, bug or miscellaneous addition to the codebase  
-* Commits in logical time manner  
+- One clear commit per feature, bug or miscellaneous addition to the codebase
+- Commits in logical time manner
 
 By default configuration, Release::Notes ignores merges. Along with rebasing, by deafult,
 Release::Notes relies mainly on the subject of a commit. Therefore, it's important to craft concise and
@@ -109,18 +111,19 @@ meaningful commit subjects with longer bodies as needed for larger feature addit
 For more information about a rebase workflow or crafting solid commit messages
 check out the following links
 
-* [Commit Messages](http://chris.beams.io/posts/git-commit/)  
-* [Git Rebase Workflow](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+- [Commit Messages](http://chris.beams.io/posts/git-commit/)
+- [Git Rebase Workflow](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ### Deploying with Capistrano
 
 If using Rails, a rake task is included and would be best utilized within your deploy script.
 
-If not on rails, but using rake, you can easily craft your own rake task.  At the very least calling
+If not on rails, but using rake, you can easily craft your own rake task. At the very least calling
 
 ```ruby
 Release::Notes::Update.new.run
 ```
+
 is the only instance that needs to be instantiated and invoked.
 
 A sample capistrano production file might look something like this:
@@ -162,11 +165,11 @@ includes this last commit.
 
 ## Note
 
-* Your project must tag releases(release-notes uses the tag date to output the changes)
-  (PR's to make this more flexible are welcome)  
-* Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
+- Your project must tag releases(release-notes uses the tag date to output the changes)
+  (PR's to make this more flexible are welcome)
+- Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
   will ouput something like: `[HONEYBADGER #33150353](https://app.honeybadger.io/projects/9999/faults/33150353)`.
-  This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)  
+  This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)
 
 ## Development
 
@@ -178,8 +181,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/dvmonroe/release-notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
