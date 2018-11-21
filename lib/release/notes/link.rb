@@ -47,7 +47,7 @@ module Release
           identifier = "#{label.split(/\s/)[0]} #{issue_number}"
           humanized = "#{link_to_humanize[index]} #{issue_number}"
           # linked = "[#{humanized}](#{link_to_sites[index]}\/#{issue_number.tr('^0-9', '')})"
-          linked = "[#{humanized}](#{link_to_sites[index]})"
+          linked = "[#{humanized}](#{link_to_sites[index]}\/#{issue_number[1..-1].scan(/^[^\[\]]*/)[0]})"
           line.gsub! identifier, linked
           line
         end
