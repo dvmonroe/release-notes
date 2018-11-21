@@ -9,8 +9,8 @@ module Release
       attr_reader :config, :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :force_rewrite, :all_labels, :features, :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :release_notes_exist?, to: :config
+      delegate :force_rewrite, :all_labels, :log_all, :features, :bugs, :misc, :feature_title,
+               :bug_title, :misc_title, :log_all_title, :release_notes_exist?, to: :config
       delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_date, :digest_title, to: :writer
 
