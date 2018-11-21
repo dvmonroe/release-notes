@@ -51,6 +51,7 @@ module Release
         end
 
         return unless log_all
+
         log = system_call(tag_from: tag_from, tag_to: tag_to, log_all: true)
         digest_title(title: log_all_title, log_message: log) if log.present?
       end
