@@ -9,7 +9,7 @@ module Release
       attr_reader :config, :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :all_labels, :features, :bugs, :misc, :feature_title,
+      delegate :force_rewrite, :all_labels, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :release_notes_exist?, to: :config
       delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_date, :digest_title, to: :writer
@@ -22,7 +22,7 @@ module Release
       end
 
       def perform
-        if release_notes_exist?
+        if release_notes_exist? && !force_rewrite
           # Find the last tag and group all commits
           # under a date header at the time this is run
           find_last_tag_and_log
