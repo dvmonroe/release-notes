@@ -37,7 +37,7 @@ module Release
       # :nocov:
       private
 
-      def all_tags
+      def all_tags # rubocop:disable Lint/DuplicateMethods
         @all_tags ||= System.all_tags.split("\n")
         # return Error.new(msg: :missing_tags) unless all_tags.present?
       end
@@ -76,7 +76,7 @@ module Release
         all_tags.each_with_index do |ta, i|
           previous_tag = all_tags[i + 1]
           next unless previous_tag.present? &&
-          system_call(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
+                      system_call(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
           digest_date date: date_humanized(date: System.tag_date(tag: ta))
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)

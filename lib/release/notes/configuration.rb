@@ -105,7 +105,7 @@ module Release
       # @return [Boolean]
       attr_accessor :prettify_messages
 
-      def initialize
+      def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @output_file           = "./RELEASE_NOTES.md"
         @temp_file             = "./release-notes.tmp.md"
         @include_merges        = false

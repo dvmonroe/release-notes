@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'release/notes/version'
+require "release/notes/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "release-notes"
@@ -10,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dvmonroe6@gmail.com"]
 
   spec.summary       = "Release notes for stakeholders"
-  spec.description   = spec.summary
+  spec.description   = "A tool that generates release notes for your project."
   spec.homepage      = "http://github.com/dvmonroe/release-notes"
   spec.license       = "MIT"
 
@@ -19,10 +18,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'activesupport'
+  spec.add_dependency "activesupport", "~> 5.0"
 
-  spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency "bundler", "~> 1.12"
+  spec.add_development_dependency "pry", "~> 0.12.2"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rubocop", "~> 0.60.0"
 end

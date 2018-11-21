@@ -42,9 +42,6 @@ module Release
           end
         end
 
-        # :nocov:
-        private
-
         # @api private
         def replace(line, issue_number, label, index)
           identifier = "#{label.split(/\s/)[0]} #{issue_number}"

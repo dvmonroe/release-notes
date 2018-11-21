@@ -14,3 +14,9 @@ def restore_config
   Release::Notes.configuration = nil
   Release::Notes.configure {}
 end
+
+RSpec.configure do |config|
+  config.mock_with :rspec do |mocks|
+    mocks.syntax = %i(expect should)
+  end
+end

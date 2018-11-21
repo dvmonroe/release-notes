@@ -123,7 +123,7 @@ describe Release::Notes::Configuration do
   describe "#release_notes_exist?" do
     context "when output file does exist" do
       it "returns true" do
-        Release::Notes.configuration.stub(:release_notes_exist?).and_return(true)
+        allow(Release::Notes.configuration).to receive(:release_notes_exist?).and_return(true)
         expect(Release::Notes.configuration.release_notes_exist?).to eq true
       end
     end
