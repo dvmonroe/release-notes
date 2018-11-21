@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Release
   module Notes
     class Write
@@ -27,9 +29,7 @@ module Release
         @title = title
         @log_message = log_message
 
-        titles = ""
-        titles << title_present
-        titles << "#{remove_tags}\n"
+        titles = title_present + "#{remove_tags}\n"
         digest(titles)
       end
 
