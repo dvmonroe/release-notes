@@ -18,5 +18,6 @@ Release::Notes.configure do |config|
   # config.link_to_labels = %w()
   # config.link_to_humanize = %w()
   # config.link_to_sites = %w()
+  # config.force_rewrite = false
   # config.timezone = 'America/New_York'
 end

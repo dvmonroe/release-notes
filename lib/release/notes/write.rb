@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Release
   module Notes
     class Write
