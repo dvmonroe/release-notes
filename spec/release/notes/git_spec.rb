@@ -57,6 +57,12 @@ describe Release::Notes::Git do
           expect(subject.log(label: config.all_labels)).to include "--grep='(Fix|Update|Add|Create|Refactor)'"
         end
       end
+
+      context "invert_log" do
+        it "invert log includes invert grep flag" do
+          expect(subject.invert_log(label: config.all_labels)).to include "--invert-grep"
+        end
+      end
     end
   end
 

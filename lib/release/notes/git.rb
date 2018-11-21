@@ -17,8 +17,8 @@ module Release
         end
 
         def invert_log(**opts)
-          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --invert-grep='#{all_labels}'" \
-            " #{regex_type} #{grep_insensitive?}" \
+          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{all_labels}'" \
+            " #{regex_type} #{grep_insensitive?} --invert-grep" \
             " #{include_merges?} --format='#{log_format}'"
         end
       end
