@@ -11,7 +11,9 @@ Metrics/LineLength:
   Max: 120
 
 Metrics/BlockLength:
-  Enabled: false
+  Max: 35
+  Exclude:
+    - "./**/spec/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

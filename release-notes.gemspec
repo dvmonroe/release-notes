@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Drew Monroe"]
   spec.email         = ["dvmonroe6@gmail.com"]
 
-  spec.summary       = "Release notes for stakeholders"
-  spec.description   = "A tool that generates release notes for your project."
+  spec.summary       = "Automated release notes for your project"
   spec.homepage      = "http://github.com/dvmonroe/release-notes"
   spec.license       = "MIT"
 
