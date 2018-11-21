@@ -50,7 +50,7 @@ module Release
           digest_title(title: titles[i], log_message: log) if log.present?
         end
 
-        if log_all
+        if log_all # rubocop:disable Style/GuardClause
           log = system_call(tag_from: tag_from, tag_to: tag_to, log_all: true)
           digest_title(title: log_all_title, log_message: log) if log.present?
         end
