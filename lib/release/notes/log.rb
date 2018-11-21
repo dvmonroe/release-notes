@@ -9,8 +9,8 @@ module Release
       attr_reader :config, :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :force_rewrite, :all_labels, :features, :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :release_notes_exist?, to: :config
+      delegate :force_rewrite, :all_labels, :log_all, :features, :bugs, :misc, :feature_title,
+               :bug_title, :misc_title, :log_all_title, :release_notes_exist?, to: :config
       delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_date, :digest_title, to: :writer
 
@@ -46,8 +46,13 @@ module Release
       def copy_single_tag_of_activity(tag_from:, tag_to: nil)
         tag_to ||= "HEAD"
         [features, bugs, misc].each_with_index do |regex, i|
-          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex)
+          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: false)
           digest_title(title: titles[i], log_message: log) if log.present?
+        end
+
+        if log_all
+          log = system_call(tag_from: tag_from, tag_to: tag_to, log_all: true)
+          digest_title(title: log_all_title, log_message: log) if log.present?
         end
       end
 
@@ -90,7 +95,6 @@ module Release
         end
       end
 
-      # @api private
       def titles
         [feature_title, bug_title, misc_title]
       end

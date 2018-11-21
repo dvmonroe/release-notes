@@ -72,6 +72,16 @@ module Release
       # @return [String]
       attr_accessor :misc_title
 
+      # Controls whether all logs that do not match the other labels are listed
+      # Defaults to `false`
+      # @return [Boolean]
+      attr_accessor :log_all
+
+      # Controls the title used in your generated log for all commits listed
+      # Defaults to `**Other:**`.
+      # @return [String]
+      attr_accessor :log_all_title
+
       # The labels grepped for in your commit subject that you want to linkify.
       # The index within the array must match the index for the site
       # in `:link_to_humanize` and `:link_to_sites`.
@@ -123,6 +133,8 @@ module Release
         @bug_title             = "**Fixed bugs:**"
         @feature_title         = "**Implemented enhancements:**"
         @misc_title            = "**Miscellaneous:**"
+        @log_all_title         = "**Other**"
+        @log_all               = false
         @link_to_labels        = %w()
         @link_to_humanize      = %w()
         @link_to_sites         = %w()

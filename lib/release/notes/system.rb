@@ -10,7 +10,11 @@ module Release
 
       included do
         def system_log(**opts)
-          `#{log(opts)}`
+          if opts[:log_all] == true
+            `#{invert_log(opts)}`
+          else
+            `#{log(opts)}`
+          end
         end
       end
 
