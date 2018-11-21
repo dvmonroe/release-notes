@@ -5,13 +5,15 @@ AllCops:
     - "./**/*.gemspec"
     - "Gemfile"
     - "Rakefile"
+    - "vendor/**/*"
 
 Metrics/LineLength:
   Max: 120
 
 Metrics/BlockLength:
+  Max: 35
   Exclude:
-    - "./**/test/**/*"
+    - "./**/spec/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
