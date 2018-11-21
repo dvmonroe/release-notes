@@ -1,4 +1,4 @@
-# Type of PR (feature, enchancebent, bug fix, etc.)
+# Type of PR (feature, enhancement, bug fix, etc.)
 
 ## Description
 
