@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dvmonroe6@gmail.com"]
 
   spec.summary       = "Automated release notes for your project"
+  spec.description   = "Generate automated release notes for any project"
   spec.homepage      = "http://github.com/dvmonroe/release-notes"
   spec.license       = "MIT"
 

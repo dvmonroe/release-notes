@@ -8,15 +8,16 @@
 Release notes for the stakeholders.
 
 Release::Notes is a small wrapper around your project's git log. The gem is
-intended to help increase visability to all team members and stakeholders with
+intended to help increase visability to all team members and/or stakeholders with
 automated documentation of important changes made to your code base for a given production
 deployment based on tags and labels in your commit messages.
 
-Release::Notes is different than a changelog. It's meant for situations where other
-team members (non-devs) in your organization need to know about key changes
-to the production software. If you're looking for a comprehnsive changelog that
-reflects resolved github issues or logging all merges to your project, I would
-suggest you look at something else like
+Release::Notes is different than a changelog. Though it can log all commits, it's
+meant for situations where other team members in your organization need to know about key changes
+to the production software. These key changes are determined by the labeling you set forth
+in the configuration for features, bugs and misc commits.
+If you're looking for a comprehnsive changelog that reflects resolved github issues and uses the
+github api, I'd  suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
 
 Not looking for a tested gem or prefer the rawness of a bash script? Checkout the similar
