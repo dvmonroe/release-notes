@@ -10,7 +10,7 @@ Think you’ve discovered a bug?
 2. Try the `master` branch to make sure it hasn’t been fixed.
 
 ```rb
-gem "release-notes", git: "git@github.com:n2publishing/release-notes.git"
+gem "release-notes", git: "git@github.com:dvmonroe/release-notes.git"
 ```
 
 If the above steps don’t help, create an issue.
