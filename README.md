@@ -77,6 +77,7 @@ Release::Notes.configure do |config|
   config.link_to_humanize = %w()
   config.link_to_sites = %w()
   config.timezone = 'America/New_York'
+  config.prettify_messages = true
   config.force_rewrite = false
 end
 ```
