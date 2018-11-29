@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :update_release_notes do
-  task run: :environment do
+  task :run do
     puts "generating release notes..."
     Release::Notes::Update.new.run
     puts "done!"

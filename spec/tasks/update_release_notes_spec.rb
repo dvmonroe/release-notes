@@ -9,11 +9,6 @@ RSpec.describe "update_release_notes:run" do
     allow_any_instance_of(Release::Notes::Update).to receive(:run) { true }
   end
 
-  describe "basic rake" do
-    subject { super().prerequisites }
-    it { is_expected.to include("environment") }
-  end
-
   it "runs gracefully with no subscribers" do
     expect { subject.execute }.not_to raise_error
   end
