@@ -144,10 +144,10 @@ namespace :deploy do
   before :starting, :update_release_notes
 
   task :update_release_notes do
-    sh 'RAILS_ENV=development bin/rake "update_release_notes:run"'
+    sh 'bin/rake "update_release_notes:run"'
     # run a second task that generates an auto commit
     # this would be created by you
-    sh 'RAILS_ENV=development bin/rake "release_notes:commit"'
+    sh 'bin/rake "release_notes:commit"'
   end
 end
 ```
