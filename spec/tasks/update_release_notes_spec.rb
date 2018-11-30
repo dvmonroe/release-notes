@@ -24,8 +24,8 @@ RSpec.describe "update_release_notes:run" do
   end
 
   it "should ouput text when run" do
-    expect(STDOUT).to receive(:puts).with("generating release notes...")
-    expect(STDOUT).to receive(:puts).with("done!")
+    expect(STDOUT).to receive(:puts).with("=> Generating release notes...")
+    expect(STDOUT).to receive(:puts).with("=> Done!")
     subject.invoke
   end
 end
