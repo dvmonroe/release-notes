@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
+
+require "rubygems"
+
+require "release/notes"
+config_file = "./config/initializers/release_notes.rb"
+
+begin
+  require config_file
+  $stderr.puts "=> Generating release notes..."
+  Release::Notes.generate
+  $stderr.puts "=> Done!"
+rescue LoadError
+  $stderr.puts "=> Missing config/initializers/release_notes.rb"
+rescue SignalException => e
+  # We might receive SIGTERM before our signal handler is installed.
+  if Signal.signame(e.signo) == "TERM"
+    exit(0)
+  else
+    raise
+  end
+rescue
+  exit(1)
+else
+  exit(0)
+end

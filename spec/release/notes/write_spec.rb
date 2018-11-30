@@ -6,10 +6,9 @@ describe Release::Notes::Write do
   after { restore_config }
 
   let(:klass) { Release::Notes::Write }
-  let(:config) { Release::Notes.configuration }
   let(:file_like_object) { double("file_like_object") }
   let(:message) { "dates or titles\n" }
-  subject { klass.new(config) }
+  subject { klass.new }
 
   describe "#digest" do
     it "creates a file" do

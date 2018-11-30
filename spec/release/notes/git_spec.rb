@@ -16,7 +16,7 @@ describe Release::Notes::Git do
     let(:klass) { GitTestClass }
     let(:last_tag) { Date.new(2016, 9, 21).strftime("%Y-%m-%d") }
     let(:config) { Release::Notes.configuration }
-    let(:dates) { Release::Notes::DateFormat.new(config) }
+    let(:dates) { Release::Notes::DateFormat.new }
     subject { klass.new(config, dates) }
 
     context "with default configuration" do

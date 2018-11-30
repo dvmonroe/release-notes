@@ -4,7 +4,7 @@ require "spec_helper"
 
 describe Release::Notes::DateFormat do
   let(:config) { Release::Notes.configuration }
-  subject { Release::Notes::DateFormat.new(config) }
+  subject { Release::Notes::DateFormat.new }
 
   describe "date_humanized" do
     it "formats the current time" do

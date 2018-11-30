@@ -2,8 +2,8 @@
 
 require "spec_helper"
 
-describe Release::Notes::Update do
-  subject { described_class.new }
+describe Release::Notes do
+  subject { described_class }
 
   it "has a version number" do
     expect(Release::Notes::VERSION).not_to be nil
@@ -12,7 +12,7 @@ describe Release::Notes::Update do
   describe "#run" do
     it "calls updater" do
       expect_any_instance_of(Release::Notes::Log).to receive(:perform)
-      subject.run
+      subject.generate
     end
   end
 end
