@@ -50,7 +50,7 @@ After you install Release::Notes, generate the intializer file:
 $ rails generate release:notes:install
 
 # non-rails
-$ bundle exec release:notes:install
+$ bundle exec rake release:notes:install
 ```
 
 ## Configure
