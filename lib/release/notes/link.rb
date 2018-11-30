@@ -33,9 +33,14 @@ module Release
           link_to_labels.each_with_index do |label, i|
             next unless line.include? label
 
-            replace_words(line.split(/\s/))
-            @new_lines += "#{replace(line, @word, label, i)}\n" if @word
+            replace_lines(line, label, i)
           end
+        end
+
+        # @api private
+        def replace_lines(line, label, index)
+          replace_words(line.split(/\s/))
+          @new_lines += "#{replace(line, @word, label, index)}\n" if @word
         end
 
         # @api private
