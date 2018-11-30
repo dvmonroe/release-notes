@@ -43,7 +43,7 @@ module Release
       end
 
       # @api private
-      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
+      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD") # rubocop:disable Metrics/MethodLength
         [features, bugs, misc].each_with_index do |regex, i|
           log = system_log(
             tag_from: tag_from,

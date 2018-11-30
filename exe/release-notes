@@ -8,11 +8,11 @@ config_file = "./config/initializers/release_notes.rb"
 
 begin
   require config_file
-  $stderr.puts "=> Generating release notes..."
+  warn "=> Generating release notes..."
   Release::Notes.generate
-  $stderr.puts "=> Done!"
+  warn "=> Done!"
 rescue LoadError
-  $stderr.puts "=> Missing config/initializers/release_notes.rb"
+  warn "=> Missing config/initializers/release_notes.rb"
 rescue SignalException => e
   # We might receive SIGTERM before our signal handler is installed.
   if Signal.signame(e.signo) == "TERM"
