@@ -13,7 +13,7 @@ module Release
 
         def log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
-            " --grep='#{opts[:label]}'" \
+            " --grep='#{opts[:label]} #{opts[:invert_grep]}'" \
             " #{regex_type} #{grep_insensitive?}" \
             " #{include_merges?} --format='#{log_format}'"
         end
