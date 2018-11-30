@@ -18,7 +18,6 @@ require "release/notes/log"
 require "release/notes/railtie" if defined?(Rails)
 require "release/notes/install" unless defined?(Rails)
 
-
 module Release
   module Notes
     class << self
