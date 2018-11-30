@@ -48,7 +48,7 @@ describe Release::Notes::Git do
 
       context "misc" do
         it "grep flag includes correct regex" do
-          expect(subject.log(label: config.misc)).not_to include "--grep='(Refactor)'"
+          expect(subject.log(label: config.misc)).to include "--grep='(Refactor)'"
         end
       end
 
