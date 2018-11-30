@@ -26,7 +26,7 @@ module Release
         @title = title
         @log_message = log_message
 
-        titles = title_present + "#{format_line}\n"
+        titles = title_present + format_line
         digest(titles)
       end
 
@@ -60,7 +60,7 @@ module Release
 
       # @api private
       def format_line
-        return prettify(line: link_messages) if prettify_messages?
+        return "#{prettify(line: link_messages)}\n" if prettify_messages?
 
         link_messages
       end
