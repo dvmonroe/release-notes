@@ -4,12 +4,12 @@ Release::Notes.configure do |config|
   # The absolute path of your generated log.
   # Defaults to `./RELEASE_NOTES.md`.
   # @return [String]
-  # config.output_file = './RELEASE_NOTES.md'
+  # config.output_file = "./RELEASE_NOTES.md"
 
   # The absolute path of the temporary generated log.
   # Defaults to `./release-notes.tmp.md`.
   # @return [String]
-  # config.temp_file = './release-notes.tmp.md'
+  # config.temp_file = "./release-notes.tmp.md"
 
   # Determines whether to print commits with more than one parent.
   # Defaults to `false`. For more, see
@@ -28,7 +28,7 @@ Release::Notes.configure do |config|
   # Defaults to `%s` for subject. For more, see
   # [Git Log Docs](https://git-scm.com/docs/git-log)
   # @return [String]
-  # config.log_format = '- %s'
+  # config.log_format = "- %s"
 
   # Consider the limiting patterns to be extended regular expressions patterns
   # when printing your git log.
@@ -58,22 +58,22 @@ Release::Notes.configure do |config|
   # Controls the title used in your generated log for all bugs listed
   # Defaults to `**Fixed bugs:**`.
   # @return [String]
-  # config.bug_title = '**Fixed bugs:**'
+  # config.bug_title = "**Fixed bugs:**"
 
   # Controls the title used in your generated log for all features listed
   # Defaults to `**Implemented enhancements:**`.
   # @return [String]
-  # config.feature_title = '**Implemented enhancements:**'
+  # config.feature_title = "**Implemented enhancements:**"
 
   # Controls the title used in your generated log for all misc commits listed
   # Defaults to `**Miscellaneous:**`.
   # @return [String]
-  # config.misc_title = '**Miscellaneous:**'
+  # config.misc_title = "**Miscellaneous:**"
 
   # Controls the title used in your generated log for all commits listed
   # Defaults to `**Other:**`.
   # @return [String]
-  # config.log_all_title = '**Other:**'
+  # config.log_all_title = "**Other:**"
 
   # Controls whether all logs that do not match the other labels are listed
   # Defaults to `false`
@@ -105,7 +105,7 @@ Release::Notes.configure do |config|
   # Defaults to `America/New_York`. For more, see
   # [ActiveSupport Time Zones](http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html)
   # @return [String]
-  # config.timezone = 'America/New_York'
+  # config.timezone = "America/New_York"
 
   # Controls whether your commit subject labels should be removed from the final
   # ouput of your message on the generated log.
