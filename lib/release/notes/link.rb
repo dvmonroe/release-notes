@@ -32,13 +32,17 @@ module Release
         def split_words(line)
           link_to_labels.each_with_index do |label, i|
             next unless line.include? label
+            replace_words(line.split(/\s/))
+            @new_lines += "#{replace(line, @word, label, i)}\n" if @word
+          end
+        end
 
-            words = line.split(/\s/)
-            words.each do |word|
+        # @api private
+        def replace_words(words)
+          words.each do |word|
               next unless (word =~ /^#.*/)&.zero?
 
-              @new_lines += "#{replace(line, word, label, i)}\n"
-            end
+              @word = word
           end
         end
 
