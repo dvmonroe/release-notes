@@ -126,35 +126,20 @@ check out the following links
 
 ### Deploying with Capistrano
 
-If using Rails, a rake task is included and would be best utilized within your deploy script.
-
-If not on rails, but using rake, you can easily craft your own rake task. At the very least calling
-
-```ruby
-Release::Notes.generate
-```
-
-is the only instance that needs to be instantiated and invoked.
-
-A sample capistrano production file might look something like this:
+A sample capistrano rake task might look like:
 
 ```ruby
 # config/deploy/production.rb
-server 'the_name_for_my_server', user: 'deploy', roles: %w{app web}
-
-set :application, 'my_app'
-set :deploy_to, '/var/www/my_app'
-
-
 namespace :deploy do
   before :starting, :update_release_notes
 
   task :update_release_notes do
     # use the binstub
     sh 'bin/release-notes"'
-    # run a second task that generates an auto commit
-    # this would be created by you
-    sh 'bin/rake "release_notes:commit"'
+    
+    # Then check in your release notes with a commit
+    sh "git commit -am 'Release to production #{Time.zone.now}'"
+    sh "git push origin master"
   end
 end
 ```
@@ -162,17 +147,7 @@ end
 Useful information can be found here regarding the
 [capistrano flow](http://capistranorb.com/documentation/getting-started/flow/).
 
-As you can see above, it's suggested that after generating your release notes you would
-run an automated commit with a rake task like:
-
-```ruby
-# lib/tasks/commit.rake
-`git commit -am "Release to production #{Time.zone.now}"`
-`git push origin master`
-```
-
-From there, make sure you tag your release after the deploy script runs so that your tag
-includes this last commit.
+**From there, make sure you tag your releases**
 
 ## Note
 

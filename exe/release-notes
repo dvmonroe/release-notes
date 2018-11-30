@@ -4,15 +4,19 @@
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
 
 require "release/notes"
-config_file = "./config/initializers/release_notes.rb"
+
+rails_config_file = "./config/initializers/release_notes.rb"
+config_file = "./config/release_notes.rb"
+
+file = File.exist?(rails_config_file) ? rails_config_file : config_file
 
 begin
-  require config_file
+  require file
   warn "=> Generating release notes..."
   Release::Notes.generate
   warn "=> Done!"
 rescue LoadError
-  warn "=> Missing config/initializers/release_notes.rb"
+  warn "=> Missing release_notes.rb configuration file"
 rescue SignalException => e
   # We might receive SIGTERM before our signal handler is installed.
   if Signal.signame(e.signo) == "TERM"
