@@ -4,21 +4,21 @@ module Release
   module Notes
     class Log
       include System
-      include WithConfiguration
 
-      attr_reader :config, :writer, :date_formatter
+      attr_reader :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :force_rewrite, :all_labels, :log_all, :features, :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :log_all_title, :release_notes_exist?, to: :config
+      delegate :force_rewrite, :all_labels, :log_all, :features,
+               :bugs, :misc, :feature_title,
+               :bug_title, :misc_title, :log_all_title,
+               :release_notes_exist?, to: :"Release::Notes.configuration"
+
       delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_date, :digest_title, to: :writer
 
-      def initialize(config)
-        @config = config
-
-        setup_writer
-        setup_date_formatter
+      def initialize
+        @writer = Release::Notes::Write.new
+        @date_formatter = Release::Notes::DateFormat.new
       end
 
       def perform
@@ -43,22 +43,31 @@ module Release
       end
 
       # @api private
-      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
+      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD") # rubocop:disable Metrics/MethodLength
         [features, bugs, misc].each_with_index do |regex, i|
-          log = system_call(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: false)
+          log = system_log(
+            tag_from: tag_from,
+            tag_to: tag_to,
+            label: regex,
+            log_all: false,
+          )
           digest_title(title: titles[i], log_message: log) if log.present?
         end
 
         return unless log_all
 
-        log = system_call(tag_from: tag_from, tag_to: tag_to, log_all: true)
+        log = system_log(
+          tag_from: tag_from,
+          tag_to: tag_to,
+          log_all: true,
+        )
         digest_title(title: log_all_title, log_message: log) if log.present?
       end
 
       # @api private
       def find_last_tag_and_log
         last_tag = system_last_tag.delete!("\n")
-        return false unless system_call(tag_from: last_tag, label: all_labels).present?
+        return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
         digest_date date: date_humanized
@@ -66,31 +75,14 @@ module Release
       end
 
       # @api private
-      def setup_writer
-        @writer = Release::Notes::Write.new config
-      end
-
-      # @api private
-      def setup_date_formatter
-        @date_formatter = Release::Notes::DateFormat.new config
-      end
-
-      # @api private
       def find_all_tags_and_log_all
         all_tags.each_with_index do |ta, i|
           previous_tag = all_tags[i + 1]
           next unless previous_tag.present? &&
-                      system_call(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
+                      system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
           digest_date date: date_humanized(date: System.tag_date(tag: ta))
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
-        end
-      end
-
-      # @api private
-      def system_call(**opts)
-        with_config(config: config) do
-          system_log(opts)
         end
       end
 

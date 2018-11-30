@@ -43,15 +43,15 @@ Or install it yourself as:
 $ gem install release-notes
 ```
 
-After you install Release::Notes, if you're using with rails, you can run the generator:
+After you install Release::Notes, generate the intializer file:
 
 ```sh
+# rails
 $ rails generate release:notes:install
+
+# non-rails
+$ bundle exec release:notes:install
 ```
-
-This Release::Notes generator creates an initializer file to allow further configuration.
-
-If you're not in a rails project you can create the file yourself.
 
 ## Configure
 
@@ -89,16 +89,22 @@ For more information about each individual setting checkout Release::Notes's
 
 ### TL;DR
 
-#### Rails
+Install the binstub
 
 ```sh
-bin/rails update_release_notes:run
+$ bundle binstubs release-notes
 ```
 
-#### Non-Rails
+and run
 
 ```sh
-bundle exec rake update_release_notes:run
+$ bin/release-notes
+```
+
+OR, just use the rake task
+
+```sh
+$ bundle exec rake update_release_notes:run
 ```
 
 ### Git Worklow
@@ -125,7 +131,7 @@ If using Rails, a rake task is included and would be best utilized within your d
 If not on rails, but using rake, you can easily craft your own rake task. At the very least calling
 
 ```ruby
-Release::Notes::Update.new.run
+Release::Notes.generate
 ```
 
 is the only instance that needs to be instantiated and invoked.
@@ -144,7 +150,8 @@ namespace :deploy do
   before :starting, :update_release_notes
 
   task :update_release_notes do
-    sh 'bin/rake "update_release_notes:run"'
+    # use the binstub
+    sh 'bin/release-notes"'
     # run a second task that generates an auto commit
     # this would be created by you
     sh 'bin/rake "release_notes:commit"'

@@ -8,18 +8,18 @@ module Release
       extend ActiveSupport::Concern
 
       included do
-        delegate :all_labels, :log_format, :grep_insensitive?, :regex_type, :include_merges?, to: :config
+        delegate :all_labels, :log_format, :grep_insensitive?,
+                 :regex_type, :include_merges?, to: :"Release::Notes.configuration"
 
         def log(**opts)
-          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{opts[:label]}'" \
+          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
+            " --grep='#{opts[:label]}'" \
             " #{regex_type} #{grep_insensitive?}" \
             " #{include_merges?} --format='#{log_format}'"
         end
 
         def invert_log(**opts)
-          "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}' --grep='#{all_labels}'" \
-            " #{regex_type} #{grep_insensitive?} --invert-grep" \
-            " #{include_merges?} --format='#{log_format}'"
+          log(opts) + " --invert-grep"
         end
       end
 

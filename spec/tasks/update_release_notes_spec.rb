@@ -6,7 +6,7 @@ RSpec.describe "update_release_notes:run" do
   include_context "rake"
 
   before do
-    allow_any_instance_of(Release::Notes::Update).to receive(:run) { true }
+    allow(Release::Notes).to receive(:generate) { true }
   end
 
   it "runs gracefully with no subscribers" do
@@ -14,18 +14,18 @@ RSpec.describe "update_release_notes:run" do
   end
 
   it "initalizes a new update" do
-    expect_any_instance_of(Release::Notes::Update).to receive(:run).once
+    expect(Release::Notes).to receive(:generate).once
     subject.invoke
   end
 
   it "runs" do
-    expect(Release::Notes::Update.new.run).to eq true
+    expect(Release::Notes.generate).to eq true
     subject.invoke
   end
 
   it "should ouput text when run" do
-    expect(STDOUT).to receive(:puts).with("generating release notes...")
-    expect(STDOUT).to receive(:puts).with("done!")
+    expect(STDOUT).to receive(:puts).with("=> Generating release notes...")
+    expect(STDOUT).to receive(:puts).with("=> Done!")
     subject.invoke
   end
 end

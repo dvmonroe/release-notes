@@ -6,6 +6,7 @@ AllCops:
     - "Gemfile"
     - "Rakefile"
     - "vendor/**/*"
+    - "exe/*"
 
 Metrics/LineLength:
   Max: 120

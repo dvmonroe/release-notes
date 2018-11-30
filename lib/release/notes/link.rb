@@ -6,7 +6,7 @@ module Release
       extend ActiveSupport::Concern
 
       included do
-        delegate :link_to_labels, :link_to_sites, :link_to_humanize, to: :config
+        delegate :link_to_labels, :link_to_sites, :link_to_humanize, to: :"Release::Notes.configuration"
 
         def link_lines(lines:)
           @new_lines = ""
