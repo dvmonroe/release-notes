@@ -5,6 +5,24 @@ require "spec_helper"
 describe Release::Notes::System do
   let(:klass) { Release::Notes::System }
 
+  describe "#system_log" do
+    it "calls Git.system_log" do
+      expect(Release::Notes::System).to receive(:system_log).and_return("foo")
+      allow(Release::Notes::System).to receive(:`)
+      klass.system_log
+    end
+
+    it "returns the result of the system log" do
+      allow(Release::Notes::System).to receive(:system_log).and_return("foo")
+      expect(klass.system_log).to eq "foo"
+    end
+
+    it "returns the result of the system log" do
+      allow(Release::Notes::System).to receive(:system_log).with(log_all: true).and_return("bar")
+      expect(klass.system_log(log_all: true)).to eq "bar"
+    end
+  end
+
   describe "#all_tags" do
     it "calls Git.read_all_tags" do
       expect(Release::Notes::Git).to receive(:read_all_tags).and_return("foo")
