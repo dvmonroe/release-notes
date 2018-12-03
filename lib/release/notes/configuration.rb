@@ -120,7 +120,7 @@ module Release
       # @return [Boolean]
       attr_accessor :force_rewrite
 
-      def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      def initialize
         @output_file           = "./RELEASE_NOTES.md"
         @temp_file             = "./release-notes.tmp.md"
         @include_merges        = false
