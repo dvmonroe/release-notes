@@ -11,10 +11,17 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
+Metrics/MethodLength:
+  Max: 20
+
 Metrics/BlockLength:
-  Max: 35
+  Max: 40
   Exclude:
     - "./**/spec/**/*"
+
+Metrics/AbcSize:
+  Exclude:
+    - "lib/release/notes/configuration.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
