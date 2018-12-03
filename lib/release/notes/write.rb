@@ -26,7 +26,7 @@ module Release
         @title = title
         @log_message = log_message
 
-        titles = title_present + "#{remove_tags}\n"
+        titles = title_present + format_line
         digest(titles)
       end
 
@@ -59,8 +59,10 @@ module Release
       end
 
       # @api private
-      def remove_tags
-        prettify(line: link_messages) if prettify_messages?
+      def format_line
+        return "#{prettify(line: link_messages)}\n" if prettify_messages?
+
+        link_messages
       end
 
       # @api private

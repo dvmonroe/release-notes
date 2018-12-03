@@ -5,7 +5,7 @@ module Release
     module Link
       extend ActiveSupport::Concern
 
-      included do
+      included do # rubocop:disable Metrics/BlockLength
         delegate :link_to_labels, :link_to_sites, :link_to_humanize, to: :"Release::Notes.configuration"
 
         def link_lines(lines:)
@@ -33,12 +33,22 @@ module Release
           link_to_labels.each_with_index do |label, i|
             next unless line.include? label
 
-            words = line.split(/\s/)
-            words.each do |word|
-              next unless (word =~ /^#.*/)&.zero?
+            replace_lines(line, label, i)
+          end
+        end
 
-              @new_lines += "#{replace(line, word, label, i)}\n"
-            end
+        # @api private
+        def replace_lines(line, label, index)
+          replace_words(line.split(/\s/))
+          @new_lines += "#{replace(line, @word, label, index)}\n" if @word
+        end
+
+        # @api private
+        def replace_words(words)
+          words.each do |word|
+            next unless (word =~ /^#.*/)&.zero?
+
+            @word = word
           end
         end
 
