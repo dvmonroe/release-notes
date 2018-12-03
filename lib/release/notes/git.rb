@@ -17,6 +17,10 @@ module Release
             " #{regex_type} #{grep_insensitive?}" \
             " #{include_merges?} --format='#{log_format}'"
         end
+
+        def invert_log(**opts)
+          log(opts) + " --invert-grep"
+        end
       end
 
       def last_tag
