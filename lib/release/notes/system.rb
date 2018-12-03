@@ -16,6 +16,10 @@ module Release
         end
       end
 
+      def invert_log(**opts)
+        log(opts) + " --invert-grep"
+      end
+
       def all_tags
         `#{Git.read_all_tags}`
       end
