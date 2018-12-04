@@ -8,7 +8,7 @@ module Release
       attr_reader :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :force_rewrite, :all_labels, :log_all, :by_tag_date,
+      delegate :force_rewrite, :all_labels, :log_all, :header_title,
                :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title,
                :release_notes_exist?, to: :"Release::Notes.configuration"
@@ -79,7 +79,7 @@ module Release
         git_all_tags.each_with_index do |ta, i|
           previous_tag = git_all_tags[i + 1]
           next unless previous_tag.present? &&
-          system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
+                      system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
           header_content_all(ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
@@ -88,18 +88,18 @@ module Release
 
       # @api private
       def header_content
-        if by_tag_date
+        if header_title == "date"
           digest_header date: date_humanized
-        else
+        elsif header_title == "tag"
           digest_header tag: tag_to
         end
       end
 
       # @api private
       def header_content_all(tag)
-        if by_tag_date
+        if header_title == "date"
           digest_header header: date_humanized(date: System.tag_date(tag: tag))
-        else
+        elsif header_title == "tag"
           digest_header header: tag
         end
       end

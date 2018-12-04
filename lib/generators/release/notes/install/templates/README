@@ -5,7 +5,7 @@ Next step:
 1. Configure release and tag options :
 
     # config/initializers/release_notes.rb
-    config.by_tag_date = false
+    config.header_title = "tag"
 
 
 *******************************************************************************

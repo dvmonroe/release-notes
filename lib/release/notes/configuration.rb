@@ -40,9 +40,9 @@ module Release
       attr_accessor :log_format
 
       # Controls the headers that will be used for your tags
-      # Defaults to `false`.
-      # @return [Boolean]
-      attr_accessor :by_tag_date
+      # Defaults to `tag`.
+      # @return [String]
+      attr_accessor :header_title
 
       # Controls the labels grepped for in your commit subjects that will
       # be add under you bug title
@@ -132,7 +132,7 @@ module Release
         @ignore_case           = true
         @extended_regex        = true
         @log_format            = "- %s"
-        @by_tag_date           = false
+        @header_title          = "tag"
         @bug_labels            = %w(Fix Update)
         @feature_labels        = %w(Add Create)
         @misc_labels           = %w(Refactor)

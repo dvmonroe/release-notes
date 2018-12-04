@@ -17,7 +17,7 @@ meant for situations where other team members in your organization need to know 
 to the production software. These key changes are determined by the labeling you set forth
 in the configuration for features, bugs and misc commits.
 If you're looking for a comprehnsive changelog that reflects resolved github issues and uses the
-github api, I'd  suggest you look at something else like
+github api, I'd suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
 
 Not looking for a tested gem or prefer the rawness of a bash script? Checkout the similar
@@ -65,6 +65,7 @@ Release::Notes.configure do |config|
   config.ignore_case = true
   config.log_format = '- %s'
   config.extended_regex = true
+  config.header_title = "tag"
   config.bug_labels = %w(Fix Update)
   config.feature_labels = %w(Add Create)
   config.misc_labels = %w(Refactor)
@@ -136,7 +137,7 @@ namespace :deploy do
   task :update_release_notes do
     # use the binstub
     sh 'bin/release-notes"'
-    
+
     # Then check in your release notes with a commit
     sh "git commit -am 'Release to production #{Time.zone.now}'"
     sh "git push origin master"
