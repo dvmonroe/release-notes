@@ -37,13 +37,13 @@ module Release
       # :nocov:
       private
 
-      def all_tags # rubocop:disable Lint/DuplicateMethods
-        @all_tags ||= System.all_tags.split("\n")
+      def git_all_tags
+        @git_all_tags ||= System.all_tags.split("\n")
         # return Error.new(msg: :missing_tags) unless all_tags.present?
       end
 
       # @api private
-      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD") # rubocop:disable Metrics/MethodLength
+      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
         [features, bugs, misc].each_with_index do |regex, i|
           log = system_log(
             tag_from: tag_from,
@@ -76,8 +76,8 @@ module Release
 
       # @api private
       def find_all_tags_and_log_all
-        all_tags.each_with_index do |ta, i|
-          previous_tag = all_tags[i + 1]
+        git_all_tags.each_with_index do |ta, i|
+          previous_tag = git_all_tags[i + 1]
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
