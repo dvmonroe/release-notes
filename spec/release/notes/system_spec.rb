@@ -28,11 +28,12 @@ describe Release::Notes::System do
       end
 
       it "hits the cmd line with the right args" do
-        expect(subject).to receive(:`).with("git log ''..'' --grep='(Fix|Update|Add|Create|Refactor) --invert-grep' -E -i --no-merges --format='- %s'")
+        expect(subject).to receive(:`).
+          with("git log ''..'' --grep='(Fix|Update|Add|Create|Refactor) --invert-grep'" \
+               " -E -i --no-merges --format='- %s'")
         subject.system_log(log_all: true)
       end
     end
-
   end
 
   describe "#all_tags" do

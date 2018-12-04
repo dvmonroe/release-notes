@@ -12,7 +12,10 @@ module Release
 
       included do
         def system_log(**opts)
-          opts.merge!(label: all_labels, invert_grep: " --invert-grep") if opts.delete(:log_all) == true
+          if opts.delete(:log_all) == true
+            opts[:label] = all_labels
+            opts[:invert_grep] = " --invert-grep"
+          end
 
           `#{log(opts)}`
         end
