@@ -37,6 +37,11 @@ Release::Notes.configure do |config|
   # @return [Boolean]
   # config.extended_regex = true
 
+  # Controls the header used in your generated log for all tags
+  # Defaults to `false`.
+  # @return [Boolean]
+  # config.by_tag_date = false
+
   # Allows you to specify what information you want to print from your git log
   # Defaults to `%s` for subject. For more, see
   # [Git Log Docs](https://git-scm.com/docs/git-log)
