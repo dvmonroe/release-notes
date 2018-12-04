@@ -58,9 +58,17 @@ describe Release::Notes::Git do
         end
       end
 
-      context "invert_log" do
-        it "invert log includes invert grep flag" do
-          expect(subject.invert_log(label: config.all_labels)).to include "--invert-grep"
+      describe "log all" do
+        context "invert_grep option is passed" do
+          it "includes invert grep flag" do
+            expect(subject.log(label: config.all_labels, invert_grep: "--invert-grep")).to include "--invert-grep"
+          end
+        end
+
+        context "log_all option is not passed" do
+          it "does not include invert grep flag" do
+            expect(subject.log(label: config.all_labels)).not_to include "--invert-grep"
+          end
         end
       end
     end
