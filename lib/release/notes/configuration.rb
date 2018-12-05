@@ -150,6 +150,11 @@ module Release
       end
 
       # @return [String]
+      def valid_header_title?
+        @header_title.match?(/^[tag|date]+$/) ? @header_title : "tag"
+      end
+
+      # @return [String]
       def include_merges?
         @include_merges ? "" : "--no-merges"
       end

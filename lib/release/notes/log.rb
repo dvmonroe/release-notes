@@ -9,7 +9,7 @@ module Release
       attr_reader :all_tags
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
-               :features, :bugs, :misc, :feature_title,
+               :valid_header_title?, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title,
                :release_notes_exist?, to: :"Release::Notes.configuration"
 
@@ -70,7 +70,7 @@ module Release
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        header_content
+        header_content(date: date_humanized, tag: tag_to)
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -81,29 +81,25 @@ module Release
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
-          header_content_all(ta)
+          header_content(date: date_humanized(date: System.tag_date(tag: ta)), tag: ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
       # @api private
-      def header_content
-        if header_title == "date"
-          digest_header date: date_humanized
-        elsif header_title == "tag"
-          digest_header tag: tag_to
+      def header_content(date = nil, tag = nil)
+        log = Logger.new(STDOUT)
+        log.debug "header_title:" + valid_header_title?
+        log.debug "date:" + date
+        log.debug "tag:" + tag
+        if valid_header_title? == "date"
+          digest_header date: date
+        else
+          digest_header tag: tag
         end
       end
 
       # @api private
-      def header_content_all(tag)
-        if header_title == "date"
-          digest_header header: date_humanized(date: System.tag_date(tag: tag))
-        elsif header_title == "tag"
-          digest_header header: tag
-        end
-      end
-
       def titles
         [feature_title, bug_title, misc_title]
       end
