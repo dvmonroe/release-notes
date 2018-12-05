@@ -80,22 +80,18 @@ module Release
           previous_tag = git_all_tags[i + 1]
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
-
-          header_content(date: date_humanized(date: System.tag_date(tag: ta)), tag: ta)
+          date = date_humanized(date: System.tag_date(tag: ta))
+          header_content(date: date, tag: ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
       # @api private
       def header_content(date = nil, tag = nil)
-        log = Logger.new(STDOUT)
-        log.debug "header_title:" + valid_header_title?
-        log.debug "date:" + date
-        log.debug "tag:" + tag
         if valid_header_title? == "date"
-          digest_header date: date
+          digest_header header: date
         else
-          digest_header tag: tag
+          digest_header header: tag
         end
       end
 
