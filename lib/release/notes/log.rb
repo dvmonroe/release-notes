@@ -80,7 +80,8 @@ module Release
           previous_tag = git_all_tags[i + 1]
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
-          date = date_humanized(date: System.tag_date(tag: ta))
+
+          date = date_humanized(date: System.tag_date(tag: ta)) # Does this need to be assigned to a var?
           header_content(date: date, tag: ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
