@@ -7,7 +7,7 @@
 [![Test Coverage](https://codeclimate.com/github/dvmonroe/release-notes/badges/coverage.svg)](https://codeclimate.com/github/dvmonroe/release-notes/coverage)
 [![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
 
-## Release notes for the stakeholders.
+## Automated release notes based on your project's git log.
 
 Release::Notes is a small wrapper around your project's git log. The gem is
 intended to help increase visability to all team members and/or stakeholders with
