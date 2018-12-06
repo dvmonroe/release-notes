@@ -70,7 +70,7 @@ module Release
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        header_content(date: date_humanized, tag: tag_to)
+        header_content(date_humanized, tag_to)
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -82,17 +82,17 @@ module Release
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
           date = date_humanized(date: System.tag_date(tag: ta)) # Does this need to be assigned to a var?
-          header_content(date: date, tag: ta)
+          header_content(date, ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
       # @api private
-      def header_content(date = nil, tag = nil)
+      def header_content(date, tag)
         if valid_header_title? == "date"
-          digest_header header: date
+          digest_header(date)
         else
-          digest_header header: tag
+          digest_header(tag)
         end
       end
 

@@ -31,7 +31,7 @@ module Release
       end
 
       # formats the headers to be added to the new file
-      def digest_header(header: nil)
+      def digest_header(header)
         @header = header
         digest(header_present)
       end
