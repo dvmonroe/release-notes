@@ -1,3 +1,4 @@
+![Imgur](https://i.imgur.com/vTgHEyJ.png)
 # Release::Notes
 
 [![Build Status](https://travis-ci.org/dvmonroe/release-notes.svg?branch=master)](https://travis-ci.org/dvmonroe/release-notes)
