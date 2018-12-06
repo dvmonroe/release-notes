@@ -19,7 +19,7 @@ meant for situations where other team members in your organization need to know 
 to the production software. These key changes are determined by the labeling you set forth
 in the configuration for features, bugs and misc commits.
 If you're looking for a comprehnsive changelog that reflects resolved github issues and uses the
-github api, I'd  suggest you look at something else like
+github api, I'd suggest you look at something else like
 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
 
 Not looking for a tested gem or prefer the rawness of a bash script? Checkout the similar
@@ -138,7 +138,7 @@ namespace :deploy do
   task :update_release_notes do
     # use the binstub
     sh 'bin/release-notes"'
-    
+
     # Then check in your release notes with a commit
     sh "git commit -am 'Release to production #{Time.zone.now}'"
     sh "git push origin master"
@@ -158,6 +158,7 @@ Useful information can be found here regarding the
 - Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
   will ouput something like: `[HONEYBADGER #33150353](https://app.honeybadger.io/projects/9999/faults/33150353)`.
   This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)
+- We grep the entire commit message when generating the release notes file. If you include keywords in your commit subject and message that match multiple configured labels, that commit will be listed under all relevant label headers, which could lead to commits being listed under more than one label.
 
 ## Development
 
