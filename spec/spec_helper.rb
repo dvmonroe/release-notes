@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "fakefs/spec_helpers"
 require "simplecov"
 require "pry"
 
@@ -18,6 +19,7 @@ def restore_config
 end
 
 RSpec.configure do |config|
+  config.include FakeFS::SpecHelpers
   config.mock_with :rspec do |mocks|
     mocks.syntax = %i(expect should)
   end
