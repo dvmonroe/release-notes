@@ -150,7 +150,7 @@ module Release
       end
 
       # @return [String]
-      def valid_header_title?
+      def header_title_type
         @header_title.match?(/^[tag|date]+$/) ? @header_title : "tag"
       end
 

@@ -9,7 +9,7 @@ module Release
       attr_reader :all_tags
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
-               :valid_header_title?, :features, :bugs, :misc, :feature_title,
+               :header_title_type, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title,
                :release_notes_exist?, to: :"Release::Notes.configuration"
 
@@ -70,7 +70,7 @@ module Release
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        header_content(date_humanized, tag_to)
+        header_content date: date_humanized, tag: tag_to
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -81,19 +81,14 @@ module Release
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
-          date = date_humanized(date: System.tag_date(tag: ta)) # Does this need to be assigned to a var?
-          header_content(date, ta)
+          header_content date: date_humanized(date: System.tag_date(tag: ta)), tag: ta
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
       # @api private
-      def header_content(date, tag)
-        if valid_header_title? == "date"
-          digest_header(date)
-        else
-          digest_header(tag)
-        end
+      def header_content(**date_and_tag)
+        digest_header(date_and_tag[header_title_type.to_sym])
       end
 
       # @api private
