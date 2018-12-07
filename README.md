@@ -67,6 +67,7 @@ Release::Notes.configure do |config|
   config.ignore_case = true
   config.log_format = '- %s'
   config.extended_regex = true
+  config.header_title = "tag"
   config.bug_labels = %w(Fix Update)
   config.feature_labels = %w(Add Create)
   config.misc_labels = %w(Refactor)

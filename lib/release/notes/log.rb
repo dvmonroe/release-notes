@@ -8,13 +8,13 @@ module Release
       attr_reader :writer, :date_formatter
       attr_reader :all_tags
 
-      delegate :force_rewrite, :all_labels, :log_all, :features,
-               :bugs, :misc, :feature_title,
+      delegate :force_rewrite, :all_labels, :log_all, :header_title,
+               :header_title_type, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title,
                :release_notes_exist?, to: :"Release::Notes.configuration"
 
       delegate :date_humanized, :format_tag_date, to: :date_formatter
-      delegate :digest_date, :digest_title, to: :writer
+      delegate :digest_header, :digest_title, to: :writer
 
       def initialize
         @writer = Release::Notes::Write.new
@@ -70,7 +70,7 @@ module Release
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        digest_date date: date_humanized
+        header_content date: date_humanized, tag: tag_to
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -81,11 +81,17 @@ module Release
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
-          digest_date date: date_humanized(date: System.tag_date(tag: ta))
+          header_content date: date_humanized(date: System.tag_date(tag: ta)), tag: ta
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
+      # @api private
+      def header_content(**date_and_tag)
+        digest_header(date_and_tag[header_title_type.to_sym])
+      end
+
+      # @api private
       def titles
         [feature_title, bug_title, misc_title]
       end

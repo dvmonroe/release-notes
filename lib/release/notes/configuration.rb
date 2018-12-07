@@ -39,6 +39,11 @@ module Release
       # @return [String]
       attr_accessor :log_format
 
+      # Controls the headers that will be used for your tags
+      # Defaults to `tag`.
+      # @return [String]
+      attr_accessor :header_title
+
       # Controls the labels grepped for in your commit subjects that will
       # be add under you bug title
       # Defaults to `%w(Fix Update)`.
@@ -127,6 +132,7 @@ module Release
         @ignore_case           = true
         @extended_regex        = true
         @log_format            = "- %s"
+        @header_title          = "tag"
         @bug_labels            = %w(Fix Update)
         @feature_labels        = %w(Add Create)
         @misc_labels           = %w(Refactor)
@@ -141,6 +147,11 @@ module Release
         @timezone              = "America/New_York"
         @prettify_messages     = true
         @force_rewrite         = false
+      end
+
+      # @return [String]
+      def header_title_type
+        @header_title.match?(/^[tag|date]+$/) ? @header_title : "tag"
       end
 
       # @return [String]

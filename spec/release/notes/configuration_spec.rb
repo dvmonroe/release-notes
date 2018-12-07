@@ -11,6 +11,29 @@ describe Release::Notes::Configuration do
     end
   end
 
+  describe "#header_title_type" do
+    context "when header_title is configured to tag" do
+      it "returns tag" do
+        Release::Notes.configure { |config| config.header_title = "tag" }
+        expect(Release::Notes.configuration.header_title_type).to eq "tag"
+      end
+    end
+
+    context "when header_title is configured to date" do
+      it "returns date" do
+        Release::Notes.configure { |config| config.header_title = "date" }
+        expect(Release::Notes.configuration.header_title_type).to eq "date"
+      end
+    end
+
+    context "when header_title is configured incorrectly" do
+      it "returns tag" do
+        Release::Notes.configure { |config| config.header_title = "random" }
+        expect(Release::Notes.configuration.header_title_type).to eq "tag"
+      end
+    end
+  end
+
   describe "#include_merges?" do
     context "when include_merges is configured to true" do
       it "returns an empty string" do

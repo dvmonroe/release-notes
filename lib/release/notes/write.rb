@@ -30,10 +30,10 @@ module Release
         digest(titles)
       end
 
-      # formats dates to be added to the new file
-      def digest_date(date: nil)
-        @date = date
-        digest(date_present)
+      # formats the headers to be added to the new file
+      def digest_header(header)
+        @header = header
+        digest(header_present)
       end
 
       # append old file to new temp file
@@ -49,8 +49,8 @@ module Release
       private
 
       # @api private
-      def date_present
-        "\n## #{@date}\n"
+      def header_present
+        "\n## #{@header}\n"
       end
 
       # @api private
