@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "pathname"
+require "fileutils"
+require "active_support/core_ext/string"
+require "release/notes"
+
+# path to your application root.
+APP_ROOT = Pathname.new File.expand_path("..", __dir__)
+MASTER_CHECK = <<~MASTER_CHECK
+  if [ $(git symbolic-ref --short -q HEAD) != 'master' ];
+    then exit 1;
+  fi
+MASTER_CHECK
+VERSION_TYPES = %w(major minor patch).freeze
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+abort("\n== Version Type incorrect ==") unless VERSION_TYPES.include?(ARGV[0])
+
+abort("\n== Not on master") unless system(MASTER_CHECK)
+
+current_version = File.read(File.expand_path("lib/release/notes/version.rb", __dir__)).split(".").map(&:to_i)
+
+case ARGV[0]
+when "major"
+  current_version[0] += 1
+  current_version[1] = 0
+  current_version[2] = 0
+when "minor"
+  current_version[1] += 1
+  current_version[2] = 0
+when "patch"
+  current_version[2] += 1
+end
+
+FileUtils.chdir APP_ROOT do
+  contents = <<~FILE
+    #{current_version.join('.')}
+  FILE
+
+  puts "== Updating version to #{current_version.join('.')} =="
+  File.write("RELEASE_NOTES_VERSION", contents)
+
+  puts "== Release Notes =="
+  system! "bundle binstubs release-notes"
+  system! "bin/release-notes"
+
+end

@@ -7,9 +7,10 @@ Release::Notes.configure do |config|
   config.ignore_case = true
   config.log_format = "- %s"
   config.extended_regex = true
-  config.bug_labels = %w(Fix ;B)
-  config.feature_labels = %w(Add Create ;F Refactor Update)
-  config.misc_labels = %w(;M)
+  config.header_title = "tag"
+  config.bug_labels = %w(Fix Remove)
+  config.feature_labels = %w(Add Create Refactor Update Ammend)
+  config.misc_labels = %w(Bump Utilize)
   config.bug_title = "**Fixed bugs:**"
   config.feature_title = "**Implemented enhancements:**"
   config.misc_title = "**Miscellaneous:**"
