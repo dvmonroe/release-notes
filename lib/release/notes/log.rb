@@ -5,7 +5,7 @@ module Release
     class Log
       include System
 
-      attr_reader :writer, :date_formatter
+      attr_reader :writer, :date_formatter, :log_messages
       attr_reader :all_tags
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
@@ -19,6 +19,7 @@ module Release
       def initialize
         @writer = Release::Notes::Write.new
         @date_formatter = Release::Notes::DateFormat.new
+        @log_messages = []
       end
 
       def perform
@@ -51,8 +52,10 @@ module Release
             label: regex,
             log_all: false,
           )
-          digest_title(title: titles[i], log_message: log) if log.present?
+          log_messages << [titles[i], log.split("\n")] if log.present?
         end
+
+        send_to_writer
 
         return unless log_all
 
@@ -62,6 +65,14 @@ module Release
           log_all: true,
         )
         digest_title(title: log_all_title, log_message: log) if log.present?
+      end
+
+      def send_to_writer
+        logger = Logger.new(STDOUT)
+        logger.debug(log_messages)
+        log_message.each do |title, messages|
+          digest_title(title: titles[i], log_message: log) if log.present?
+        end
       end
 
       # @api private
