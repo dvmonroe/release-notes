@@ -55,7 +55,10 @@ module Release
           log_messages[titles[i].to_sym] = log.split("\n").reject(&:blank?) if log.present?
         end
 
-        send_to_writer && return unless log_all
+        unless log_all
+          send_to_writer
+          return
+        end
 
         log = system_log(
           tag_from: tag_from,
