@@ -5,8 +5,7 @@ module Release
     class Log
       include System
 
-      attr_reader :writer, :date_formatter, :log_messages
-      attr_reader :all_tags
+      attr_reader :writer, :date_formatter, :all_tags, :log_messages
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
                :header_title_type, :features, :bugs, :misc, :feature_title,
@@ -19,7 +18,7 @@ module Release
       def initialize
         @writer = Release::Notes::Write.new
         @date_formatter = Release::Notes::DateFormat.new
-        @log_messages = []
+        @log_messages = Hash.new
       end
 
       def perform
@@ -52,27 +51,29 @@ module Release
             label: regex,
             log_all: false,
           )
-          log_messages << [titles[i], log.split("\n")] if log.present?
+          # digest_title(title: titles[i], log_message: log) if log.present?
+          log_messages[titles[i].to_sym] = log.split("\n").reject(&:blank?) if log.present?
         end
 
-        send_to_writer
-
-        return unless log_all
+        send_to_writer && return unless log_all
 
         log = system_log(
           tag_from: tag_from,
           tag_to: tag_to,
           log_all: true,
         )
-        digest_title(title: log_all_title, log_message: log) if log.present?
+        log_messages[log_all_title] = log.split("\n").reject(&:blank?) if log.present?
+        # digest_title(title: log_all_title, log_message: log) if log.present?
+        send_to_writer
       end
 
       def send_to_writer
         logger = Logger.new(STDOUT)
+        logger.debug(log_messages.keys)
         logger.debug(log_messages)
-        log_message.each do |title, messages|
-          digest_title(title: titles[i], log_message: log) if log.present?
-        end
+        # log_messages.keys.each do |x|
+        #   logger.debug(log_messages[x])
+        # end
       end
 
       # @api private
@@ -81,7 +82,7 @@ module Release
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
-        header_content date: date_humanized, tag: tag_to
+        header_content(date: date_humanized, tag: tag_to)
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -92,14 +93,18 @@ module Release
           next unless previous_tag.present? &&
                       system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
 
-          header_content date: date_humanized(date: System.tag_date(tag: ta)), tag: ta
+          header_content(date: date_humanized(date: System.tag_date(tag: ta)), tag: ta)
           copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
         end
       end
 
       # @api private
-      def header_content(**date_and_tag)
-        digest_header(date_and_tag[header_title_type.to_sym])
+      def header_content(date = nil, tag = nil)
+        if valid_header_title? == "date"
+          digest_header(date)
+        else
+          digest_header(tag)
+        end
       end
 
       # @api private
