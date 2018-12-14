@@ -15,7 +15,7 @@ module Release
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
             " --grep='#{opts[:label]}#{opts[:invert_grep]}'" \
             " #{regex_type} #{grep_insensitive?}" \
-            " #{include_merges?} --format='#{log_format}'"
+            " #{include_merges?} --format='%h #{log_format}'"
         end
       end
 

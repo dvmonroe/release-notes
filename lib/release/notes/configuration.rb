@@ -125,6 +125,13 @@ module Release
       # @return [Boolean]
       attr_accessor :force_rewrite
 
+      # If a commit message contains words that match more than
+      # one group of labels as defined in your configuration, the output
+      # will only contain the commit once.
+      # Defaults to `true`.
+      # @return [Boolean]
+      attr_accessor :single_label
+
       def initialize
         @output_file           = "./RELEASE_NOTES.md"
         @temp_file             = "./release-notes.tmp.md"
@@ -147,6 +154,7 @@ module Release
         @timezone              = "America/New_York"
         @prettify_messages     = false
         @force_rewrite         = false
+        @single_label          = true
       end
 
       # @return [String]

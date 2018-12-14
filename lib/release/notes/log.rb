@@ -9,7 +9,7 @@ module Release
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
                :header_title_type, :features, :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :log_all_title,
+               :bug_title, :misc_title, :log_all_title, :single_label,
                :release_notes_exist?, to: :"Release::Notes.configuration"
 
       delegate :date_humanized, :format_tag_date, to: :date_formatter
@@ -18,6 +18,8 @@ module Release
       def initialize
         @writer = Release::Notes::Write.new
         @date_formatter = Release::Notes::DateFormat.new
+
+        @_commits = []
       end
 
       def perform
@@ -43,8 +45,15 @@ module Release
             tag_to: tag_to,
             label: regex,
             log_all: false,
-          )
-          digest_title(title: titles[i], log_message: log) if log.present?
+          ).split(/(?=-)/)
+
+          commit_hash = log[0]
+
+          next unless log.present?
+          next if @_commits.include?(commit_hash) && single_label
+
+          @_commits << commit_hash
+          digest_title(title: titles[i], log_message: log[1])
         end
 
         return unless log_all

@@ -57,6 +57,28 @@ describe Release::Notes do
 
           - Fix me
         FILE
+
+        expect(content).to eq(file)
+      end
+    end
+
+    it "the file does not duplicate commits if it matches multuple labels" do
+      within_spec_integration do
+        2.times { git_commit("Fix me\n\n Add Me") } && git_tag(1)
+        Release::Notes.generate
+
+        content = read_file
+
+        file = <<~FILE
+          # Release Notes
+
+          ## v0.1.0
+
+          **Implemented enhancements:**
+
+          - Fix me
+        FILE
+
         expect(content).to eq(file)
       end
     end
