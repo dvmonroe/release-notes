@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require "shared_contexts/rake"
 
 RSpec.describe "update_release_notes:run" do
   include_context "rake"

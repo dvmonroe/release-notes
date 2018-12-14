@@ -10,7 +10,9 @@ end
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "release/notes"
 
-::Dir.glob(::File.expand_path("../support/**/*.rb", __FILE__)).each { |f| require_relative f }
+unless $LOAD_PATH.include?(File.expand_path("support", __dir__))
+  $LOAD_PATH.unshift(File.expand_path("support", __dir__))
+end
 
 def restore_config
   Release::Notes.configuration = nil
