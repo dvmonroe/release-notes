@@ -33,7 +33,6 @@ module Release
         writer.write_new_file
       end
 
-      # :nocov:
       private
 
       # @api private
@@ -101,7 +100,6 @@ module Release
       def titles
         [feature_title, bug_title, misc_title]
       end
-      # :nocov:
     end
   end
 end

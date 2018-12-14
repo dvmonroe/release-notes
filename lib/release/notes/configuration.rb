@@ -205,7 +205,6 @@ module Release
         @prettify_messages
       end
 
-      # :nocov:
       private
 
       # @api private
@@ -236,6 +235,5 @@ module Release
     def self.configure
       yield configuration
     end
-    # :nocov:
   end
 end

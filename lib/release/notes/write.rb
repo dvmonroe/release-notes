@@ -45,7 +45,6 @@ module Release
         FileUtils.rm temp_file
       end
 
-      # :nocov:
       private
 
       # @api private
@@ -91,7 +90,6 @@ module Release
           fi << "# Release Notes\n"
         end
       end
-      # :nocov:
     end
   end
 end

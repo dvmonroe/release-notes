@@ -13,14 +13,12 @@ module Release
         end
       end
 
-      # :nocov:
       private
 
       # @api private
       def labels_regex
         Regexp.new all_labels, Regexp::IGNORECASE
       end
-      # :nocov:
     end
   end
 end
