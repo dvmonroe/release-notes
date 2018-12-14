@@ -87,7 +87,7 @@ describe Release::Notes do
   describe "default configuration for file that already exists" do
     it "adds new commits" do
       within_spec_integration do
-        git_commit("Initial commit") 
+        git_commit("Initial commit")
         git_commit("Fix me")
         git_tag(1)
 
