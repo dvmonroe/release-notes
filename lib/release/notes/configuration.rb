@@ -116,7 +116,7 @@ module Release
 
       # Controls whether your commit subject labels should be removed from the final
       # ouput of your message on the generated log.
-      # Defaults to `true`.
+      # Defaults to `false`.
       # @return [Boolean]
       attr_accessor :prettify_messages
 
@@ -145,7 +145,7 @@ module Release
         @link_to_humanize      = %w()
         @link_to_sites         = %w()
         @timezone              = "America/New_York"
-        @prettify_messages     = true
+        @prettify_messages     = false
         @force_rewrite         = false
       end
 

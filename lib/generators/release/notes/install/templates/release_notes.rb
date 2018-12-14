@@ -115,9 +115,9 @@ Release::Notes.configure do |config|
 
   # Controls whether your commit subject labels should be removed from the final
   # ouput of your message on the generated log.
-  # Defaults to `true`.
+  # Defaults to `false`.
   # @return [Boolean]
-  # config.prettify_messages = true
+  # config.prettify_messages = false
 
   # Controls whether to rewrite the output file or append to it.
   # Defaults to `false`.

@@ -224,8 +224,8 @@ describe Release::Notes::Configuration do
     end
 
     context "when prettify_messages has not been configured" do
-      it "returns defaulted true" do
-        expect(Release::Notes.configuration.prettify_messages?).to eq true
+      it "defaults to false" do
+        expect(Release::Notes.configuration.prettify_messages?).to eq false
       end
     end
   end
