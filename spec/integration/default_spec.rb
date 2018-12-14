@@ -83,4 +83,41 @@ describe Release::Notes do
       end
     end
   end
+
+  describe "default configuration for file that already exists" do
+    it "adds new commits" do
+      within_spec_integration do
+        git_commit("Initial commit") 
+        git_commit("Fix me")
+        git_tag(1)
+
+        Release::Notes.generate
+
+        git_commit("Refactor a bunch")
+        git_tag(2)
+
+        Release::Notes.generate
+
+        content = read_file
+
+        file = <<~FILE
+          # Release Notes
+
+          ## v0.2.0
+
+          **Miscellaneous:**
+
+          - Refactor a bunch
+
+          ## v0.1.0
+
+          **Fixed bugs:**
+
+          - Fix me
+        FILE
+
+        expect(content).to eq(file)
+      end
+    end
+  end
 end
