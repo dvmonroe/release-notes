@@ -42,6 +42,7 @@ module Release
         log_single_commit(title: log_all_title, tag_from: tag_from, tag_to: tag_to)
       end
 
+      # @api private
       def date_formatter
         @date_formatter ||= Release::Notes::DateFormat.new
       end
@@ -81,6 +82,7 @@ module Release
         digest_header(date_and_tag[header_title_type.to_sym])
       end
 
+      # @api private
       def log_single_commit(tag_from:, tag_to:, title:, regex: nil, log_all: false)
         log = system_log(
           tag_from: tag_from,
@@ -107,6 +109,7 @@ module Release
         [feature_title, bug_title, misc_title]
       end
 
+      # @api private
       def writer
         @writer ||= Release::Notes::Write.new
       end
