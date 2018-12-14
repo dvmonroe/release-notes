@@ -34,12 +34,12 @@ module Release
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
         [features, bugs, misc].each_with_index do |regex, i|
-          log_single_commit(regex: regex, title: titles[i], tag_from: tag_from, tag_to: tag_to)
+          find_commits(regex: regex, title: titles[i], tag_from: tag_from, tag_to: tag_to)
         end
 
         return unless log_all
 
-        log_single_commit(title: log_all_title, tag_from: tag_from, tag_to: tag_to)
+        find_commits(title: log_all_title, tag_from: tag_from, tag_to: tag_to)
       end
 
       # @api private
@@ -92,22 +92,35 @@ module Release
       end
 
       # @api private
-      def log_single_commit(tag_from:, tag_to:, title:, regex: nil, log_all: false)
+      def find_commits(tag_from:, tag_to:, title:, regex: nil, log_all: false)
         log = system_log(
           tag_from: tag_from,
           tag_to: tag_to,
           label: regex,
           log_all: log_all,
-        ).split(/(?=-)/)
-
-        commit_hash = log[0]
+        )
 
         return unless log.present?
-        return if single_label && @_commits.include?(commit_hash)
 
-        @_commits << commit_hash
-        digest_title(title: title, log_message: log[1])
+        log_messages = log.split("\n").map { |x| x.split(/(?=-)/) }
+        commit_hashes = log_messages.flat_map { |msg| msg[0].strip }
+
+        commit_hashes.dup.each do |commit|
+          commit_hashes.delete commit if single_label && @_commits.include?(commit)
+        end
+
+        return unless commit_hashes.present?
+
+        messages = log_messages.map do |msg|
+          msg[1..-1].join if commit_hashes.include?(msg[0].strip)
+        end
+
+        @_commits += commit_hashes
+
+        digest_title(title: title, log_message: "#{messages.join("\n")}\n")
       end
+
+      def log_grouped_commits(commit:, title:); end
 
       def previous_tag(index)
         git_all_tags[index + 1].present? ? git_all_tags[index + 1] : System.first_commit

@@ -120,4 +120,71 @@ describe Release::Notes do
       end
     end
   end
+
+  describe "commit message contains `-` " do
+    it "does not mess up formatting" do
+      within_spec_integration do
+        2.times { git_commit("Fix me - and more - this is more") } && git_tag(1)
+        Release::Notes.generate
+
+        content = read_file
+
+        file = <<~FILE
+          # Release Notes
+
+          ## v0.1.0
+
+          **Fixed bugs:**
+
+          - Fix me - and more - this is more
+        FILE
+
+        expect(content).to eq(file)
+      end
+    end
+  end
+
+  describe "multiple commit messages for a single tag" do
+    it "does not duplicate the headers" do
+      within_spec_integration do
+        (1..4).each { |v| 2.times { git_commit("Add me") } && git_tag(v) }
+        Release::Notes.generate
+
+        content = read_file
+
+        file = <<~FILE
+          # Release Notes
+
+          ## v0.4.0
+
+          **Implemented enhancements:**
+
+          - Add me
+          - Add me
+
+          ## v0.3.0
+
+          **Implemented enhancements:**
+
+          - Add me
+          - Add me
+
+          ## v0.2.0
+
+          **Implemented enhancements:**
+
+          - Add me
+          - Add me
+
+          ## v0.1.0
+
+          **Implemented enhancements:**
+
+          - Add me
+        FILE
+
+        expect(content).to eq(file)
+      end
+    end
+  end
 end
