@@ -50,8 +50,11 @@ module Release
       # @api private
       def find_last_tag_and_log
         last_tag = system_last_tag.strip
-        return false unless system_log(tag_from: last_tag, label: all_labels).present?
-
+        # return false unless system_log(tag_from: last_tag, label: all_labels).present?
+        if system_log(tag_from: last_tag, label: all_labels).blank?
+          log_last
+          return
+        end
         # output the date right now
         header_content date: date_humanized, tag: tag_to
         copy_single_tag_of_activity(tag_from: last_tag)
@@ -70,6 +73,12 @@ module Release
             tag_to: ta,
           )
         end
+      end
+
+      # @api private
+      def log_last
+        header_content date: date_humanized, tag: git_all_tags[0]
+        copy_single_tag_of_activity(tag_from: git_all_tags[1], tag_to: git_all_tags[0])
       end
 
       # @api private
