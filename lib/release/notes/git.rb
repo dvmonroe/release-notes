@@ -28,7 +28,7 @@ module Release
       end
 
       def read_all_tags
-        "git tags | sort -u -r"
+        "git tag | sort -u -r"
       end
     end
   end

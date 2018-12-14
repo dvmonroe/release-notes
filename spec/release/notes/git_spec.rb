@@ -88,7 +88,7 @@ describe Release::Notes::Git do
 
   describe "#read_all_tags" do
     it "returns command to get all tags" do
-      expect(Release::Notes::Git.read_all_tags).to eq "git tags | sort -u -r"
+      expect(Release::Notes::Git.read_all_tags).to eq "git tag | sort -u -r"
     end
   end
 end
