@@ -6,7 +6,6 @@ module Release
       include System
 
       attr_reader :writer, :date_formatter
-      attr_reader :all_tags
 
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
                :header_title_type, :features, :bugs, :misc, :feature_title,
@@ -77,12 +76,10 @@ module Release
       # @api private
       def find_all_tags_and_log_all
         git_all_tags.each_with_index do |ta, i|
-          previous_tag = git_all_tags[i + 1]
-          next unless previous_tag.present? &&
-                      system_log(tag_from: previous_tag, tag_to: ta, label: all_labels).present?
+          previous_tag = git_all_tags[i + 1].present? ? git_all_tags[i + 1] : System.first_commit
 
           header_content date: date_humanized(date: System.tag_date(tag: ta)), tag: ta
-          copy_single_tag_of_activity(tag_from: previous_tag, tag_to: ta)
+          copy_single_tag_of_activity(tag_from: previous_tag.strip, tag_to: ta)
         end
       end
 

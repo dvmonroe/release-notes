@@ -19,6 +19,10 @@ module Release
         end
       end
 
+      def first_commit
+        "git rev-list --max-parents=0 HEAD"
+      end
+
       def last_tag
         "git describe --abbrev=0 --tags"
       end

@@ -21,6 +21,10 @@ module Release
         end
       end
 
+      def first_commit
+        `#{Git.first_commit}`
+      end
+
       def all_tags
         `#{Git.read_all_tags}`
       end
