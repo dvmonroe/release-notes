@@ -60,7 +60,7 @@ module Release
 
       # @api private
       def find_last_tag_and_log
-        last_tag = system_last_tag.delete!("\n")
+        last_tag = system_last_tag.strip
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
