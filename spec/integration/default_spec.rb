@@ -17,7 +17,7 @@ describe Release::Notes do
     end
   end
 
-  describe "default configuration for with nonexistent file" do
+  describe "default configuration for nonexistent file" do
     it "the file is created" do
       within_spec_integration do
         (1..2).each { |v| git_commit(messages.sample) && git_tag(v) }
@@ -38,6 +38,26 @@ describe Release::Notes do
         expect(content).to include("## v0.3.0")
         expect(content).to include("## v0.2.0")
         expect(content).to include("## v0.1.0")
+      end
+    end
+
+    it "the file contains the right commit under the right tag" do
+      within_spec_integration do
+        2.times { git_commit("Fix me") } && git_tag(1)
+        Release::Notes.generate
+
+        content = read_file
+
+        file = <<~FILE
+          # Release Notes
+
+          ## v0.1.0
+
+          **Fixed bugs:**
+
+          - Fix me
+        FILE
+        expect(content).to eq(file)
       end
     end
   end
