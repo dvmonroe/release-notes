@@ -92,7 +92,7 @@ module Release
         commit_hash = log[0]
 
         return unless log.present?
-        return if @_commits.include?(commit_hash) && single_label
+        return if single_label && @_commits.include?(commit_hash)
 
         @_commits << commit_hash
         digest_title(title: title, log_message: log[1])
