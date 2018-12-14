@@ -4,9 +4,6 @@ module Release
   module Notes
     class Log
       include System
-
-      attr_reader :writer, :date_formatter
-
       delegate :force_rewrite, :all_labels, :log_all, :header_title,
                :header_title_type, :features, :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title, :single_label,
@@ -16,9 +13,6 @@ module Release
       delegate :digest_header, :digest_title, to: :writer
 
       def initialize
-        @writer = Release::Notes::Write.new
-        @date_formatter = Release::Notes::DateFormat.new
-
         @_commits = []
       end
 
@@ -40,30 +34,16 @@ module Release
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
         [features, bugs, misc].each_with_index do |regex, i|
-          log = system_log(
-            tag_from: tag_from,
-            tag_to: tag_to,
-            label: regex,
-            log_all: false,
-          ).split(/(?=-)/)
-
-          commit_hash = log[0]
-
-          next unless log.present?
-          next if @_commits.include?(commit_hash) && single_label
-
-          @_commits << commit_hash
-          digest_title(title: titles[i], log_message: log[1])
+          log_single_commit(regex: regex, title: titles[i], tag_from: tag_from, tag_to: tag_to)
         end
 
         return unless log_all
 
-        log = system_log(
-          tag_from: tag_from,
-          tag_to: tag_to,
-          log_all: true,
-        )
-        digest_title(title: log_all_title, log_message: log) if log.present?
+        log_single_commit(title: log_all_title, tag_from: tag_from, tag_to: tag_to)
+      end
+
+      def date_formatter
+        @date_formatter ||= Release::Notes::DateFormat.new
       end
 
       # @api private
@@ -101,6 +81,23 @@ module Release
         digest_header(date_and_tag[header_title_type.to_sym])
       end
 
+      def log_single_commit(tag_from:, tag_to:, title:, regex: nil, log_all: false)
+        log = system_log(
+          tag_from: tag_from,
+          tag_to: tag_to,
+          label: regex,
+          log_all: log_all,
+        ).split(/(?=-)/)
+
+        commit_hash = log[0]
+
+        return unless log.present?
+        return if @_commits.include?(commit_hash) && single_label
+
+        @_commits << commit_hash
+        digest_title(title: title, log_message: log[1])
+      end
+
       def previous_tag(index)
         git_all_tags[index + 1].present? ? git_all_tags[index + 1] : System.first_commit
       end
@@ -108,6 +105,10 @@ module Release
       # @api private
       def titles
         [feature_title, bug_title, misc_title]
+      end
+
+      def writer
+        @writer ||= Release::Notes::Write.new
       end
     end
   end
