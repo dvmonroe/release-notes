@@ -37,16 +37,23 @@ when "patch"
   current_version[2] += 1
 end
 
-FileUtils.chdir APP_ROOT do
-  contents = <<~FILE
-    #{current_version.join('.')}
-  FILE
+puts "== Adding Changed Files =="
+system! "git add ."
 
-  puts "== Updating version to #{current_version.join('.')} =="
-  File.write("RELEASE_NOTES_VERSION", contents)
+puts "== Committing updated files =="
+system! "git commit -m 'Version bump to #{current_version.join('.')}'"
 
-  puts "== Release Notes =="
-  system! "bundle binstubs release-notes"
-  system! "bin/release-notes"
+puts "== Tagging release =="
+system! "gem_push=no bundle exec rake release"
 
-end
+puts "== Release Notes =="
+system! "exe/release-notes"
+
+puts "== Adding updated RELEASE_NOTES =="
+system! "git add RELEASE_NOTES.md"
+
+puts "== Committing updated files =="
+system! "git commit -m 'Modify RELEASE_NOTES.md'"
+
+puts "== Pushing updated files =="
+system! "git push origin master"
