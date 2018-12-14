@@ -82,6 +82,7 @@ Release::Notes.configure do |config|
   config.timezone = 'America/New_York'
   config.prettify_messages = false
   config.force_rewrite = false
+  config.single_label = true
 end
 ```
 

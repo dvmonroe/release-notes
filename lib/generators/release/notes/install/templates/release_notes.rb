@@ -123,4 +123,11 @@ Release::Notes.configure do |config|
   # Defaults to `false`.
   # @return [Boolean]
   # config.force_rewrite = false
+
+  # If a commit message contains words that match more than
+  # one group of labels as defined in your configuration, the output
+  # will only contain the commit once.
+  # Defaults to `true`.
+  # @return [Boolean]
+  # attr_accessor :single_label
 end

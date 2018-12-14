@@ -13,6 +13,8 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 21
+  Exclude:
+    - "lib/release/notes/configuration.rb"
 
 Metrics/BlockLength:
   Max: 40
