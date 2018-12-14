@@ -13,6 +13,7 @@ describe Release::Notes do
   after do
     within_spec_integration do
       `rm #{Release::Notes.configuration.output_file}`
+      `rm -rf .git`
     end
   end
 
@@ -36,6 +37,7 @@ describe Release::Notes do
         expect(content).to include("## v0.4.0")
         expect(content).to include("## v0.3.0")
         expect(content).to include("## v0.2.0")
+        expect(content).to include("## v0.1.0")
       end
     end
   end
