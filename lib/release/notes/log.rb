@@ -36,11 +36,6 @@ module Release
       # :nocov:
       private
 
-      def git_all_tags
-        @git_all_tags ||= System.all_tags.split("\n")
-        # return Error.new(msg: :missing_tags) unless all_tags.present?
-      end
-
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
         [features, bugs, misc].each_with_index do |regex, i|
@@ -65,7 +60,7 @@ module Release
 
       # @api private
       def find_last_tag_and_log
-        last_tag = system_last_tag.delete!("\n")
+        last_tag = system_last_tag.strip
         return false unless system_log(tag_from: last_tag, label: all_labels).present?
 
         # output the date right now
@@ -76,16 +71,30 @@ module Release
       # @api private
       def find_all_tags_and_log_all
         git_all_tags.each_with_index do |ta, i|
-          previous_tag = git_all_tags[i + 1].present? ? git_all_tags[i + 1] : System.first_commit
+          header_content(
+            date: date_humanized(date: System.tag_date(tag: ta)),
+            tag: ta,
+          )
 
-          header_content date: date_humanized(date: System.tag_date(tag: ta)), tag: ta
-          copy_single_tag_of_activity(tag_from: previous_tag.strip, tag_to: ta)
+          copy_single_tag_of_activity(
+            tag_from: previous_tag(i).strip,
+            tag_to: ta,
+          )
         end
+      end
+
+      # @api private
+      def git_all_tags
+        @git_all_tags ||= System.all_tags.split("\n")
       end
 
       # @api private
       def header_content(**date_and_tag)
         digest_header(date_and_tag[header_title_type.to_sym])
+      end
+
+      def previous_tag(index)
+        git_all_tags[index + 1].present? ? git_all_tags[index + 1] : System.first_commit
       end
 
       # @api private
