@@ -34,12 +34,14 @@ module Release
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
         [features, bugs, misc].each_with_index do |regex, i|
-          find_commits(regex: regex, title: titles[i], tag_from: tag_from, tag_to: tag_to)
+          log = system_log(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: log_all)
+          log_grouped_commits(title: titles[i], log: log)
         end
 
         return unless log_all
 
-        find_commits(title: log_all_title, tag_from: tag_from, tag_to: tag_to)
+        log = system_log(tag_from: tag_from, tag_to: tag_to)
+        log_grouped_commits(title: log_all_title, log: log)
       end
 
       # @api private
@@ -91,15 +93,7 @@ module Release
         digest_header(date_and_tag[header_title_type.to_sym])
       end
 
-      # @api private
-      def find_commits(tag_from:, tag_to:, title:, regex: nil, log_all: false)
-        log = system_log(
-          tag_from: tag_from,
-          tag_to: tag_to,
-          label: regex,
-          log_all: log_all,
-        )
-
+      def log_grouped_commits(log:, title:) # rubocop:disable Metrics/AbcSize
         return unless log.present?
 
         log_messages = log.split("\n").map { |x| x.split(/(?=-)/) }
@@ -119,8 +113,6 @@ module Release
 
         digest_title(title: title, log_message: "#{messages.join("\n")}\n")
       end
-
-      def log_grouped_commits(commit:, title:); end
 
       def previous_tag(index)
         git_all_tags[index + 1].present? ? git_all_tags[index + 1] : System.first_commit
