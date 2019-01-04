@@ -3,7 +3,7 @@
 # Release::Notes
 
 [![Gem Version](https://badge.fury.io/rb/release-notes.svg)](https://badge.fury.io/rb/release-notes)
-[![Documentation](http://img.shields.io/badge/rdoc-release_notes-blue.svg)](https://www.rubydoc.info/gems/release-notes)
+[![Documentation](http://img.shields.io/badge/rdoc-Release::Notes-blue.svg)](https://www.rubydoc.info/gems/release-notes)
 [![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
 
 [![Build Status](https://travis-ci.org/dvmonroe/release-notes.svg?branch=master)](https://travis-ci.org/dvmonroe/release-notes)
