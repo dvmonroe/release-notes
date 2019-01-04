@@ -107,7 +107,7 @@ module Release
 
         messages = log_messages.map do |msg|
           msg[1..-1].join if commit_hashes.include?(msg[0].strip)
-        end
+        end.compact
 
         @_commits += commit_hashes
 
