@@ -162,7 +162,6 @@ Useful information can be found here regarding the
 - Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
   will ouput something like: `[HONEYBADGER #33150353](https://app.honeybadger.io/projects/9999/faults/33150353)`.
   This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)
-- We grep the entire commit message when generating the release notes file. If you include keywords in your commit subject and message that match multiple configured labels, that commit will be listed under all relevant label headers, which could lead to commits being listed under more than one label.
 
 ## Development
 
