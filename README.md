@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/dvmonroe/release-notes/badges/gpa.svg)](https://codeclimate.com/github/dvmonroe/release-notes)
 [![Test Coverage](https://codeclimate.com/github/dvmonroe/release-notes/badges/coverage.svg)](https://codeclimate.com/github/dvmonroe/release-notes/coverage)
 [![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](https://www.rubydoc.info/gems/release-notes)
+[![Documentation](http://img.shields.io/badge/rubydoc-rdoc-blue.svg)](https://www.rubydoc.info/gems/release-notes)
 
 ## Automated release notes based on your project's git log.
 
