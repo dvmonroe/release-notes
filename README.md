@@ -68,7 +68,6 @@ Release::Notes.configure do |config|
   config.temp_file = './release-notes.tmp.md'
   config.include_merges = false
   config.ignore_case = true
-  config.log_format = '- %s'
   config.extended_regex = true
   config.header_title = "tag"
   config.bug_labels = %w(Fix Update)

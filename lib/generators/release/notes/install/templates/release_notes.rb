@@ -24,12 +24,6 @@ Release::Notes.configure do |config|
   # @return [Boolean]
   # config.ignore_case = true
 
-  # Allows you to specify what information you want to print from your git log
-  # Defaults to `%s` for subject. For more, see
-  # [Git Log Docs](https://git-scm.com/docs/git-log)
-  # @return [String]
-  # config.log_format = "- %s"
-
   # Consider the limiting patterns to be extended regular expressions patterns
   # when printing your git log.
   # Defaults to `true`. For more, see
