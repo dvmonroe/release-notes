@@ -2,10 +2,13 @@
 
 # Release::Notes
 
+[![Gem Version](https://badge.fury.io/rb/release-notes.svg)](https://badge.fury.io/rb/release-notes)
+[![Documentation](http://img.shields.io/badge/rdoc-Release::Notes-blue.svg)](https://www.rubydoc.info/gems/release-notes)
+[![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
+
 [![Build Status](https://travis-ci.org/dvmonroe/release-notes.svg?branch=master)](https://travis-ci.org/dvmonroe/release-notes)
 [![Code Climate](https://codeclimate.com/github/dvmonroe/release-notes/badges/gpa.svg)](https://codeclimate.com/github/dvmonroe/release-notes)
 [![Test Coverage](https://codeclimate.com/github/dvmonroe/release-notes/badges/coverage.svg)](https://codeclimate.com/github/dvmonroe/release-notes/coverage)
-[![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
 
 ## Automated release notes based on your project's git log.
 
@@ -87,7 +90,7 @@ end
 ```
 
 For more information about each individual setting checkout Release::Notes's
-[config docs](http://www.rubydoc.info/github/dvmonroe/release-notes/master/Release/Notes/Configuration).
+[config docs](https://www.rubydoc.info/gems/release-notes).
 
 ## Usage
 
