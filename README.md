@@ -2,12 +2,12 @@
 
 # Release::Notes
 
-[![Version         ][rubygems_badge]][rubygems]
+[![Gem Version](https://badge.fury.io/rb/release-notes.svg)](https://badge.fury.io/rb/release-notes)
 [![Build Status](https://travis-ci.org/dvmonroe/release-notes.svg?branch=master)](https://travis-ci.org/dvmonroe/release-notes)
 [![Code Climate](https://codeclimate.com/github/dvmonroe/release-notes/badges/gpa.svg)](https://codeclimate.com/github/dvmonroe/release-notes)
 [![Test Coverage](https://codeclimate.com/github/dvmonroe/release-notes/badges/coverage.svg)](https://codeclimate.com/github/dvmonroe/release-notes/coverage)
 [![Inline docs](http://inch-ci.org/github/dvmonroe/release-notes.svg?branch=master)](http://inch-ci.org/github/dvmonroe/release-notes)
-[![Documentation](http://img.shields.io/badge/rdoc.info-v1.3.0-blue.svg)](https://www.rubydoc.info/gems/release-notes)
+[![Documentation](http://img.shields.io/badge/rdoc.info-v1.3.0-green.svg)](https://www.rubydoc.info/gems/release-notes)
 
 ## Automated release notes based on your project's git log.
 
