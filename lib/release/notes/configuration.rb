@@ -33,12 +33,6 @@ module Release
       # @return [Boolean]
       attr_accessor :extended_regex
 
-      # Allows you to specify what information you want to print from your git log
-      # Defaults to `%s` for subject. For more, see
-      # [Git Log Docs](https://git-scm.com/docs/git-log)
-      # @return [String]
-      attr_accessor :log_format
-
       # Controls the headers that will be used for your tags
       # Defaults to `tag`.
       # @return [String]
@@ -138,7 +132,6 @@ module Release
         @include_merges        = false
         @ignore_case           = true
         @extended_regex        = true
-        @log_format            = "- %s"
         @header_title          = "tag"
         @bug_labels            = %w(Fix Update)
         @feature_labels        = %w(Add Create)

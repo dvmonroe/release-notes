@@ -8,7 +8,7 @@ module Release
       extend ActiveSupport::Concern
 
       included do
-        delegate :all_labels, :log_format, :grep_insensitive?,
+        delegate :all_labels, :grep_insensitive?,
                  :regex_type, :include_merges?, to: :"Release::Notes.configuration"
 
         def log(**opts)
@@ -17,6 +17,10 @@ module Release
             " #{regex_type} #{grep_insensitive?}" \
             " #{include_merges?} --format='%h #{log_format}'"
         end
+      end
+
+      def log_format
+        "- %s"
       end
 
       def first_commit
