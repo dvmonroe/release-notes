@@ -121,6 +121,7 @@ module Release
         commit_hashes.dup.each do |commit|
           commit_hashes.delete commit if single_label && @_commits.include?(commit)
         end
+        commit_hashes
       end
 
       # @api private
