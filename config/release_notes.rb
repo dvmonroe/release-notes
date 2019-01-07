@@ -15,7 +15,7 @@ Release::Notes.configure do |config|
   # config.feature_title = '**Implemented enhancements:**'
   # config.misc_title = '**Miscellaneous:**'
   # config.log_all_title = '**Other:**'
-  config.log_all = true
+  # config.log_all = false
   # config.link_to_labels = %w()
   # config.link_to_humanize = %w()
   # config.link_to_sites = %w()

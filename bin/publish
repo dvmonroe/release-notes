@@ -44,7 +44,7 @@ puts "== Committing updated files =="
 system! "git commit -m 'Version bump to #{current_version.join('.')}'"
 
 puts "== Tagging release =="
-system! "gem_push=no bundle exec rake release"
+system! "bundle exec rake release"
 
 puts "== Release Notes =="
 system! "exe/release-notes"
