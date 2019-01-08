@@ -47,6 +47,7 @@ FileUtils.chdir APP_ROOT do
       end
     end
   FILE
+end
 
 puts "== Updating version to #{current_version.join('.')} =="
 File.write("lib/release/notes/version.rb", contents)
