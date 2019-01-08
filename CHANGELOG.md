@@ -1,5 +1,39 @@
 # Release Notes
 
+## v2.0.0
+
+**Implemented enhancements:**
+
+- Fix bin/publish to actually update version.rb
+- Add our own release notes
+- Fix cognitive method complexity in log.rb
+- Add travis test for ruby 2.6.0
+- Fix error when tracking commits
+- Update code of conduct to 1.4.0 of contributor covenant
+- Add ruby gems doc link
+- Add integration test for file that already exists
+- Add confiugration to not dupe commits
+- Add first round of integration tests for default configuration :tada:
+- Fix fact that we aren't writing first tags' commits
+- Refactor - set prettify_messages to false by default
+
+**Fixed bugs:**
+
+- Yet another fix on bin/publish. Close block
+- Fix cops
+- Remove extraneous binstub from last commit
+- Remove note about multiple commits.
+- Fix link to CONTRIBUTING.md in README
+- Remove empty (duped) messages from array
+- Fix cops
+- Fix force_rewrite bug to allow appending new commits to old relase notes
+- Remove :nocov: labels now that we have integration testing
+- Fix git tags reference
+
+**Miscellaneous:**
+
+- Version bump to 2.0.0
+
 ## v1.3.0
 
 **Implemented enhancements:**
