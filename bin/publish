@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "pathname"
+require "fileutils"
+require "active_support/core_ext/string"
+require "release/notes"
+
+# path to your application root.
+APP_ROOT = Pathname.new File.expand_path("..", __dir__)
+MASTER_CHECK = <<~MASTER_CHECK
+  if [ $(git symbolic-ref --short -q HEAD) != 'master' ];
+    then exit 1;
+  fi
+MASTER_CHECK
+VERSION_TYPES = %w(major minor patch).freeze
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+abort("\n== Version Type incorrect ==") unless VERSION_TYPES.include?(ARGV[0])
+
+abort("\n== Not on master") unless system(MASTER_CHECK)
+
+current_version = File.read(File.expand_path("lib/release/notes/version.rb", __dir__)).split(".").map(&:to_i)
+
+case ARGV[0]
+when "major"
+  current_version[0] += 1
+  current_version[1] = 0
+  current_version[2] = 0
+when "minor"
+  current_version[1] += 1
+  current_version[2] = 0
+when "patch"
+  current_version[2] += 1
+end
+
+puts "== Adding Changed Files =="
+system! "git add ."
+
+puts "== Committing updated files =="
+system! "git commit -m 'Version bump to #{current_version.join('.')}'"
+
+puts "== Tagging release =="
+system! "bundle exec rake release"
+
+puts "== Release Notes =="
+system! "exe/release-notes"
+
+puts "== Adding updated RELEASE_NOTES =="
+system! "git add RELEASE_NOTES.md"
+
+puts "== Committing updated files =="
+system! "git commit -m 'Modify RELEASE_NOTES.md'"
+
+puts "== Pushing updated files =="
+system! "git push origin master"
