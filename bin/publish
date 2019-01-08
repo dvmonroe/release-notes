@@ -49,11 +49,11 @@ system! "bundle exec rake release"
 puts "== Release Notes =="
 system! "exe/release-notes"
 
-puts "== Adding updated RELEASE_NOTES =="
-system! "git add RELEASE_NOTES.md"
+puts "== Adding updated CHANGELOG =="
+system! "git add CHANGELOG.md"
 
 puts "== Committing updated files =="
-system! "git commit -m 'Modify RELEASE_NOTES.md'"
+system! "git commit -m 'Modify CHANGELOG.md'"
 
 puts "== Pushing updated files =="
 system! "git push origin master"

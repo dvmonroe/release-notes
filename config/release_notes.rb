@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Release::Notes.configure do |config|
-  # config.output_file = './RELEASE_NOTES.md'
+  config.output_file = './CHANGELOG.md'
   # config.temp_file = './release-notes.tmp.md'
   # config.include_merges = false
   # config.ignore_case = true
