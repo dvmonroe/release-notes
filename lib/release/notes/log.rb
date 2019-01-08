@@ -93,18 +93,20 @@ module Release
         digest_header(date_and_tag[header_title_type.to_sym])
       end
 
-      def log_grouped_commits(log:, title:) # rubocop:disable Metrics/AbcSize
+      # @api private
+      def log_grouped_commits(log:, title:)
         return unless log.present?
 
         log_messages = log.split("\n").map { |x| x.split(/(?=-)/) }
         commit_hashes = log_messages.flat_map { |msg| msg[0].strip }
 
-        commit_hashes.dup.each do |commit|
-          commit_hashes.delete commit if single_label && @_commits.include?(commit)
-        end
+        trimmed_commit_hashes = trim_commit_hashes(commit_hashes)
 
-        return unless commit_hashes.present?
+        digest_unique_messages(log_messages, trimmed_commit_hashes, title) if trimmed_commit_hashes.present?
+      end
 
+      # @api private
+      def digest_unique_messages(log_messages, commit_hashes, title)
         messages = log_messages.map do |msg|
           msg[1..-1].join if commit_hashes.include?(msg[0].strip)
         end.compact
@@ -114,6 +116,15 @@ module Release
         digest_title(title: title, log_message: "#{messages.join("\n")}\n")
       end
 
+      # @api private
+      def trim_commit_hashes(commit_hashes)
+        commit_hashes.dup.each do |commit|
+          commit_hashes.delete commit if single_label && @_commits.include?(commit)
+        end
+        commit_hashes
+      end
+
+      # @api private
       def previous_tag(index)
         git_all_tags[index + 1].present? ? git_all_tags[index + 1] : System.first_commit
       end
