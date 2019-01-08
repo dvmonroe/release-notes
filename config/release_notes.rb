@@ -9,8 +9,8 @@ Release::Notes.configure do |config|
   # config.extended_regex = true
   # config.header_title = "tag"
   config.bug_labels = %w(Fix Remove)
-  config.feature_labels = %w(Add Create Refactor Update Ammend)
-  config.misc_labels = %w(Bump Utilize)
+  config.feature_labels = %w(Add Create)
+  config.misc_labels = %w(Refactor Ammend Update)
   # config.bug_title = '**Fixed bugs:**'
   # config.feature_title = '**Implemented enhancements:**'
   # config.misc_title = '**Miscellaneous:**'

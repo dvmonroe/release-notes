@@ -4,24 +4,22 @@
 
 **Implemented enhancements:**
 
-- Fix bin/publish to actually update version.rb
 - Add our own release notes
-- Fix cognitive method complexity in log.rb
 - Add travis test for ruby 2.6.0
 - Fix error when tracking commits
-- Update code of conduct to 1.4.0 of contributor covenant
 - Add ruby gems doc link
 - Add integration test for file that already exists
 - Add confiugration to not dupe commits
 - Add first round of integration tests for default configuration :tada:
 - Fix fact that we aren't writing first tags' commits
-- Refactor - set prettify_messages to false by default
 
 **Fixed bugs:**
 
 - Yet another fix on bin/publish. Close block
 - Fix cops
+- Fix bin/publish to actually update version.rb
 - Remove extraneous binstub from last commit
+- Fix cognitive method complexity in log.rb
 - Remove note about multiple commits.
 - Fix link to CONTRIBUTING.md in README
 - Remove empty (duped) messages from array
@@ -32,15 +30,14 @@
 
 **Miscellaneous:**
 
-- Version bump to 2.0.0
+- Update code of conduct to 1.4.0 of contributor covenant
+- Refactor - set prettify_messages to false by default
 
 ## v1.3.0
 
 **Implemented enhancements:**
 
 - Add Configuration#header_title
-- More updates to README
-- Update README to explain how grep works
 - Add logo
 - Remove System#invert_log ;B
 
@@ -50,17 +47,14 @@
 
 **Miscellaneous:**
 
-- Bump release-notes to 1.3.0
+- More updates to README
+- Update README to explain how grep works
 
 ## v1.2.1
 
 **Fixed bugs:**
 
 - Fix cognitive complexity of split_words ;F
-
-**Miscellaneous:**
-
-- Bump release-notes to 1.2.1
 
 ## v1.2.0
 
@@ -73,26 +67,13 @@
 - Fix log_all option and invert-grep ;B
 - Fix travis - actually run rspec tests ;B
 
-**Miscellaneous:**
-
-- Bump release-notes to 1.2.0
-
 ## v1.1.2
 
-**Implemented enhancements:**
+**Miscellaneous:**
 
 - Update binstub to support config file in config/ folder
 
-**Miscellaneous:**
-
-- Bump release-notes to 1.1.2
-
 ## v1.1.1
-
-**Implemented enhancements:**
-
-- Update README
-- Update binstub to check non-rails config file
 
 **Fixed bugs:**
 
@@ -100,7 +81,8 @@
 
 **Miscellaneous:**
 
-- Bump release-notes to 1.1.1
+- Update README
+- Update binstub to check non-rails config file
 
 ## v1.1.0
 
@@ -108,20 +90,15 @@
 
 - Light refactoring and add binstub and non-rails install
 
-**Miscellaneous:**
-
-- Bump release-notes to 1.1.0
-
 ## v1.0.1
 
 **Implemented enhancements:**
 
-- Update README.md
 - Updates to README, CONTRIBUTING and add bin/test
-- Update README and install template
 
 **Fixed bugs:**
 
+- Update README.md
 - Remove environment from rake task
 - Fix contributing.md
 - Fix linking/writing of none linked lines and frozen string modification
@@ -129,8 +106,7 @@
 
 **Miscellaneous:**
 
-- Bump release-notes to 1.0.1
-- Bump release-notes to 1.0.0
+- Update README and install template
 
 ## v1.0.0.pre
 
@@ -138,16 +114,13 @@
 
 **Implemented enhancements:**
 
-- Update README
 - Add log_all option for configuration
 - Add force_rewrite option to configuration
 - Fix linking not adding the issue number correctly
 - Add GH templates
 - Add test around puts on rake task
-- Refactor link.rb and increase test coverage
 - Add rubocop & fix cops
 - ignore .ruby-version since it's irrelevant and add different rubies to travis
-- ruby version update -> 2.5.3
 - Update README
 
 **Fixed bugs:**
@@ -155,27 +128,31 @@
 - Fix cops and depreciation warnings
 - Fix spelling error
 - Reduce cyclomatic complexity of Write.rb
+- Refactor link.rb and increase test coverage
 - Remove extra new line on output
 - Remove extra header underline on output md file
 - fix readme typo
 
 **Miscellaneous:**
 
-- Bump release-notes to 1.0.0.pre
-- Utilize bundler caching on travis
+- Update README
+- ruby version update -> 2.5.3
 
 ## v0.1.0
 
 **Implemented enhancements:**
 
-- Update prettify class
-- update readme
-- Update to linking commit messages
 - Minor updates to layout of gem
-- more readme updates
 - add docs badge to readme
 - add yard config
-- update readme
 - WIP adding test coverage to code climate
 - Add badges to README
 - Add some initial tests
+
+**Miscellaneous:**
+
+- Update prettify class
+- update readme
+- Update to linking commit messages
+- more readme updates
+- update readme
