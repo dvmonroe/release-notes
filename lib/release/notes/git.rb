@@ -4,13 +4,13 @@ module Release
   module Notes
     class Git
       class << self
-        delegate :grep_insensitive?, :regex_type, :include_merges?, to: :"Release::Notes.configuration"
+        include Configurable
 
         def log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
             " --grep='#{opts[:label]}#{opts[:invert_grep]}'" \
-            " #{regex_type} #{grep_insensitive?}" \
-            " #{include_merges?} --format='%h #{log_format}'"
+            " #{config_regex_type} #{config_grep_insensitive?}" \
+            " #{config_include_merges?} --format='%h #{log_format}'"
         end
 
         def first_commit

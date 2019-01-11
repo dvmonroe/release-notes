@@ -4,11 +4,7 @@ module Release
   module Notes
     class Log
       include System
-      delegate :force_rewrite, :all_labels, :log_all, :header_title,
-               :header_title_type, :features, :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :log_all_title, :single_label,
-               :release_notes_exist?, to: :"Release::Notes.configuration"
-
+      include Configurable
       delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_header, :digest_title, to: :writer
 
@@ -17,7 +13,7 @@ module Release
       end
 
       def perform
-        if release_notes_exist? && !force_rewrite
+        if config_release_notes_exist? && !config_force_rewrite
           # Find the last tag and group all commits
           # under a date header at the time this is run
           find_last_tag_and_log
@@ -33,15 +29,15 @@ module Release
 
       # @api private
       def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
-        [features, bugs, misc].each_with_index do |regex, i|
-          log = system_log(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: log_all)
+        [config_features, config_bugs, config_misc].each_with_index do |regex, i|
+          log = system_log(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: config_log_all)
           log_grouped_commits(title: titles[i], log: log)
         end
 
-        return unless log_all
+        return unless config_log_all
 
         log = system_log(tag_from: tag_from, tag_to: tag_to)
-        log_grouped_commits(title: log_all_title, log: log)
+        log_grouped_commits(title: config_log_all_title, log: log)
       end
 
       # @api private
@@ -53,7 +49,7 @@ module Release
       def find_last_tag_and_log
         last_tag = system_last_tag.strip
         # return false unless system_log(tag_from: last_tag, label: all_labels).present?
-        if system_log(tag_from: last_tag, label: all_labels).blank?
+        if system_log(tag_from: last_tag, label: config_all_labels).blank?
           log_last
           return
         end
@@ -90,7 +86,7 @@ module Release
 
       # @api private
       def header_content(**date_and_tag)
-        digest_header(date_and_tag[header_title_type.to_sym])
+        digest_header(date_and_tag[config_header_title_type.to_sym])
       end
 
       # @api private
@@ -119,7 +115,7 @@ module Release
       # @api private
       def trim_commit_hashes(commit_hashes)
         commit_hashes.dup.each do |commit|
-          commit_hashes.delete commit if single_label && @_commits.include?(commit)
+          commit_hashes.delete commit if config_single_label && @_commits.include?(commit)
         end
         commit_hashes
       end
@@ -131,7 +127,7 @@ module Release
 
       # @api private
       def titles
-        [feature_title, bug_title, misc_title]
+        [config_feature_title, config_bug_title, config_misc_title]
       end
 
       # @api private

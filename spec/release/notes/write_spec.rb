@@ -12,7 +12,7 @@ describe Release::Notes::Write do
 
   describe "#digest" do
     it "creates a file" do
-      allow(File).to receive(:open).with(subject.temp_file, "a").and_return(file_like_object)
+      allow(File).to receive(:open).with(subject.config_temp_file, "a").and_return(file_like_object)
       expect(subject.digest(message)).to eq file_like_object
     end
   end
@@ -36,12 +36,15 @@ describe Release::Notes::Write do
 
   describe "#write_new_file" do
     it "appends old file to new temp file" do
-      allow(FileUtils).to receive(:cp).with(subject.temp_file, subject.output_file).and_return(file_like_object)
-      expect(subject.write_new_file).to eq [subject.temp_file]
+      allow(FileUtils).to receive(:cp).
+        with(subject.config_temp_file, subject.config_output_file).
+        and_return(file_like_object)
+
+      expect(subject.write_new_file).to eq [subject.config_temp_file]
     end
 
     it "overwrites output file with tmp file" do
-      allow(FileUtils).to receive(:rm).with(subject.temp_file).and_return(file_like_object)
+      allow(FileUtils).to receive(:rm).with(subject.config_temp_file).and_return(file_like_object)
       expect(subject.write_new_file).to eq file_like_object
     end
   end

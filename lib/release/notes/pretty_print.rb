@@ -6,7 +6,7 @@ module Release
       extend ActiveSupport::Concern
 
       included do
-        delegate :all_labels, to: :"Release::Notes.configuration"
+        include Configurable
 
         def prettify(line:)
           line.gsub(labels_regex, "").strip
@@ -17,7 +17,7 @@ module Release
 
       # @api private
       def labels_regex
-        Regexp.new all_labels, Regexp::IGNORECASE
+        Regexp.new config_all_labels, Regexp::IGNORECASE
       end
     end
   end

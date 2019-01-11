@@ -6,13 +6,12 @@ module Release
       module_function
 
       extend ActiveSupport::Concern
-
-      delegate :all_labels, to: :"Release::Notes.configuration"
+      include Configurable
 
       included do
         def system_log(**opts)
           if opts.delete(:log_all) == true
-            opts[:label] = all_labels
+            opts[:label] = config_all_labels
             opts[:invert_grep] = " --invert-grep"
           end
 

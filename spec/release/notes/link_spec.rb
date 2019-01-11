@@ -5,7 +5,7 @@ require "spec_helper"
 describe Release::Notes::Link do
   class LinkTestClass
     include Release::Notes::Link
-    attr_reader :config, :link_to_labels, :link_to_humanize, :link_to_sites
+    attr_reader :config
 
     def initialize(config)
       @config = config
@@ -27,17 +27,17 @@ describe Release::Notes::Link do
       end
 
       context "labels exist" do
-        let(:link_to_labels) { ["AB #", "BC #"] }
-        let(:link_to_humanize) { %w(LabelAB LabelBC) }
-        let(:link_to_sites) { ["https:\/\/label_AB\/projects", "https:\/\/label_BC\/projects"] }
+        let(:config_link_to_labels) { ["AB #", "BC #"] }
+        let(:config_link_to_humanize) { %w(LabelAB LabelBC) }
+        let(:config_link_to_sites) { ["https:\/\/label_AB\/projects", "https:\/\/label_BC\/projects"] }
 
         before :each do
-          allow_any_instance_of(klass).to receive(:link_to_labels).
-            and_return(link_to_labels)
-          allow_any_instance_of(klass).to receive(:link_to_humanize).
-            and_return(link_to_humanize)
-          allow_any_instance_of(klass).to receive(:link_to_sites).
-            and_return(link_to_sites)
+          allow_any_instance_of(klass).to receive(:config_link_to_labels).
+            and_return(config_link_to_labels)
+          allow_any_instance_of(klass).to receive(:config_link_to_humanize).
+            and_return(config_link_to_humanize)
+          allow_any_instance_of(klass).to receive(:config_link_to_sites).
+            and_return(config_link_to_sites)
         end
 
         context "one label" do

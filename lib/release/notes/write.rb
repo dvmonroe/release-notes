@@ -5,10 +5,7 @@ module Release
     class Write
       include Link
       include PrettyPrint
-
-      delegate :output_file, :temp_file, :link_commits?, :all_labels,
-               :prettify_messages?, :release_notes_exist?,
-               :force_rewrite, to: :"Release::Notes.configuration"
+      include Configurable
 
       def initialize
         # create a new temp file regardless if it exists
@@ -17,7 +14,7 @@ module Release
 
       # write strings to tempfile
       def digest(str)
-        File.open(temp_file, "a") { |fi| fi << str }
+        File.open(config_temp_file, "a") { |fi| fi << str }
       end
 
       # formats titles to be added to the new file
@@ -39,10 +36,10 @@ module Release
       # append old file to new temp file
       # overwrite output file with tmp file
       def write_new_file
-        copy_over_notes if release_notes_exist? && !force_rewrite
+        copy_over_notes if config_release_notes_exist? && !config_force_rewrite
 
-        FileUtils.cp(temp_file, output_file)
-        FileUtils.rm temp_file
+        FileUtils.cp(config_temp_file, config_output_file)
+        FileUtils.rm config_temp_file
       end
 
       private
@@ -59,7 +56,7 @@ module Release
 
       # @api private
       def format_line
-        return "#{prettify(line: link_messages)}\n" if prettify_messages?
+        return "#{prettify(line: link_messages)}\n" if config_prettify_messages?
 
         link_messages
       end
@@ -71,22 +68,22 @@ module Release
 
       # @api private
       def copy_over_notes
-        File.open(temp_file, "a") do |f|
+        File.open(config_temp_file, "a") do |f|
           f << "\n"
-          IO.readlines(output_file)[2..-1].each { |line| f << line }
+          IO.readlines(config_output_file)[2..-1].each { |line| f << line }
         end
       end
 
       # @api private
       def link_message(log_message)
-        return log_message unless link_commits?
+        return log_message unless config_link_commits?
 
         link_lines(lines: log_message)
       end
 
       # @api private
       def new_temp_file_template
-        File.open(temp_file, "w") do |fi|
+        File.open(config_temp_file, "w") do |fi|
           fi << "# Release Notes\n"
         end
       end
