@@ -3,7 +3,6 @@
 module Release
   module Notes
     class Log
-      include System
       include Configurable
       delegate :digest_header, :digest_title, to: :writer
 
@@ -27,15 +26,16 @@ module Release
       private
 
       # @api private
-      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD")
+      # TODO: Fix method complexity when rewriting this class
+      def copy_single_tag_of_activity(tag_from:, tag_to: "HEAD") # rubocop:disable Metrics/AbcSize
         [config_features, config_bugs, config_misc].each_with_index do |regex, i|
-          log = system_log(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: config_log_all)
+          log = System.new(tag_from: tag_from, tag_to: tag_to, label: regex, log_all: config_log_all).log
           log_grouped_commits(title: titles[i], log: log)
         end
 
         return unless config_log_all
 
-        log = system_log(tag_from: tag_from, tag_to: tag_to)
+        log = System.new(tag_from: tag_from, tag_to: tag_to).log
         log_grouped_commits(title: config_log_all_title, log: log)
       end
 
@@ -46,9 +46,9 @@ module Release
 
       # @api private
       def find_last_tag_and_log
-        last_tag = system_last_tag.strip
+        last_tag = System.last_tag.strip
         # return false unless system_log(tag_from: last_tag, label: all_labels).present?
-        if system_log(tag_from: last_tag, label: config_all_labels).blank?
+        if System.new(tag_from: last_tag, label: config_all_labels).log.blank?
           log_last
           return
         end
