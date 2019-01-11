@@ -5,7 +5,6 @@ module Release
     class Log
       include System
       include Configurable
-      delegate :date_humanized, :format_tag_date, to: :date_formatter
       delegate :digest_header, :digest_title, to: :writer
 
       def initialize
@@ -41,8 +40,8 @@ module Release
       end
 
       # @api private
-      def date_formatter
-        @date_formatter ||= Release::Notes::DateFormat.new
+      def formatted_date(date = nil)
+        DateFormatter.new(date).humanize
       end
 
       # @api private
@@ -54,7 +53,7 @@ module Release
           return
         end
         # output the date right now
-        header_content date: date_humanized, tag: tag_to
+        header_content date: formatted_date, tag: tag_to
         copy_single_tag_of_activity(tag_from: last_tag)
       end
 
@@ -62,7 +61,7 @@ module Release
       def find_all_tags_and_log_all
         git_all_tags.each_with_index do |ta, i|
           header_content(
-            date: date_humanized(date: System.tag_date(tag: ta)),
+            date: formatted_date(System.tag_date(tag: ta)),
             tag: ta,
           )
 
@@ -75,7 +74,7 @@ module Release
 
       # @api private
       def log_last
-        header_content date: date_humanized, tag: git_all_tags[0]
+        header_content date: formatted_date, tag: git_all_tags[0]
         copy_single_tag_of_activity(tag_from: git_all_tags[1], tag_to: git_all_tags[0])
       end
 

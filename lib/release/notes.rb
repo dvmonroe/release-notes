@@ -4,7 +4,7 @@ require "active_support"
 require "active_support/core_ext/time"
 
 require "release/notes/configurable"
-require "release/notes/date_format"
+require "release/notes/date_formatter"
 require "release/notes/link"
 require "release/notes/pretty_print"
 
