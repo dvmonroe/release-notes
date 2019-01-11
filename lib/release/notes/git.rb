@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+require "pry"
 
 module Release
   module Notes
     class Git
       class << self
         include Configurable
+        DEFAULT_TAG = "HEAD"
 
         def log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
@@ -14,7 +16,7 @@ module Release
         end
 
         def first_commit
-          "git rev-list --max-parents=0 HEAD"
+          "git rev-list --max-parents=0 #{DEFAULT_TAG}"
         end
 
         def last_tag
@@ -26,7 +28,7 @@ module Release
         end
 
         def read_all_tags
-          "git tag | sort -u -r"
+          "git for-each-ref --sort=taggerdate --format='%(tag)' refs/tags"
         end
 
         private
