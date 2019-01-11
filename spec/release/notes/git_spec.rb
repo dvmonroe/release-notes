@@ -3,28 +3,14 @@
 require "spec_helper"
 
 describe Release::Notes::Git do
-  class GitTestClass
-    include Release::Notes::Git
-    attr_reader :config, :date_formatter
+  subject { Release::Notes::Git }
 
-    def initialize(config, _dates)
-      @config = config
-    end
-  end
-
-  describe "#log" do
-    let(:klass) { GitTestClass }
+  describe ".log" do
     let(:last_tag) { Date.new(2016, 9, 21).strftime("%Y-%m-%d") }
     let(:config) { Release::Notes.configuration }
     let(:dates) { Release::Notes::DateFormat.new }
-    subject { klass.new(config, dates) }
 
     context "with default configuration" do
-      before :each do
-        allow_any_instance_of(klass).to receive(:first_commit).
-          and_return(last_tag)
-      end
-
       context "basic flags" do
         it "returns a string that includes default git log flags" do
           @new_cmd = subject.log(label: config.bugs)
@@ -74,21 +60,21 @@ describe Release::Notes::Git do
     end
   end
 
-  describe "#last_tag" do
+  describe ".last_tag" do
     it "returns command to get the last git tag" do
-      expect(Release::Notes::Git.last_tag).to eq "git describe --abbrev=0 --tags"
+      expect(subject.last_tag).to eq "git describe --abbrev=0 --tags"
     end
   end
 
-  describe "#tag_date" do
+  describe ".tag_date" do
     it "returns command to get date for the supplied tag" do
-      expect(Release::Notes::Git.tag_date("v0.0.1")).to eq "git log -1 --format=%ai v0.0.1"
+      expect(subject.tag_date("v0.0.1")).to eq "git log -1 --format=%ai v0.0.1"
     end
   end
 
-  describe "#read_all_tags" do
+  describe ".read_all_tags" do
     it "returns command to get all tags" do
-      expect(Release::Notes::Git.read_all_tags).to eq "git tag | sort -u -r"
+      expect(subject.read_all_tags).to eq "git tag | sort -u -r"
     end
   end
 end

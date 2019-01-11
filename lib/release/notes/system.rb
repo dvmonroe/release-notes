@@ -6,7 +6,6 @@ module Release
       module_function
 
       extend ActiveSupport::Concern
-      include Git
 
       delegate :all_labels, to: :"Release::Notes.configuration"
 
@@ -17,7 +16,7 @@ module Release
             opts[:invert_grep] = " --invert-grep"
           end
 
-          `#{log(opts)}`
+          `#{Git.log(opts)}`
         end
       end
 
