@@ -2,15 +2,16 @@
 
 module Release
   module Notes
-    module PrettyPrint
-      extend ActiveSupport::Concern
+    class Prettify
+      include Configurable
+      attr_reader :line
 
-      included do
-        include Configurable
+      def initialize(line:)
+        @line = line
+      end
 
-        def prettify(line:)
-          line.gsub(labels_regex, "").strip
-        end
+      def perform
+        line.gsub(labels_regex, "").strip
       end
 
       private

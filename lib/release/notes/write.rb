@@ -4,7 +4,6 @@ module Release
   module Notes
     class Write
       include Link
-      include PrettyPrint
       include Configurable
 
       def initialize
@@ -56,7 +55,7 @@ module Release
 
       # @api private
       def format_line
-        return "#{prettify(line: link_messages)}#{NEWLINE}" if config_prettify_messages?
+        return "#{prettify_linked_messages}#{NEWLINE}" if config_prettify_messages?
 
         link_messages
       end
@@ -64,6 +63,11 @@ module Release
       # @api private
       def link_messages
         link_message @log_message
+      end
+
+      # @api private
+      def prettify_linked_messages
+        Prettify.new(line: link_messages).perform
       end
 
       # @api private
