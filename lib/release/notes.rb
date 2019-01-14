@@ -15,23 +15,29 @@ require "release/notes/system"
 
 require "release/notes/write"
 require "release/notes/log"
+require "release/notes/tag"
+require "release/notes/commits"
 
 require "release/notes/railtie" if defined?(Rails)
 require "release/notes/install" unless defined?(Rails)
 
 module Release
   module Notes
+    NEWLINE = "\n"
+
     class << self
       def generate
         log.perform
       end
 
-      def log
-        Release::Notes::Log.new
-      end
-
       def root
         File.expand_path("..", __dir__)
+      end
+
+      private
+
+      def log
+        Log.new
       end
     end
   end

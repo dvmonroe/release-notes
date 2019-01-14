@@ -74,7 +74,7 @@ describe Release::Notes::Git do
 
   describe ".read_all_tags" do
     it "returns command to get all tags" do
-      expect(subject.read_all_tags).to eq "git tag | sort -u -r"
+      expect(subject.read_all_tags).to eq "git for-each-ref --sort=taggerdate --format='%(tag)' refs/tags"
     end
   end
 end

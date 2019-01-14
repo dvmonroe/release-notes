@@ -18,9 +18,9 @@ module Release
 
         # @api private
         def split_lines(lines)
-          lines.split("\n").each do |line|
+          lines.split(NEWLINE).each do |line|
             unless config_link_to_labels&.any? { |la| line.include? la }
-              @new_lines += "#{line}\n"
+              @new_lines += "#{line}#{NEWLINE}"
               next
             end
             split_words(line)
@@ -39,7 +39,7 @@ module Release
         # @api private
         def replace_lines(line, label, index)
           replace_words(line.split(/\s/))
-          @new_lines += "#{replace(line, @word, label, index)}\n" if @word
+          @new_lines += "#{replace(line, @word, label, index)}#{NEWLINE}" if @word
         end
 
         # @api private

@@ -92,15 +92,20 @@
 
 ## v1.0.1
 
+**Fixed bugs:**
+
+- Update README.md
+- Remove environment from rake task
+- Fix contributing.md
+
+## v1.0.0
+
 **Implemented enhancements:**
 
 - Updates to README, CONTRIBUTING and add bin/test
 
 **Fixed bugs:**
 
-- Update README.md
-- Remove environment from rake task
-- Fix contributing.md
 - Fix linking/writing of none linked lines and frozen string modification
 - Fix guard clause for rubocop
 
@@ -109,8 +114,6 @@
 - Update README and install template
 
 ## v1.0.0.pre
-
-## v1.0.0
 
 **Implemented enhancements:**
 

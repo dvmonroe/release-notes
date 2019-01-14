@@ -46,17 +46,17 @@ module Release
 
       # @api private
       def header_present
-        "\n## #{@header}\n"
+        "#{NEWLINE}## #{@header}#{NEWLINE}"
       end
 
       # @api private
       def title_present
-        "\n#{@title}\n\n"
+        "#{NEWLINE}#{@title}#{NEWLINE}#{NEWLINE}"
       end
 
       # @api private
       def format_line
-        return "#{prettify(line: link_messages)}\n" if config_prettify_messages?
+        return "#{prettify(line: link_messages)}#{NEWLINE}" if config_prettify_messages?
 
         link_messages
       end
@@ -69,7 +69,7 @@ module Release
       # @api private
       def copy_over_notes
         File.open(config_temp_file, "a") do |f|
-          f << "\n"
+          f << NEWLINE
           IO.readlines(config_output_file)[2..-1].each { |line| f << line }
         end
       end
@@ -84,7 +84,7 @@ module Release
       # @api private
       def new_temp_file_template
         File.open(config_temp_file, "w") do |fi|
-          fi << "# Release Notes\n"
+          fi << "# Release Notes#{NEWLINE}"
         end
       end
     end

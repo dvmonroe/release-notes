@@ -5,6 +5,7 @@ module Release
     class DateFormatter
       include Configurable
       attr_reader :date
+      HUMANIZED = "%B %d, %Y %r %Z"
 
       def initialize(date = nil)
         Time.zone = config_timezone
@@ -13,7 +14,7 @@ module Release
       end
 
       def humanize
-        date.strftime("%B %d, %Y %r %Z")
+        date.strftime(HUMANIZED)
       end
     end
   end
