@@ -1,5 +1,24 @@
 # Release Notes
 
+## v3.0.0
+
+**Implemented enhancements:**
+
+- [Refactor] Log.rb for readability/maintainability
+- [Refactor] DateFormat(ter) and it's usage in log.rb
+- [Refactor] Delegate all config related methods in one module
+
+**Fixed bugs:**
+
+- Update documentation
+- [Refactor] prettify as class/ remove module
+
+**Miscellaneous:**
+
+- administration updates
+- [Refactor] System as a class with class & instance methods
+- Update our own release notes and label outputs
+
 ## v2.0.0
 
 **Implemented enhancements:**
