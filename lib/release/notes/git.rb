@@ -59,7 +59,7 @@ module Release
         # @return [Array] all git tags
         #
         def read_all_tags
-          "git for-each-ref --sort=taggerdate --format='%(tag)' refs/tags"
+          "git for-each-ref --sort=taggerdate --format='%(#{config_for_each_ref_format})' refs/tags"
         end
 
         private
