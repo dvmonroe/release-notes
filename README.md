@@ -199,8 +199,6 @@ end
 
 ## Usage
 
-### TL;DR
-
 Install the binstub
 
 ```sh
