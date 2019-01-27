@@ -197,9 +197,6 @@ Release::Notes.configure do |config|
 end
 ```
 
-For more information about each individual setting checkout Release::Notes's
-[config docs](https://www.rubydoc.info/gems/release-notes).
-
 ## Usage
 
 ### TL;DR
