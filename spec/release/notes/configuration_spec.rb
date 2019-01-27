@@ -229,4 +229,19 @@ describe Release::Notes::Configuration do
       end
     end
   end
+
+  describe "#for_each_ref_format" do
+    context "when for_each_ref_format has been configured" do
+      it "returns the configured value" do
+        Release::Notes.configure { |config| config.for_each_ref_format = "refname:lstrip=-1" }
+        expect(Release::Notes.configuration.for_each_ref_format).to eq "refname:lstrip=-1"
+      end
+    end
+
+    context "when for_each_ref_format has not been configured" do
+      it "defaults to tag" do
+        expect(Release::Notes.configuration.for_each_ref_format).to eq "tag"
+      end
+    end
+  end
 end

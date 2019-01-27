@@ -126,6 +126,11 @@ module Release
       # @return [Boolean]
       attr_accessor :single_label
 
+      # Controls what will be passed to the format flag in `git for-each-ref`
+      # Defaults to `tag`.
+      # @return [String]
+      attr_accessor :for_each_ref_format
+
       def initialize
         @output_file           = "./RELEASE_NOTES.md"
         @temp_file             = "./release-notes.tmp.md"
@@ -148,6 +153,7 @@ module Release
         @prettify_messages     = false
         @force_rewrite         = false
         @single_label          = true
+        @for_each_ref_format   = "tag"
       end
 
       # @return [String]

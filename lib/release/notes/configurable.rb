@@ -9,7 +9,7 @@ module Release
                :bugs, :misc, :feature_title,
                :bug_title, :misc_title, :log_all_title, :single_label,
                :output_file, :temp_file, :link_commits?, :all_labels,
-               :prettify_messages?, :release_notes_exist?,
+               :prettify_messages?, :release_notes_exist?, :for_each_ref_format,
                :force_rewrite, prefix: :config, to: :"Release::Notes.configuration"
     end
   end
