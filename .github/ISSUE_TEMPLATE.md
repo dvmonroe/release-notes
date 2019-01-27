@@ -5,7 +5,6 @@ Put a brief summary here
 ## Environment
 
 - Ruby **[version]**
-- Rails **[version]**
 - release-notes **[version]**
 
 ## Current behavior
