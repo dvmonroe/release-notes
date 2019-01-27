@@ -123,5 +123,10 @@ Release::Notes.configure do |config|
   # will only contain the commit once.
   # Defaults to `true`.
   # @return [Boolean]
-  # attr_accessor :single_label
+  # config.single_label = true
+
+  # Controls what will be passed to the format flag in `git for-each-ref`
+  # Defaults to `tag`.
+  # @return [String]
+  # config.for_each_ref_format = "tag"
 end
