@@ -3,14 +3,33 @@
 module Release
   module Notes
     module Configurable
-      delegate :timezone, :grep_insensitive?, :regex_type,
-               :include_merges?, :link_to_labels, :link_to_sites, :link_to_humanize,
-               :log_all, :header_title, :header_title_type, :features,
-               :bugs, :misc, :feature_title,
-               :bug_title, :misc_title, :log_all_title, :single_label,
-               :output_file, :temp_file, :link_commits?, :all_labels,
-               :prettify_messages?, :release_notes_exist?, :for_each_ref_format,
-               :force_rewrite, prefix: :config, to: :"Release::Notes.configuration"
+      delegate :all_labels,
+               :bug_title,
+               :bugs,
+               :feature_title,
+               :features,
+               :for_each_ref_format,
+               :force_rewrite,
+               :grep_insensitive?,
+               :header_title,
+               :header_title_type,
+               :include_merges?,
+               :link_commits?,
+               :link_to_humanize,
+               :link_to_labels,
+               :link_to_sites,
+               :log_all,
+               :log_all_title,
+               :misc,
+               :misc_title,
+               :output_file,
+               :prettify_messages?,
+               :regex_type,
+               :release_notes_exist?,
+               :single_label,
+               :temp_file,
+               :timezone,
+               prefix: :config, to: :"Release::Notes.configuration"
     end
   end
 end
