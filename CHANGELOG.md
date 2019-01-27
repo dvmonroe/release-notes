@@ -1,5 +1,11 @@
 # Release Notes
 
+## v3.1.0
+
+**Implemented enhancements:**
+
+- Add configurable option for format when grabbing git tags
+
 ## v3.0.0
 
 **Implemented enhancements:**
