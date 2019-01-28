@@ -3,8 +3,6 @@
 require "spec_helper"
 
 describe Release::Notes::Write do
-  after { restore_config }
-
   let(:klass) { Release::Notes::Write }
   let(:file_like_object) { double("file_like_object") }
   let(:message) { "dates or titles\n" }

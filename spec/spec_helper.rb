@@ -19,8 +19,16 @@ def restore_config
   Release::Notes.configure {}
 end
 
+def delete_files
+  FileUtils.rm_f "./RELEASE_NOTES.md"
+  FileUtils.rm_f "./release-notes.tmp.md"
+end
+
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = %i(expect should)
   end
+
+  config.after(:each) { restore_config }
+  config.after(:all) { delete_files }
 end

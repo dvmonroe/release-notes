@@ -3,8 +3,6 @@
 require "spec_helper"
 
 describe Release::Notes::Configuration do
-  after { restore_config }
-
   context "when no output_file is configured" do
     it "defaults to ./RELEASENOTES.md" do
       expect(Release::Notes.configuration.output_file).to eq "./RELEASE_NOTES.md"
