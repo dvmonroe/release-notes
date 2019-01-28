@@ -21,6 +21,7 @@ module Release
                :merge_flag,
                :misc,
                :misc_title,
+               :newest_tag,
                :output_file,
                :prettify_messages?,
                :regex_type,

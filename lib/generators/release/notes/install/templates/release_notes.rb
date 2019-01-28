@@ -136,4 +136,11 @@ Release::Notes.configure do |config|
   # Defaults to `true`.
   # @return [Boolean]
   # config.update_release_notes_before_tag = true
+
+  # The newest tag that should be used as the header title
+  # if updating the release notes before the actual tag
+  # is pushed.
+  # Defaults to empty string.
+  # @return [String]
+  # config.newest_tag = ""
 end

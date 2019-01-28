@@ -5,7 +5,7 @@ module Release
     class Log
       include Configurable
 
-      def initialize(**opts)
+      def initialize(opts = {})
         Release::Notes.configure do |c|
           c.newest_tag = opts["tag"]
         end

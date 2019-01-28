@@ -145,6 +145,15 @@ module Release
       # @return [String] tag title or formatted tag date to be added to changelog
       #
       def title(title)
+        return standard_title(title) unless config_update_release_notes_before_tag? && tag == "HEAD"
+
+        formatted_date unless title == "tag"
+        return config_newest_tag if config_newest_tag.present?
+
+        raise ArgumentError, "No tag version was passed as an option when generating release notes"
+      end
+
+      def standard_title(title)
         title == "tag" ? tag : formatted_date(tag_date)
       end
     end

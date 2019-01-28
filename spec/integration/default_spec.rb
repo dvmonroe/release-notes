@@ -95,14 +95,14 @@ describe Release::Notes do
 
         git_commit("Refactor a bunch")
 
-        Release::Notes::Cmd.start(["generate"])
+        Release::Notes::Cmd.start(["generate", "-t", "v0.2.0"])
 
         content = read_file
 
         file = <<~FILE
           # Release Notes
 
-          ## HEAD
+          ## v0.2.0
 
           **Miscellaneous:**
 
