@@ -211,12 +211,6 @@ and run
 $ bin/release-notes
 ```
 
-OR, just use the rake task
-
-```sh
-$ bundle exec rake update_release_notes:run
-```
-
 ### Git Worklow
 
 Release::Notes works best with a rebase workflow and requires tagging. General rebase benefits include:
