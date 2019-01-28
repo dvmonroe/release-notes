@@ -138,6 +138,13 @@ module Release
       # @return [Boolean]
       attr_accessor :update_release_notes_before_tag
 
+      # The newest tag that should be used as the header title
+      # if updating the release notes before the actual tag
+      # is pushed.
+      # Defaults to empty string.
+      # @return [String]
+      attr_accessor :newest_tag
+
       def initialize
         @output_file                      = "./RELEASE_NOTES.md"
         @temp_file                        = "./release-notes.tmp.md"
@@ -162,6 +169,7 @@ module Release
         @single_label                     = true
         @for_each_ref_format              = "tag"
         @update_release_notes_before_tag  = true
+        @newest_tag                       = ""
       end
 
       instance_methods.each do |meth|

@@ -3,6 +3,9 @@
 require "active_support"
 require "active_support/core_ext/time"
 
+require "thor"
+require "release/notes/cmd"
+
 require "release/notes/configurable"
 require "release/notes/date_formatter"
 require "release/notes/link"
@@ -26,18 +29,8 @@ module Release
     NEWLINE = "\n"
 
     class << self
-      def generate
-        log.perform
-      end
-
       def root
         File.expand_path("..", __dir__)
-      end
-
-      private
-
-      def log
-        Log.new
       end
     end
   end
