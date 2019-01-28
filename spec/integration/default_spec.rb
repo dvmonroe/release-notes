@@ -18,7 +18,7 @@ describe Release::Notes do
   end
 
   describe "default configuration for nonexistent file" do
-    it "the file is created" do
+    it "creates the file" do
       within_spec_integration do
         (1..2).each { |v| git_commit(messages.sample) && git_tag(v) }
         Release::Notes::Cmd.start(["generate"])
@@ -27,7 +27,7 @@ describe Release::Notes do
       end
     end
 
-    it "the file contains all the git tags" do
+    it "creates the file that contains all the git tags" do
       within_spec_integration do
         (1..4).each { |v| 2.times { git_commit(messages.sample) } && git_tag(v) }
         Release::Notes::Cmd.start(["generate"])
@@ -41,7 +41,7 @@ describe Release::Notes do
       end
     end
 
-    it "the file contains the right commit under the right tag" do
+    it "outputs right commit under the right tag" do
       within_spec_integration do
         2.times { git_commit("Fix me") } && git_tag(1)
         Release::Notes::Cmd.start(["generate"])
@@ -62,7 +62,7 @@ describe Release::Notes do
       end
     end
 
-    it "the file does not duplicate commits if it matches multuple labels" do
+    it "does not duplicate commits if it matches multuple labels" do
       within_spec_integration do
         2.times { git_commit("Fix me\n\n Add Me") } && git_tag(1)
         Release::Notes::Cmd.start(["generate"])

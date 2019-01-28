@@ -9,6 +9,8 @@ end
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "release/notes"
+require "active_support/testing/time_helpers"
+Time.zone = "America/New_York"
 
 unless $LOAD_PATH.include?(File.expand_path("support", __dir__))
   $LOAD_PATH.unshift(File.expand_path("support", __dir__))
@@ -28,6 +30,8 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = %i(expect should)
   end
+
+  config.include ActiveSupport::Testing::TimeHelpers
 
   config.after(:each) { restore_config }
   config.after(:all) { delete_files }

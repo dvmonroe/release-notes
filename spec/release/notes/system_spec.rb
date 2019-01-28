@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Release::Notes::System do
-  let(:klass) { Release::Notes::System }
+  let(:klass) { described_class }
   subject { klass.new }
 
   describe "#log" do
