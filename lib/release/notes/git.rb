@@ -20,8 +20,8 @@ module Release
         def log(**opts)
           "git log '#{opts[:tag_from]}'..'#{opts[:tag_to]}'" \
             " --grep='#{opts[:label]}#{opts[:invert_grep]}'" \
-            " #{config_regex_type} #{config_grep_insensitive?}" \
-            " #{config_include_merges?} --format='%h #{log_format}'"
+            " #{config_regex_type} #{config_grep_insensitive_flag}" \
+            " #{config_merge_flag} --format='%h #{log_format}'"
         end
 
         #

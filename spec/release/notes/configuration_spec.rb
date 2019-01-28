@@ -34,17 +34,19 @@ describe Release::Notes::Configuration do
     end
   end
 
-  describe "#include_merges?" do
+  describe "#merge_flag" do
     context "when include_merges is configured to true" do
       it "returns an empty string" do
         Release::Notes.configure { |config| config.include_merges = true }
-        expect(Release::Notes.configuration.include_merges?).to eq ""
+        expect(Release::Notes.configuration.include_merges?).to eq true
+        expect(Release::Notes.configuration.merge_flag).to eq ""
       end
     end
 
     context "when include_merges has not been configured" do
       it "returns --no-merges" do
-        expect(Release::Notes.configuration.include_merges?).to eq "--no-merges"
+        expect(Release::Notes.configuration.merge_flag).to eq "--no-merges"
+        expect(Release::Notes.configuration.include_merges?).to eq false
       end
     end
   end
@@ -64,17 +66,19 @@ describe Release::Notes::Configuration do
     end
   end
 
-  describe "#grep_insensitive?" do
+  describe "#grep_insensitive_flag" do
     context "when ignore_case is configured to false" do
       it "returns an empty string" do
         Release::Notes.configure { |config| config.ignore_case = false }
-        expect(Release::Notes.configuration.grep_insensitive?).to eq ""
+        expect(Release::Notes.configuration.ignore_case?).to eq false
+        expect(Release::Notes.configuration.grep_insensitive_flag).to eq ""
       end
     end
 
     context "when ignore_case has not been configured" do
       it "returns -i" do
-        expect(Release::Notes.configuration.grep_insensitive?).to eq "-i"
+        expect(Release::Notes.configuration.grep_insensitive_flag).to eq "-i"
+        expect(Release::Notes.configuration.ignore_case?).to eq true
       end
     end
   end

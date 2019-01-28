@@ -132,28 +132,37 @@ module Release
       attr_accessor :for_each_ref_format
 
       def initialize
-        @output_file           = "./RELEASE_NOTES.md"
-        @temp_file             = "./release-notes.tmp.md"
-        @include_merges        = false
-        @ignore_case           = true
-        @extended_regex        = true
-        @header_title          = "tag"
-        @bug_labels            = %w(Fix Update)
-        @feature_labels        = %w(Add Create)
-        @misc_labels           = %w(Refactor)
-        @bug_title             = "**Fixed bugs:**"
-        @feature_title         = "**Implemented enhancements:**"
-        @misc_title            = "**Miscellaneous:**"
-        @log_all_title         = "**Other**"
-        @log_all               = false
-        @link_to_labels        = %w()
-        @link_to_humanize      = %w()
-        @link_to_sites         = %w()
-        @timezone              = "America/New_York"
-        @prettify_messages     = false
-        @force_rewrite         = false
-        @single_label          = true
-        @for_each_ref_format   = "tag"
+        @output_file                      = "./RELEASE_NOTES.md"
+        @temp_file                        = "./release-notes.tmp.md"
+        @include_merges                   = false
+        @ignore_case                      = true
+        @extended_regex                   = true
+        @header_title                     = "tag"
+        @bug_labels                       = %w(Fix Update)
+        @feature_labels                   = %w(Add Create)
+        @misc_labels                      = %w(Refactor)
+        @bug_title                        = "**Fixed bugs:**"
+        @feature_title                    = "**Implemented enhancements:**"
+        @misc_title                       = "**Miscellaneous:**"
+        @log_all_title                    = "**Other**"
+        @log_all                          = false
+        @link_to_labels                   = %w()
+        @link_to_humanize                 = %w()
+        @link_to_sites                    = %w()
+        @timezone                         = "America/New_York"
+        @prettify_messages                = false
+        @force_rewrite                    = false
+        @single_label                     = true
+        @for_each_ref_format              = "tag"
+      end
+
+      instance_methods.each do |meth|
+        define_method("#{meth}?") do
+          return send(meth) == true if !!send(meth) == send(meth) # rubocop:disable Style/DoubleNegation
+
+          raise ArgumentError, "Configuration##{meth} does not return a Boolean type and
+            therefore, has no predicate method"
+        end
       end
 
       # @return [String]
@@ -162,18 +171,18 @@ module Release
       end
 
       # @return [String]
-      def include_merges?
-        @include_merges ? "" : "--no-merges"
+      def merge_flag
+        include_merges? ? "" : "--no-merges"
       end
 
       # @return [String]
       def regex_type
-        @extended_regex ? "-E" : ""
+        extended_regex? ? "-E" : ""
       end
 
       # @return [String]
-      def grep_insensitive?
-        @ignore_case ? "-i" : ""
+      def grep_insensitive_flag
+        ignore_case? ? "-i" : ""
       end
 
       # @return [String]
@@ -205,11 +214,6 @@ module Release
       def link_commits?
         link_to_labels.present? && link_to_humanize.present? &&
           link_to_sites.present?
-      end
-
-      # @return [Boolean]
-      def prettify_messages?
-        @prettify_messages
       end
 
       private
