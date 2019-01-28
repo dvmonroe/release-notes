@@ -29,7 +29,7 @@ describe Release::Notes::Link do
       context "labels exist" do
         let(:config_link_to_labels) { ["AB #", "BC #"] }
         let(:config_link_to_humanize) { %w(LabelAB LabelBC) }
-        let(:config_link_to_sites) { ["https:\/\/label_AB\/projects", "https:\/\/label_BC\/projects"] }
+        let(:config_link_to_sites) { ["https:\/\/label_AB\/projects\/", "https:\/\/label_BC\/projects\/"] }
 
         before :each do
           allow_any_instance_of(klass).to receive(:config_link_to_labels).
