@@ -38,6 +38,9 @@ module Release
         end
 
         self
+      rescue MissingTag => e
+        warn "#{e.class}: #{e}"
+        raise
       end
 
       private
@@ -150,7 +153,7 @@ module Release
         formatted_date unless title == "tag"
         return config_newest_tag if config_newest_tag.present?
 
-        raise ArgumentError, "No tag version was passed as an option when generating release notes"
+        raise MissingTag, "No tag version was passed as an option when generating release notes"
       end
 
       def standard_title(title)

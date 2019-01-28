@@ -6,6 +6,7 @@ require "active_support/core_ext/time"
 require "thor"
 require "release/notes/cmd"
 
+require "release/notes/errors"
 require "release/notes/configurable"
 require "release/notes/date_formatter"
 require "release/notes/link"

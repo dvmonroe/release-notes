@@ -176,8 +176,8 @@ module Release
         define_method("#{meth}?") do
           return send(meth) == true if !!send(meth) == send(meth) # rubocop:disable Style/DoubleNegation
 
-          raise ArgumentError, "Configuration##{meth} does not return a Boolean type and
-            therefore, has no predicate method"
+          raise NotBoolean, "Configuration##{meth} does not return a Boolean and
+            therefore, has no predicate method."
         end
       end
 
