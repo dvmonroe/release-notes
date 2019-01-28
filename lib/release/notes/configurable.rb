@@ -11,7 +11,6 @@ module Release
                :for_each_ref_format,
                :force_rewrite,
                :grep_insensitive_flag,
-               :header_title,
                :header_title_type,
                :link_commits?,
                :link_to_humanize,
@@ -29,6 +28,7 @@ module Release
                :single_label,
                :temp_file,
                :timezone,
+               :update_release_notes_before_tag?,
                prefix: :config, to: :"Release::Notes.configuration"
     end
   end

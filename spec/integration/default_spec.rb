@@ -94,7 +94,6 @@ describe Release::Notes do
         Release::Notes.generate
 
         git_commit("Refactor a bunch")
-        git_tag(2)
 
         Release::Notes.generate
 
@@ -103,7 +102,7 @@ describe Release::Notes do
         file = <<~FILE
           # Release Notes
 
-          ## v0.2.0
+          ## HEAD
 
           **Miscellaneous:**
 

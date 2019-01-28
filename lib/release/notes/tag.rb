@@ -33,7 +33,7 @@ module Release
         store_commits # adds to @_commits
 
         if commits_available? # true
-          writer_digest_header(header_title) # <File:./release-notes.tmp.md (closed)>
+          writer_digest_header(header) # <File:./release-notes.tmp.md (closed)>
           log_commits # hash [0,1,2...], messages for sha
         end
 
@@ -67,8 +67,8 @@ module Release
       #
       # @return [String] the header to be added to changelog
       #
-      def header_title
-        config_header_title.yield_self { |t| title(t) } # config_header_title = "tag"
+      def header
+        config_header_title_type.yield_self { |t| title(t) } # config_header_title = "tag"
       end
 
       #

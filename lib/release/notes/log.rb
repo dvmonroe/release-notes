@@ -18,13 +18,21 @@ module Release
 
       private
 
+      def commits_since_last_tag
+        tag_logger("HEAD", find_previous_tag(0))
+      end
+
       #
       # Find the most recent git tag
       #
       # @return [Array] most recent git tag
       #
       def find_last_tag_and_log
-        tag_logger(System.last_tag.strip, find_previous_tag(1))
+        if config_update_release_notes_before_tag?
+          commits_since_last_tag
+        else
+          tag_logger(System.last_tag.strip, find_previous_tag(1))
+        end
       end
 
       #
@@ -36,6 +44,8 @@ module Release
         git_all_tags.each_with_index do |ta, i|
           tag_logger(ta, find_previous_tag(i + 1))
         end
+
+        commits_since_last_tag if config_update_release_notes_before_tag?
       end
 
       #
