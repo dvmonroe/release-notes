@@ -97,7 +97,7 @@ module Release
         def replace(line, issue_number, label, index)
           identifier = "#{label.split(/\s/)[0]} #{issue_number}"
           humanized = "#{config_link_to_humanize[index]} #{issue_number}"
-          linked = "[#{humanized}](#{config_link_to_sites[index]}\/#{issue_number.tr('^0-9', '')})"
+          linked = "[#{humanized}](#{config_link_to_sites[index]}#{issue_number.tr('^0-9', '')})"
 
           line.gsub! identifier, linked
           line
