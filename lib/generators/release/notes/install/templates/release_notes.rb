@@ -129,4 +129,11 @@ Release::Notes.configure do |config|
   # Defaults to `tag`.
   # @return [String]
   # config.for_each_ref_format = "tag"
+
+  # Determines whether to use the last two tags to
+  # find commits for the output or if this gem should just
+  # find all commits after previous tag
+  # Defaults to `true`.
+  # @return [Boolean]
+  # config.update_release_notes_before_tag = true
 end

@@ -131,6 +131,13 @@ module Release
       # @return [String]
       attr_accessor :for_each_ref_format
 
+      # Determines whether to use the last two tags to
+      # find commits for the output or if this gem should just
+      # find all commits after previous tag
+      # Defaults to `true`.
+      # @return [Boolean]
+      attr_accessor :update_release_notes_before_tag
+
       def initialize
         @output_file                      = "./RELEASE_NOTES.md"
         @temp_file                        = "./release-notes.tmp.md"
@@ -154,6 +161,7 @@ module Release
         @force_rewrite                    = false
         @single_label                     = true
         @for_each_ref_format              = "tag"
+        @update_release_notes_before_tag  = true
       end
 
       instance_methods.each do |meth|

@@ -11,15 +11,7 @@ module Release
       # @return none
       #
       def perform
-        if log_from_start?
-          # Find all tags and get the logs between each tag
-          # run this the first time if nothing exists
-          find_all_tags_and_log_all
-        else
-          # Find the last tag and group all commits
-          # under a date header at the time this is run
-          find_last_tag_and_log
-        end
+        log_from_start? ? find_all_tags_and_log_all : find_last_tag_and_log
 
         writer.write_new_file
       end
@@ -32,7 +24,7 @@ module Release
       # @return [Array] most recent git tag
       #
       def find_last_tag_and_log
-        tag_logger(System.last_tag.strip, previous_tag(0))
+        tag_logger(System.last_tag.strip, find_previous_tag(1))
       end
 
       #
@@ -42,7 +34,7 @@ module Release
       #
       def find_all_tags_and_log_all
         git_all_tags.each_with_index do |ta, i|
-          tag_logger(ta, previous_tag(i))
+          tag_logger(ta, find_previous_tag(i + 1))
         end
       end
 
@@ -71,8 +63,8 @@ module Release
       #
       # @return [String] second most recent git tag
       #
-      def previous_tag(index)
-        git_all_tags[index + 1].yield_self { |t| tag(t) }.strip
+      def find_previous_tag(idx)
+        git_all_tags[idx].yield_self { |t| tag(t) }.strip
       end
 
       #
@@ -95,7 +87,11 @@ module Release
       # @return [Object] Release::Notes::Tag object
       #
       def tag_logger(tag, previous_tag)
-        Tag.new(tag: tag, previous_tag: previous_tag, writer: writer).perform
+        Tag.new(
+          tag: tag,
+          previous_tag: previous_tag,
+          writer: writer,
+        ).perform
       end
 
       #
