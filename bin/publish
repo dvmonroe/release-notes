@@ -48,9 +48,11 @@ FileUtils.chdir APP_ROOT do
     end
   FILE
 
-
   puts "== Updating version to #{current_version.join('.')} =="
   File.write("lib/release/notes/version.rb", contents)
+
+  puts "== Release Notes =="
+  system! "exe/release-notes -t #{current_version.join('.')}"
 
   puts "== Adding Changed Files =="
   system! "git add ."
@@ -60,16 +62,4 @@ FileUtils.chdir APP_ROOT do
 
   puts "== Tagging release =="
   system! "bundle exec rake release"
-
-  puts "== Release Notes =="
-  system! "exe/release-notes"
-
-  puts "== Adding updated CHANGELOG =="
-  system! "git add CHANGELOG.md"
-
-  puts "== Committing updated files =="
-  system! "git commit -m 'Modify CHANGELOG.md'"
-
-  puts "== Pushing updated files =="
-  system! "git push origin master"
 end
