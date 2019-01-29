@@ -1,5 +1,25 @@
 # Release Notes
 
+## v4.0.0.pre
+
+**Implemented enhancements:**
+
+- Update README remove git workflow recomendations for now
+- Add in new Release::Notes::Cmd
+- Add in predicate methods for Configuration
+
+**Fixed bugs:**
+
+- Fix cops
+- Remove backslash for linked labels
+- Remove rake task. Just support binstub usage
+- Fix up github templates
+
+**Miscellaneous:**
+
+- Another README update
+- Update README and template in generator
+
 ## v3.1.0
 
 **Implemented enhancements:**
