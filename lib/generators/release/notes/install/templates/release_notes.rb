@@ -113,11 +113,6 @@ Release::Notes.configure do |config|
   # @return [Boolean]
   # config.prettify_messages = false
 
-  # Controls whether to rewrite the output file or append to it.
-  # Defaults to `false`.
-  # @return [Boolean]
-  # config.force_rewrite = false
-
   # If a commit message contains words that match more than
   # one group of labels as defined in your configuration, the output
   # will only contain the commit once.
@@ -136,11 +131,4 @@ Release::Notes.configure do |config|
   # Defaults to `true`.
   # @return [Boolean]
   # config.update_release_notes_before_tag = true
-
-  # The newest tag that should be used as the header title
-  # if updating the release notes before the actual tag
-  # is pushed.
-  # Defaults to empty string.
-  # @return [String]
-  # config.newest_tag = ""
 end

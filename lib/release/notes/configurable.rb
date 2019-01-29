@@ -12,6 +12,7 @@ module Release
                :force_rewrite,
                :grep_insensitive_flag,
                :header_title_type,
+               :ignore_head,
                :link_commits?,
                :link_to_humanize,
                :link_to_labels,

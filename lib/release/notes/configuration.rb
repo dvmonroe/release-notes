@@ -114,11 +114,6 @@ module Release
       # @return [Boolean]
       attr_accessor :prettify_messages
 
-      # Controls whether to rewrite the output file or append to it.
-      # Defaults to `false`.
-      # @return [Boolean]
-      attr_accessor :force_rewrite
-
       # If a commit message contains words that match more than
       # one group of labels as defined in your configuration, the output
       # will only contain the commit once.
@@ -137,13 +132,6 @@ module Release
       # Defaults to `true`.
       # @return [Boolean]
       attr_accessor :update_release_notes_before_tag
-
-      # The newest tag that should be used as the header title
-      # if updating the release notes before the actual tag
-      # is pushed.
-      # Defaults to empty string.
-      # @return [String]
-      attr_accessor :newest_tag
 
       def initialize
         @output_file                      = "./RELEASE_NOTES.md"
@@ -165,11 +153,9 @@ module Release
         @link_to_sites                    = %w()
         @timezone                         = "America/New_York"
         @prettify_messages                = false
-        @force_rewrite                    = false
         @single_label                     = true
         @for_each_ref_format              = "tag"
         @update_release_notes_before_tag  = true
-        @newest_tag                       = ""
       end
 
       instance_methods.each do |meth|
@@ -230,6 +216,14 @@ module Release
       def link_commits?
         link_to_labels.present? && link_to_humanize.present? &&
           link_to_sites.present?
+      end
+
+      def set_instance_var(var, val)
+        instance_variable_set("@#{var}", val)
+
+        send(:define_singleton_method, var.to_s.to_sym) do
+          instance_variable_get("@#{var}")
+        end
       end
 
       private

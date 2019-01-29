@@ -7,7 +7,9 @@ module Release
 
       def initialize(opts = {})
         Release::Notes.configure do |c|
-          c.newest_tag = opts["tag"]
+          c.set_instance_var(:newest_tag, opts["tag"])
+          c.set_instance_var(:force_rewrite, opts["rewrite"])
+          c.set_instance_var(:ignore_head, opts["ignore-head"])
         end
       end
 
@@ -34,11 +36,9 @@ module Release
       # @return [Array] most recent git tag
       #
       def find_last_tag_and_log
-        if config_update_release_notes_before_tag?
-          commits_since_last_tag
-        else
-          tag_logger(System.last_tag.strip, find_previous_tag(1))
-        end
+        return commits_since_last_tag if read_to_head?
+
+        tag_logger(System.last_tag.strip, find_previous_tag(1))
       end
 
       #
@@ -51,7 +51,7 @@ module Release
           tag_logger(ta, find_previous_tag(i + 1))
         end
 
-        commits_since_last_tag if config_update_release_notes_before_tag?
+        commits_since_last_tag if read_to_head?
       end
 
       #
@@ -81,6 +81,10 @@ module Release
       #
       def find_previous_tag(idx)
         git_all_tags[idx].yield_self { |t| tag(t) }.strip
+      end
+
+      def read_to_head?
+        config_update_release_notes_before_tag? && !config_ignore_head
       end
 
       #
