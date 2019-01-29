@@ -56,7 +56,7 @@ module Release
       # @return none
       #
       def write_new_file
-        copy_over_notes if config_release_notes_exist? && !config_force_rewrite
+        copy_over_notes if config_release_notes_exist? && !config_force_rewrite?
 
         FileUtils.cp(config_temp_file, config_output_file)
         FileUtils.rm config_temp_file

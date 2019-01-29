@@ -220,9 +220,12 @@ module Release
 
       def set_instance_var(var, val)
         instance_variable_set("@#{var}", val)
-
-        send(:define_singleton_method, var.to_s.to_sym) do
+        define_singleton_method(var) do
           instance_variable_get("@#{var}")
+        end
+
+        define_singleton_method("#{var}?") do
+          return send(var) == true if !!send(var) == send(var) # rubocop:disable Style/DoubleNegation
         end
       end
 

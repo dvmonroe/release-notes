@@ -60,7 +60,7 @@ module Release
       # @return [Boolean] append to changelog or start from beginning of git log
       #
       def log_from_start?
-        !config_release_notes_exist? || config_force_rewrite
+        !config_release_notes_exist? || config_force_rewrite?
       end
 
       #
@@ -84,7 +84,7 @@ module Release
       end
 
       def read_to_head?
-        config_update_release_notes_before_tag? && !config_ignore_head
+        config_update_release_notes_before_tag? && !config_ignore_head?
       end
 
       #
