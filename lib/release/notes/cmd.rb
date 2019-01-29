@@ -7,7 +7,7 @@ module Release
       option :tag, type: :string,
                    aliases: "-t",
                    desc: "The latest tag to use on the file title if the tag is not yet pushed"
-      option :rewrite, type: :boolean,
+      option :'force-rewrite', type: :boolean,
                        default: false,
                        aliases: "-r",
                        desc: "Force release-notes to look at all previous "\

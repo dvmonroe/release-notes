@@ -27,7 +27,7 @@ describe Release::Notes::Cmd do
 
       it "shows information about rewrite flag" do
         expect { subject.start(%w(help generate)) }.to output(
-          Regexp.new(Regexp.escape("-r, [--rewrite], [--no-rewrite]")),
+          Regexp.new(Regexp.escape("-r, [--force-rewrite], [--no-force-rewrite]")),
         ).to_stdout
         expect { subject.start(%w(help generate)) }.to output(
           /Force release-notes to look at all previous tags and rewrite the output file/,
