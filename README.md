@@ -210,7 +210,8 @@ $ bundle binstubs release-notes
 and run
 
 ```sh
-$ bin/release-notes
+# make sure to pass your tag if updating before you've pushed the latest tag
+$ bin/release-notes -t v0.2.0
 # OR if running for the first time on a project that might have commits after the latest tag
 $ bin/release-notes --ignore-head
 # OR if using an output file that already exists in a project but would like to rerun all git tags
