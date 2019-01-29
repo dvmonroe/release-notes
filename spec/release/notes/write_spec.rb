@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Release::Notes::Write do
-  let(:klass) { Release::Notes::Write }
+  let(:klass) { described_class }
   let(:file_like_object) { double("file_like_object") }
   let(:message) { "dates or titles\n" }
   subject { klass.new }

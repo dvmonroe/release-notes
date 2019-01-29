@@ -33,11 +33,14 @@ module Release
         store_commits # adds to @_commits
 
         if commits_available? # true
-          writer_digest_header(header_title) # <File:./release-notes.tmp.md (closed)>
+          writer_digest_header(header) # <File:./release-notes.tmp.md (closed)>
           log_commits # hash [0,1,2...], messages for sha
         end
 
         self
+      rescue MissingTag => e
+        warn "<#{e.class.name.demodulize}>: #{e}"
+        raise
       end
 
       private
@@ -67,8 +70,8 @@ module Release
       #
       # @return [String] the header to be added to changelog
       #
-      def header_title
-        config_header_title.yield_self { |t| title(t) } # config_header_title = "tag"
+      def header
+        config_header_title_type.yield_self { |t| title(t) } # config_header_title = "tag"
       end
 
       #
@@ -145,6 +148,15 @@ module Release
       # @return [String] tag title or formatted tag date to be added to changelog
       #
       def title(title)
+        return standard_title(title) unless config_update_release_notes_before_tag? && tag == "HEAD"
+
+        formatted_date unless title == "tag"
+        return config_newest_tag if config_newest_tag.present?
+
+        raise MissingTag, "No tag version was passed as an option when generating release notes"
+      end
+
+      def standard_title(title)
         title == "tag" ? tag : formatted_date(tag_date)
       end
     end

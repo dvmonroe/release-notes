@@ -114,11 +114,6 @@ module Release
       # @return [Boolean]
       attr_accessor :prettify_messages
 
-      # Controls whether to rewrite the output file or append to it.
-      # Defaults to `false`.
-      # @return [Boolean]
-      attr_accessor :force_rewrite
-
       # If a commit message contains words that match more than
       # one group of labels as defined in your configuration, the output
       # will only contain the commit once.
@@ -130,6 +125,13 @@ module Release
       # Defaults to `tag`.
       # @return [String]
       attr_accessor :for_each_ref_format
+
+      # Determines whether to use the last two tags to
+      # find commits for the output or if this gem should just
+      # find all commits after previous tag
+      # Defaults to `true`.
+      # @return [Boolean]
+      attr_accessor :update_release_notes_before_tag
 
       def initialize
         @output_file                      = "./RELEASE_NOTES.md"
@@ -151,17 +153,17 @@ module Release
         @link_to_sites                    = %w()
         @timezone                         = "America/New_York"
         @prettify_messages                = false
-        @force_rewrite                    = false
         @single_label                     = true
         @for_each_ref_format              = "tag"
+        @update_release_notes_before_tag  = true
       end
 
       instance_methods.each do |meth|
         define_method("#{meth}?") do
           return send(meth) == true if !!send(meth) == send(meth) # rubocop:disable Style/DoubleNegation
 
-          raise ArgumentError, "Configuration##{meth} does not return a Boolean type and
-            therefore, has no predicate method"
+          raise NotBoolean, "Configuration##{meth} does not return a Boolean and
+            therefore, has no predicate method."
         end
       end
 
@@ -214,6 +216,17 @@ module Release
       def link_commits?
         link_to_labels.present? && link_to_humanize.present? &&
           link_to_sites.present?
+      end
+
+      def set_instance_var(var, val)
+        instance_variable_set("@#{var}", val)
+        define_singleton_method(var) do
+          instance_variable_get("@#{var}")
+        end
+
+        define_singleton_method("#{var}?") do
+          return send(var) == true if !!send(var) == send(var) # rubocop:disable Style/DoubleNegation
+        end
       end
 
       private

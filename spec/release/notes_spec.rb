@@ -8,11 +8,4 @@ describe Release::Notes do
   it "has a version number" do
     expect(Release::Notes::VERSION).not_to be nil
   end
-
-  describe "#run" do
-    it "calls updater" do
-      expect_any_instance_of(Release::Notes::Log).to receive(:perform)
-      subject.generate
-    end
-  end
 end

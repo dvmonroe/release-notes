@@ -12,7 +12,7 @@ module IntegrationHelper
   end
 
   def git_commit(msg)
-    `git commit --allow-empty -am '#{msg}'`
+    `git commit --date='#{Time.current}' --allow-empty -am '#{msg}'`
   end
 
   def git_tag(version)

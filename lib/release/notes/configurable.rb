@@ -9,10 +9,10 @@ module Release
                :feature_title,
                :features,
                :for_each_ref_format,
-               :force_rewrite,
+               :force_rewrite?,
                :grep_insensitive_flag,
-               :header_title,
                :header_title_type,
+               :ignore_head?,
                :link_commits?,
                :link_to_humanize,
                :link_to_labels,
@@ -22,6 +22,7 @@ module Release
                :merge_flag,
                :misc,
                :misc_title,
+               :newest_tag,
                :output_file,
                :prettify_messages?,
                :regex_type,
@@ -29,6 +30,7 @@ module Release
                :single_label,
                :temp_file,
                :timezone,
+               :update_release_notes_before_tag?,
                prefix: :config, to: :"Release::Notes.configuration"
     end
   end

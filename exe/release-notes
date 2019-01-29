@@ -12,9 +12,7 @@ file = File.exist?(rails_config_file) ? rails_config_file : config_file
 
 begin
   require file
-  warn "=> Generating release notes..."
-  Release::Notes.generate
-  warn "=> Done!"
+  Release::Notes::Cmd.start(ARGV)
 rescue LoadError
   warn "=> Missing release_notes.rb configuration file"
 rescue SignalException => e
