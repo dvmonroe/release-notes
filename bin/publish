@@ -52,7 +52,7 @@ FileUtils.chdir APP_ROOT do
   File.write("lib/release/notes/version.rb", contents)
 
   puts "== Release Notes =="
-  system! "exe/release-notes -t #{current_version.join('.')}"
+  system! "exe/release-notes generate -t #{current_version.join('.')}"
 
   puts "== Adding Changed Files =="
   system! "git add ."
