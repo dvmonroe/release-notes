@@ -209,6 +209,24 @@ $ bundle binstubs release-notes
 
 and run
 
+```
+$ exe/release-notes help generate
+
+Usage:
+  release-notes generate
+
+Options:
+  -t, [--tag=TAG]                              # The latest tag to use on the file title if the tag is not yet pushed
+  -r, [--force-rewrite], [--no-force-rewrite]  # Force release-notes to look at all previous tags and rewrite the output file
+  -i, [--ignore-head], [--no-ignore-head]      # If updating your changelog and you don't want the latest commits from the last tag to HEAD in a single instance of running, set to true
+
+Generate release notes
+
+```
+
+some sample ideas:
+
+
 ```sh
 # make sure to pass your tag if updating before you've pushed the latest tag
 $ bin/release-notes -t v0.2.0
@@ -217,6 +235,7 @@ $ bin/release-notes --ignore-head
 # OR if using an output file that already exists in a project but would like to rerun all git tags
 $ bin/release-notes --force-rewrite
 ```
+
 
 ## Important Notes
 
