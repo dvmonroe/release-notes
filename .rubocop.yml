@@ -7,7 +7,6 @@ AllCops:
     - "Rakefile"
     - "vendor/**/*"
     - "exe/*"
-    - "spec/spec_helper.rb"
 
 Metrics/LineLength:
   Max: 120
