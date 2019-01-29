@@ -217,53 +217,11 @@ $ bin/release-notes --ignore-head
 $ bin/release-notes --force-rewrite
 ```
 
-### Git Worklow
-
-Release::Notes works best with a rebase workflow and requires tagging. General rebase benefits include:
-
-- One clear commit per feature, bug or miscellaneous addition to the codebase
-- Commits in logical time manner
-
-By default configuration, Release::Notes ignores merges. Along with rebasing, by deafult,
-Release::Notes relies mainly on the subject of a commit. Therefore, it's important to craft concise and
-meaningful commit subjects with longer bodies as needed for larger feature additions or bug fixes.
-
-For more information about a rebase workflow or crafting solid commit messages
-check out the following links
-
-- [Commit Messages](http://chris.beams.io/posts/git-commit/)
-- [Git Rebase Workflow](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
-
-### Deploying with Capistrano
-
-A sample capistrano rake task might look like:
-
-```ruby
-# config/deploy/production.rb
-namespace :deploy do
-  before :starting, :update_release_notes
-
-  task :update_release_notes do
-    # use the binstub
-    sh 'bin/release-notes"'
-
-    # Then check in your release notes with a commit
-    sh "git commit -am 'Release to production #{Time.zone.now}'"
-    sh "git push origin master"
-  end
-end
-```
-
-Useful information can be found here regarding the
-[capistrano flow](http://capistranorb.com/documentation/getting-started/flow/).
-
-**From there, make sure you tag your releases**
-
-## Note
+## Important Notes
 
 - Your project must tag releases(release-notes uses the tag date to output the changes)
   (PR's to make this more flexible are welcome)
-- Linking is opinionated and will link to a URI structure of `#{site-url}/#{issue_number}`. It
+- Linking is opinionated and will link to a URI structure of `#{site-url}#{issue_number}`. It
   will ouput something like: `[HONEYBADGER #33150353](https://app.honeybadger.io/projects/9999/faults/33150353)`.
   This also means that your link_to_labels have to be something like `['HB #']` (PR's to make this more flexible are welcome)
 
