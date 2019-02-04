@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.0.0
+
+**Implemented enhancements:**
+
+- Add tests around install.rake and change 'puts' to stderr.puts
+
 ## v4.0.0.pre
 
 **Implemented enhancements:**
