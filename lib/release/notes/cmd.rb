@@ -19,9 +19,9 @@ module Release
                                     "from the last tag to HEAD in a single "\
                                     "instance of running, set to true"
       def generate
-        warn "=> Generating release notes..."
+        $stderr.puts "=> Generating release notes..." # rubocop:disable Style/StderrPuts
         Log.new(options).perform
-        warn "=> Done!"
+        $stderr.puts "=> Done!" # rubocop:disable Style/StderrPuts
       end
     end
   end

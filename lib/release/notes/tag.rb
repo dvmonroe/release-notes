@@ -39,7 +39,7 @@ module Release
 
         self
       rescue MissingTag => e
-        warn "<#{e.class.name.demodulize}>: #{e}"
+        $stderr.puts "<#{e.class.name.demodulize}>: #{e}" # rubocop:disable Style/StderrPuts
         raise
       end
 

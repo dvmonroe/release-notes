@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module IntegrationHelper
-  def within_spec_integration(&_block)
+  def within_spec_integration
     Dir.chdir "spec/integration" do
       yield
     end
