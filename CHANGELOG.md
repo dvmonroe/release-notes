@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.0.1
+
+**Fixed bugs:**
+
+- Remove non existent rake task load
+
 ## 4.0.0
 
 **Implemented enhancements:**
