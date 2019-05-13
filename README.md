@@ -23,7 +23,7 @@ to the production software. These key changes are determined by the labeling you
 in the configuration for features, bugs and misc commits.
 If you're looking for a comprehnsive changelog that reflects resolved github issues and uses the
 github api, I'd suggest you look at something else like
-[github-changelog-generator](https://github.com/skywinder/github-changelog-generator).
+[github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator).
 
 Not looking for a tested gem or prefer the rawness of a bash script? Checkout the similar
 [bash implementation](https://gist.github.com/dvmonroe/300226a1ed4435fb38d72e72e1bbc5a0)
