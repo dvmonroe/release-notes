@@ -4,7 +4,7 @@ rvm:
   - 2.5.3
   - 2.6.0
 cache: bundler
-before_install: gem update --system && gem install bundler -v 1.17.3
+before_install: gem install bundler -v 1.17.1
 env:
   global:
     secure: ovawk+NnGZGW+hOeC3iPMZ9jKY5FvaxfHLj6XX4Vfe12cq0cdGYirW6pk2uKdJZdE0pC5q4sFv1ZTgcNSTySuNpQ9Gkp4xjcGEVr5JSdmVse8DuxttwkeSPt94DemyMK3f0A3dWN8OJF7/NQbacPeUuXryxmusCqJMlWccVYGeSQQNJ21mFfl2pCf6Z9qls4Q3rzXc4hsVQ5G1B/j9YcMjax0EwXI4cEq/6JadK4OmXrGkCw6M/wvBEqNyhLz+R/gcYiJZqYUETdncRuNiH8N6JKiaCnZUFkGY4bggpOvz29lj3JEQV9jY+3UBeqxuYj3glT7buEuf6//ARedY7IDlupkiDNuSpIKJhzIKAgitc/g+cnUflQV8PiImAEseO0OpoAJ7Bsa688EgyvMgo/kYwjHqZetvlUksQI+XyZ+o7/88LF2Qz4pbuBtdFC4DaKaeqQN5afIHSPtxhYwFA/n+GmY4jymj5ZWod9zZasVdlDgCQzgH5M1W7nEGun8mRW93wf8+3wAx+fXVbB67aDbqJFBJfH6zm/aBCN16kGkHUibRxUyb0F52woBQLUcOIr9Kbujp02D7IK3Z7PFz+DtHfA8aYRXxRDIHxx0tw91UxQzBinsq27kH8EWDmEKMHJeZlMRR4X4ijd6+KFoKUobXFblCeVeO0HCIBxpfTc39w=
