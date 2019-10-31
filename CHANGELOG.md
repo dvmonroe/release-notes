@@ -1,5 +1,12 @@
 # Release Notes
 
+## 4.1.0
+
+**Fixed bugs:**
+
+- Update deps to allow rails < 7 (#80)
+- Update github-changelog-generator link in README (#81)
+
 ## 4.0.1
 
 **Fixed bugs:**
