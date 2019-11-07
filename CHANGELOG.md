@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.2.0
+
+**Fixed bugs:**
+
+- [Rake dependency] Fix dependency for install script
+
 ## 4.1.0
 
 **Fixed bugs:**
