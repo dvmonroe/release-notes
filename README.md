@@ -21,7 +21,7 @@ Release::Notes is different than a changelog. Though it can log all commits, it'
 meant for situations where other team members in your organization need to know about key changes
 to the production software. These key changes are determined by the labeling you set forth
 in the configuration for features, bugs and misc commits.
-If you're looking for a comprehnsive changelog that reflects resolved github issues and uses the
+If you're looking for a comprehensive changelog that reflects resolved github issues and uses the
 github api, I'd suggest you look at something else like
 [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator).
 
