@@ -38,7 +38,9 @@ module Release
         # @return [String] shell output of running Git.first_commit
         #
         def first_commit
-          `#{Git.first_commit}`
+          first_commits = `#{Git.first_commit}`
+
+          first_commits.split(Release::Notes::NEWLINE)[-1]
         end
 
         #

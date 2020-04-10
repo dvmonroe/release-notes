@@ -77,4 +77,16 @@ describe Release::Notes::System do
       expect(klass.tag_date).to eq "foo"
     end
   end
+
+  describe ".first_commit" do
+    it "returns the oldest parent commit of multiple" do
+      allow(Release::Notes::System).to receive(:`).and_return("merged_orphan_branch_commit\nfirst_commit")
+      expect(klass.first_commit).to eq "first_commit"
+    end
+
+    it "returns the first commit if its unique" do
+      allow(Release::Notes::System).to receive(:`).and_return("first_commit")
+      expect(klass.first_commit).to eq "first_commit"
+    end
+  end
 end
